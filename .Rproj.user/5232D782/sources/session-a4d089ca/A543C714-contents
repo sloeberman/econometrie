@@ -1,0 +1,156 @@
+---
+title: "Case Solution 1 Group 5"
+author: "Balint Keller"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+# Global setting: Toggle to TRUE for feedback version, FALSE for exam version
+show_interpretation <- TRUE 
+#load libraries
+library(stargazer)
+library(psych)
+library(ggplot2)
+library(car)
+# Load dataset
+df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
+```
+
+
+```{r head, echo=TRUE}
+
+if (show_interpretation) {
+cat("
+H0:  β2 = 0  Education has no effect on wages.
+H1:  β2 > 0  Education has a positive effect on wages.
+One-sided hypotheses are appropriate in this case because education is expected to increase earnings (according to economic theories). In addition, there’s often little reason to test whether more education reduces wages because that result is counterintuitive."
+)
+}
+head(df)
+```
+```{r dummies, echo=TRUE}
+#Creation of dummy vars for the regions and QOBs
+REGION2 = ifelse(df$REGION == 2, 1, 0)
+REGION3 = ifelse(df$REGION == 3, 1, 0)
+REGION4 = ifelse(df$REGION == 4, 1, 0)
+REGION5 = ifelse(df$REGION == 5, 1, 0)
+REGION6 = ifelse(df$REGION == 6, 1, 0)
+REGION7 = ifelse(df$REGION == 7, 1, 0)
+REGION8 = ifelse(df$REGION == 8, 1, 0)
+REGION9 = ifelse(df$REGION == 9, 1, 0)
+
+QOB2 = ifelse(df$QOB == 2, 1, 0)
+QOB3 = ifelse(df$QOB == 3, 1, 0)
+QOB4 = ifelse(df$QOB == 4, 1, 0)
+```
+
+```{r summary, echo=TRUE}
+summary(df)
+```
+
+
+```{r describe, echo=TRUE}
+describe(df)
+```
+
+```{r cor, echo=TRUE}
+cov(df)
+```
+```{r cor, echo=TRUE}
+cor(df)
+```
+```{r plot, echo=TRUE}
+ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
+  geom_point(color = "blue") +
+  labs(title = "Relationship Between Education and Wage",
+       x = "Years of Education",
+       y = "Weekly Wage (in $)") + ylim(0, 1200) +
+
+  theme_minimal()
+
+```
+```{r, echo=TRUE}
+#linear model
+
+linear_model1=lm(df$WAGE~ df$EDUC + df$AGE + df$RACE + df$SMSA + df$MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + QOB2 + QOB3 + QOB4)
+stargazer(linear_model1,type="text",style="all")
+
+if (show_interpretation) {
+  cat("\n EDUC (26.729, p < 0.001)
+
+A one-year increase in education leads to a $26.73 increase in wages.
+
+This is highly significant (p = 0.000).
+
+AGE (2.226, p = 0.020)
+
+A one-year increase in age increases wages by $2.23.
+
+Significant at the 5% level (p = 0.020).
+
+RACE (-77.478, p < 0.001)
+
+Suggests a wage penalty of $77.48 for certain racial groups (assuming a binary variable where non-white = 1).
+
+Highly significant (p = 0.000).
+
+SMSA (-63.654, p < 0.001)
+
+Living in an SMSA (Standard Metropolitan Statistical Area) is associated with a $63.65 lower wage.
+
+Significant at p = 0.000.
+
+MARRIED (77.927, p < 0.001)
+
+Being married increases wages by $77.93.
+
+Highly significant (p = 0.000).
+
+Regional Effects on Wages
+Significant Regions:
+
+REGION2 ($\beta$ = 41.204, p = 0.003)
+
+REGION3 ($\beta$ = 49.071, p = 0.0003)
+
+REGION9 ($\beta$ = 63.543, p = 0.00001)
+
+These regions have higher wages compared to the reference region.
+
+Non-Significant Regions:
+
+REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)
+
+These regions do not significantly differ from the reference region in terms of wages.")
+}
+
+```
+```{r Joint significance tests}
+# Joint significance test: Test whether AGE, RACE, MARRIED, and SMSA jointly contribute to explaining WAGE.
+linearHypothesis(linear_model1, c("df$AGE = 0", "df$RACE = 0", "df$MARRIED = 0", "df$SMSA = 0"))
+
+```
+```{r Regional differences}
+#Assess whether regional differences are statistically significant.
+linearHypothesis(linear_model1, c("REGION2 = 0","REGION3 = 0", "REGION4 = 0", "REGION5 = 0", "REGION6 = 0", "REGION7 = 0", "REGION8 = 0", "REGION9 = 0" ))
+
+if (show_interpretation) {
+  cat("\nSince the p-value is extremely small (<0.001), we reject the null hypothesis. This means that at least one of the region coefficients is significantly different from zero, implying that region does have a statistically significant effect on wages.")
+}
+```
+
+
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("Interpretation (Visible Only in Feedback Mode)\n\n")  # Extra newline for spacing
+  cat("If income increases by 1 dollar, consumption is expected to rise by 0.51 dollars.\n")
+}
+```
+
+## Conclusion
+- In the **feedback version**, interpretation is included.
+- In the **exam version**, only the estimation results are displayed.
+- To switch versions, **change `show_interpretation` in the setup chunk.**
+

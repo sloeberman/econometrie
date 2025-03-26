@@ -1,0 +1,8 @@
+"0","ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +"
+"0","  geom_point(color = ""blue"") +"
+"0","  labs(title = ""Relationship Between Education and Wage"","
+"0","       x = ""Years of Education"","
+"0","       y = ""Weekly Wage (in $)"") + ylim(0, 1200) +"
+"0",""
+"0","  theme_minimal()"
+"0",""

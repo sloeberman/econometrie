@@ -1,0 +1,9 @@
+"0","if (show_interpretation) {"
+"0","  cat(""Interpretation (Visible Only in Feedback Mode)\n\n"")  # Extra newline for spacing"
+"0","  cat(""If income increases by 1 dollar, consumption is expected to rise by 0.51 dollars.\n"")"
+"0","}"
+"1","Interpretation (Visible Only in Feedback Mode)
+
+"
+"1","If income increases by 1 dollar, consumption is expected to rise by 0.51 dollars.
+"

@@ -671,8 +671,7 @@
 "0",""
 "0","REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)"
 "0",""
-"0","These regions do not significantly differ from the reference region in terms of wages."
-"0","      Regions 2, 3, and 9 have significantly higher wages compared to the reference region 1."")"
+"0","These regions do not significantly differ from the reference region in terms of wages."")"
 "0","}"
 "1","
  EDUC (26.729, p < 0.001)
@@ -720,5 +719,4 @@ Non-Significant Regions:
 
 REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)
 
-These regions do not significantly differ from the reference region in terms of wages.
-      Regions 2, 3, and 9 have significantly higher wages compared to the reference region 1."
+These regions do not significantly differ from the reference region in terms of wages."

@@ -1,0 +1,6 @@
+"0",""
+"0","# Jarque-Bera test uitvoeren"
+"0","jarque.bera.test(residuals)"
+"2","Error in jarque.bera.test(residuals) : 
+  could not find function ""jarque.bera.test""
+"

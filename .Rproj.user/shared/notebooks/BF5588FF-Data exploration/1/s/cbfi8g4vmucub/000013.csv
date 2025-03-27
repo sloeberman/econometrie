@@ -1,4 +1,7 @@
+"0",""
 "0","# Updated upstream"
+"0",""
+"0",""
 "0","# Residuen opslaan"
 "0","residuals <- residuals(linear_model1) "
 "0","# Histogram van de residuen"

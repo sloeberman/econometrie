@@ -1,0 +1,28 @@
+"0",""
+"0","if (show_interpretation) {"
+"0","  cat(""Gauss-Markov assumptions:"
+"0","  \n Assumption 1: Linearity in the parameters: CHECK"
+"0","  \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model)"
+"0","  "
+"0","  "")"
+"0","  "
+"0","  cor_test_results <- sapply(df[, c(""EDUC"", ""AGE"")], function(x) cor.test(x, residuals)$p.value)"
+"0","  print(cor_test_results)"
+"0","  "
+"0",""
+"0","}"
+"1","Gauss-Markov assumptions:
+  
+ Assumption 1: Linearity in the parameters: CHECK
+  
+ Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model)
+  
+  "
+"1","EDUC "
+"1"," AGE "
+"1","
+"
+"1","   1 "
+"1","   1 "
+"1","
+"

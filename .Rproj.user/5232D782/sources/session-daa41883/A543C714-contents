@@ -15,6 +15,7 @@ library(stargazer)
 library(psych)
 library(ggplot2)
 library(car)
+library(tseries)
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 ```
@@ -159,6 +160,10 @@ if (show_interpretation) {
   cat("\nSince the p-value is extremely small (<0.001), we reject the null hypothesis. This means that at least one of the region coefficients is significantly different from zero, implying that region does have a statistically significant effect on wages.")
 }
 ```
+=======
+if (show_interpretation) {
+  cat("MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n")
+}
 
 ```{r}
 plot(linear_model1$fitted.values, resid(linear_model1),
@@ -181,13 +186,11 @@ qqline(resid(linear_model1), col = "red", lwd = 2)  # Add a reference line
 ```{r, echo=FALSE, results="asis"}
 
 if (show_interpretation) {
-  cat("Interpretation (Visible Only in Feedback Mode)\n\n")  # Extra newline for spacing
-  cat("If income increases by 1 dollar, consumption is expected to rise by 0.51 dollars.\n")
+  
 }
 ```
 ```{r}
-print(var(df$EDUC))
-print(var(df$MARRIED))
+
 
 ```
 
@@ -197,7 +200,10 @@ print(var(df$MARRIED))
 - To switch versions, **change `show_interpretation` in the setup chunk.**
 
 ```{r}
+
 # Updated upstream
+
+
 # Residuen opslaan
 residuals <- residuals(linear_model1) 
 # Histogram van de residuen
@@ -205,19 +211,41 @@ ggplot(data.frame(residuals), aes(x = residuals)) +
   geom_histogram(binwidth = 5, color = "black", fill = "blue", alpha = 0.7) +
   labs(title = "Histogram van de Residuen", x = "Residuals", y = "Frequentie") +
   theme_minimal()
-
+```
+```{r}
 # Q-Q plot
 qqnorm(residuals)
 qqline(residuals, col = "red", lwd = 2)
 
+```
+
+```{r}
 # Jarque-Bera test uitvoeren
 jarque.bera.test(residuals)
 ```
-=======
+```{r, echo=FALSE, results="asis"}
+
 if (show_interpretation) {
-  cat("MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n")
+  cat("Gauss-Markov assumptions:
+  \n Assumption 1: Linearity in the parameters: CHECK
+  \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model)
+  
+  ")
+  
+  cor_test_results <- sapply(df[, c("EDUC", "AGE")], function(x) cor.test(x, residuals)$p.value)
+  print(cor_test_results)
+  
+  
 }
 ```
 
 
->>>>>>> Stashed changes
+```{r}
+print(mean(residuals))
+print(t.test(residuals, mu = 0))
+if (show_interpretation) {
+  cat("Assumption 3: The expected V value of the error terms μi is zero: CHECK")
+}
+```
+
+

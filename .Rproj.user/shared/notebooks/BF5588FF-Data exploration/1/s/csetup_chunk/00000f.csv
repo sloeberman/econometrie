@@ -2,37 +2,9 @@
 "0","show_interpretation <-TRUE"
 "0","#load libraries"
 "0","library(stargazer)"
-"2","
-Please cite as: 
-
-"
-"2"," Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
-"
-"2"," R package version 5.2.3. https://CRAN.R-project.org/package=stargazer 
-
-"
 "0","library(psych)"
 "0","library(ggplot2)"
-"2","
-Kapcsolódás csomaghoz: ‘ggplot2’
-
-"
-"2","The following objects are masked from ‘package:psych’:
-
-    %+%, alpha
-
-"
 "0","library(car)"
-"2","A szükséges csomag betöltődik: carData
-"
-"2","
-Kapcsolódás csomaghoz: ‘car’
-
-"
-"2","The following object is masked from ‘package:psych’:
-
-    logit
-
-"
+"0","library(tseries)"
 "0","# Load dataset"
 "0","df <- read.csv(file=""Data_Sub_AK91.csv"",header=T,sep = "","")"

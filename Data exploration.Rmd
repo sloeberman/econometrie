@@ -160,6 +160,10 @@ if (show_interpretation) {
   cat("\nSince the p-value is extremely small (<0.001), we reject the null hypothesis. This means that at least one of the region coefficients is significantly different from zero, implying that region does have a statistically significant effect on wages.")
 }
 ```
+=======
+if (show_interpretation) {
+  cat("MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n")
+}
 
 ```{r}
 plot(linear_model1$fitted.values, resid(linear_model1),
@@ -205,19 +209,15 @@ ggplot(data.frame(residuals), aes(x = residuals)) +
   geom_histogram(binwidth = 5, color = "black", fill = "blue", alpha = 0.7) +
   labs(title = "Histogram van de Residuen", x = "Residuals", y = "Frequentie") +
   theme_minimal()
-
+```
+```{r}
 # Q-Q plot
 qqnorm(residuals)
 qqline(residuals, col = "red", lwd = 2)
 
+```
+
+```{r}
 # Jarque-Bera test uitvoeren
 jarque.bera.test(residuals)
 ```
-=======
-if (show_interpretation) {
-  cat("MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n")
-}
-```
-
-
->>>>>>> Stashed changes

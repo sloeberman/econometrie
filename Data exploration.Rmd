@@ -16,6 +16,8 @@ library(psych)
 library(ggplot2)
 library(car)
 library(tseries)
+library(lmtest)
+
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 ```
@@ -160,10 +162,12 @@ if (show_interpretation) {
   cat("\nSince the p-value is extremely small (<0.001), we reject the null hypothesis. This means that at least one of the region coefficients is significantly different from zero, implying that region does have a statistically significant effect on wages.")
 }
 ```
-=======
+
+```{r stochastic of deterministic, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n")
 }
+```
 
 ```{r}
 plot(linear_model1$fitted.values, resid(linear_model1),
@@ -183,21 +187,6 @@ qqline(resid(linear_model1), col = "red", lwd = 2)  # Add a reference line
 ```
 
 
-```{r, echo=FALSE, results="asis"}
-
-if (show_interpretation) {
-  
-}
-```
-```{r}
-
-
-```
-
-## Conclusion
-- In the **feedback version**, interpretation is included.
-- In the **exam version**, only the estimation results are displayed.
-- To switch versions, **change `show_interpretation` in the setup chunk.**
 
 ```{r}
 
@@ -223,6 +212,7 @@ qqline(residuals, col = "red", lwd = 2)
 # Jarque-Bera test uitvoeren
 jarque.bera.test(residuals)
 ```
+<<<<<<< Updated upstream
 ```{r, echo=FALSE, results="asis"}
 
 if (show_interpretation) {
@@ -248,4 +238,19 @@ if (show_interpretation) {
 }
 ```
 
+=======
+```{r Jarque-Bera test, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("Since the p value is small, we reject the null hypothesis .Therefore the residuals are NOT normally distributed")
+}
+```
+```{r testen op heteroskedasticity via Breusch-Pagan }
+bptest(linear_model1)
+
+```
+```{r Breusch pagan interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" euuhhh , deze test zegt dat er geen heteroskedasticity is , maar onze residuals zijn wel niet nrml verdeeld lol . geen idee hoe ik verder moet ")
+}
+>>>>>>> Stashed changes
 

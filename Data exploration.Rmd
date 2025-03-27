@@ -15,6 +15,7 @@ library(stargazer)
 library(psych)
 library(ggplot2)
 library(car)
+library(tseries)
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 ```
@@ -197,7 +198,6 @@ print(var(df$MARRIED))
 - To switch versions, **change `show_interpretation` in the setup chunk.**
 
 ```{r}
-<<<<<<< Updated upstream
 # Residuen opslaan
 residuals <- residuals(linear_model1) 
 # Histogram van de residuen

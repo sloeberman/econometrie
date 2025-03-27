@@ -3,6 +3,8 @@ title: "Case Solution 1 Group 5"
 author: "Balint Keller"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    latex_engine: lualatex
   html_document:
     df_print: paged
 ---
@@ -26,8 +28,8 @@ df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 if (isTRUE(show_interpretation)) {
   cat("### Hypothesis Testing\n\n")  # Adds a Markdown header for clarity
   
-  cat("**H₀:** β₂ = 0 → Education has no effect on wages.\n\n")
-  cat("**H₁:** β₂ > 0 → Education has a positive effect on wages.\n\n")
+  cat("**H$_0$:** $\\beta_2$ = 0 → Education has no effect on wages.\n\n")
+  cat("**H$_1$:** $\\beta_2$ > 0 → Education has a positive effect on wages.\n\n")
   
   cat("One-sided hypotheses are appropriate in this case because education is expected to increase earnings (according to economic theories).  
   In addition, there’s often little reason to test whether more education reduces wages because that result is counterintuitive.")

@@ -15,6 +15,7 @@ library(stargazer)
 library(psych)
 library(ggplot2)
 library(car)
+library(tseries)
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 ```
@@ -181,13 +182,11 @@ qqline(resid(linear_model1), col = "red", lwd = 2)  # Add a reference line
 ```{r, echo=FALSE, results="asis"}
 
 if (show_interpretation) {
-  cat("Interpretation (Visible Only in Feedback Mode)\n\n")  # Extra newline for spacing
-  cat("If income increases by 1 dollar, consumption is expected to rise by 0.51 dollars.\n")
+  
 }
 ```
 ```{r}
-print(var(df$EDUC))
-print(var(df$MARRIED))
+
 
 ```
 
@@ -197,7 +196,10 @@ print(var(df$MARRIED))
 - To switch versions, **change `show_interpretation` in the setup chunk.**
 
 ```{r}
+
 # Updated upstream
+
+
 # Residuen opslaan
 residuals <- residuals(linear_model1) 
 # Histogram van de residuen
@@ -220,4 +222,4 @@ if (show_interpretation) {
 ```
 
 
->>>>>>> Stashed changes
+

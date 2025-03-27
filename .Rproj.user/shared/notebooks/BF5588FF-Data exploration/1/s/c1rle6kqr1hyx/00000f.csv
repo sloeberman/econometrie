@@ -1,0 +1,20 @@
+"0","if (isTRUE(show_interpretation)) {"
+"0","  cat(""### Hypothesis Testing\n\n"")  # Adds a Markdown header for clarity"
+"0","  "
+"0","  cat(""**H₀:** β₂ = 0 → Education has no effect on wages.\n\n"")"
+"0","  cat(""**H₁:** β₂ > 0 → Education has a positive effect on wages.\n\n"")"
+"0","  "
+"0","  cat(""One-sided hypotheses are appropriate in this case because education is expected to increase earnings (according to economic theories).  "
+"0","  In addition, there’s often little reason to test whether more education reduces wages because that result is counterintuitive."")"
+"0","}"
+"1","### Hypothesis Testing
+
+"
+"1","**H₀:** β₂ = 0 → Education has no effect on wages.
+
+"
+"1","**H₁:** β₂ > 0 → Education has a positive effect on wages.
+
+"
+"1","One-sided hypotheses are appropriate in this case because education is expected to increase earnings (according to economic theories).  
+  In addition, there’s often little reason to test whether more education reduces wages because that result is counterintuitive."

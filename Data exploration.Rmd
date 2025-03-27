@@ -197,7 +197,7 @@ print(var(df$MARRIED))
 - To switch versions, **change `show_interpretation` in the setup chunk.**
 
 ```{r}
-<<<<<<< Updated upstream
+# Updated upstream
 # Residuen opslaan
 residuals <- residuals(linear_model1) 
 # Histogram van de residuen

@@ -3,25 +3,25 @@
     "path": "C:/Users/Bálint/Desktop/Case econometrie GitHub/econometrie/Data exploration.Rmd",
     "project_path": "Data exploration.Rmd",
     "type": "r_markdown",
-    "hash": "2329847832",
+    "hash": "0",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1743002074151.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "last_setup_crc32": "a4d089cae0935bf7",
-        "cursorPosition": "154,20",
-        "scrollLine": "150"
+        "last_setup_crc32": "daa41883e604824f",
+        "cursorPosition": "214,3",
+        "scrollLine": "198"
     },
     "folds": "",
-    "lastKnownWriteTime": 1743008262,
+    "lastKnownWriteTime": 1743069172,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1743008262070,
+    "last_content_update": 1743069255275,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -238,7 +238,7 @@ if (show_interpretation) {
 }
 ```
 
-=======
+
 ```{r Jarque-Bera test, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("Since the p value is small, we reject the null hypothesis .Therefore the residuals are NOT normally distributed")
@@ -252,5 +252,5 @@ bptest(linear_model1)
 if (show_interpretation) {
   cat(" euuhhh , deze test zegt dat er geen heteroskedasticity is , maar onze residuals zijn wel niet nrml verdeeld lol . geen idee hoe ik verder moet ")
 }
->>>>>>> Stashed changes
+
 

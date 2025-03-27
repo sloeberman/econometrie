@@ -1897,8 +1897,41 @@ jarque.bera.test(residuals)</code></pre>
 ## 
 ## data:  residuals
 ## X-squared = 21719878, df = 2, p-value &lt; 2.2e-16</code></pre>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream Gauss-Markov
+assumptions:</p>
+<p>Assumption 1: Linearity in the parameters: CHECK</p>
+<p>Assumption 2a: The X -values are fixed over repeated sampling (fixed
+regressor model)</p>
+<p>EDUC AGE 1 1</p>
+<pre class="r"><code>print(mean(residuals))</code></pre>
+<pre><code>## [1] -4.164089e-15</code></pre>
+<pre class="r"><code>print(t.test(residuals, mu = 0))</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  residuals
+## t = -1.5152e-15, df = 9999, p-value = 1
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  -5.387167  5.387167
+## sample estimates:
+##     mean of x 
+## -4.164089e-15</code></pre>
+<pre class="r"><code>if (show_interpretation) {
+  cat(&quot;Assumption 3: The expected V value of the error terms μi is zero: CHECK&quot;)
+}</code></pre>
+<pre><code>## Assumption 3: The expected V value of the error terms μi is zero: CHECK</code></pre>
 <p>Since the p value is small, we reject the null hypothesis .Therefore
 the residuals are NOT normally distributed</p>
+<pre class="r"><code>bptest(linear_model1)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  linear_model1
+## BP = 8.9621, df = 16, p-value = 0.915</code></pre>
+<p>euuhhh , deze test zegt dat er geen heteroskedasticity is , maar onze
+residuals zijn wel niet nrml verdeeld lol . geen idee hoe ik verder
+moet</p>
 </div>
 
 

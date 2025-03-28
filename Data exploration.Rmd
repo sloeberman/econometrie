@@ -1,8 +1,10 @@
 ---
 title: "Case Solution 1 Group 5"
-author: "Balint Keller"
+author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke vanhaverbeke, Stef Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 df_print: paged
 ---
 
@@ -24,7 +26,7 @@ df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 
 ```{r hypothesis_test, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
-  cat("### Hypothesis Testing\n\n")  # Adds a Markdown header for clarity
+  cat("### **1.Hypothesis Testing**\n\n")  # Adds a Markdown header for clarity
   
   cat("**H0:** B2 = 0 → Education has no effect on wages.\n\n")
   cat("**H1:** B2 > 0 → Education has a positive effect on wages.\n\n")
@@ -34,11 +36,34 @@ if (isTRUE(show_interpretation)) {
 }
 ```
 
+```{r echo=FALSE, results='asis'}
+cat("### **2. Explore the Data**\n\n")
+```
+
+
 ```{r head, echo=TRUE}
 
 
 head(df)
 ```
+
+```{r summary, echo=TRUE}
+summary(df)
+```
+
+
+```{r describe, echo=TRUE}
+describe(df)
+```
+
+```{r cov, echo=TRUE}
+cov(df)
+```
+
+```{r cor, echo=TRUE}
+cor(df)
+```
+
 ```{r dummies, echo=TRUE}
 #Creation of dummy vars for the regions and QOBs
 df <- df %>%
@@ -60,28 +85,6 @@ df <- df %>%
   )
 ```
 
-
-
-
-
-
-
-
-```{r summary, echo=TRUE}
-summary(df)
-```
-
-
-```{r describe, echo=TRUE}
-describe(df)
-```
-
-```{r cov, echo=TRUE}
-cov(df)
-```
-```{r cor, echo=TRUE}
-cor(df)
-```
 ```{r plot, echo=TRUE}
 ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   geom_point(color = "blue") +

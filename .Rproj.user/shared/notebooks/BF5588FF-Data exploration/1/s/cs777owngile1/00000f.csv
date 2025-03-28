@@ -1,0 +1,5 @@
+"0","if (show_interpretation) {"
+"0","  cat(""MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n"")"
+"0","}"
+"1","MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic
+"

@@ -1,2 +1,0 @@
-"0",""
-"0","qqnorm(resid(linear_model1), main = ""Q-Q Plot of Residuals"", pch = 16, col = ""blue"")"

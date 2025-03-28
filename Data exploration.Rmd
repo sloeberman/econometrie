@@ -224,9 +224,9 @@ if (show_interpretation) {
       
       
       "
-}
+)}
 ```
-<<<<<<< Updated upstream
+
 ```{r, echo=FALSE, results="asis"}
 
 if (show_interpretation) {

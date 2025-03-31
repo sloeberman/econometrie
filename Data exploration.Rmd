@@ -95,6 +95,11 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   theme_minimal()
 
 ```
+
+```{r echo=FALSE, results='asis'}
+cat("### **3.Estimate the baseline Specification**\n\n")
+```
+
 ```{r, echo=TRUE}
 #linear model
 
@@ -102,9 +107,10 @@ linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + 
 stargazer(linear_model1,type="text",style="all")
 ```
 
+
 ```{r betekenins coef, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat("### Betekenis coef \n\n")
+  cat("### Interpretation of the estimated Coefficient \n\n")
   cat("\n EDUC (26.729, p < 0.001)
 
 A one-year increase in education leads to a $26.73 increase in wages.

@@ -1,0 +1,30 @@
+{
+    "id": "A543C714",
+    "path": "C:/Users/Bálint/Desktop/Case econometrie GitHub/econometrie/Data exploration.Rmd",
+    "project_path": "Data exploration.Rmd",
+    "type": "r_markdown",
+    "hash": "216773048",
+    "contents": "",
+    "dirty": false,
+    "created": 1743002074151.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "last_setup_crc32": "a0f00892bd13b68a",
+        "cursorPosition": "245,42",
+        "scrollLine": "233",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "2:0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1743580540,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1743580541012,
+    "read_only": false,
+    "read_only_alternatives": []
+}

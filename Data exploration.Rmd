@@ -78,10 +78,6 @@ df <- df %>%
     REGION8 = as.integer(REGION == 8),
     REGION9 = as.integer(REGION == 9),
 
-    QOB1 = as.integer(QOB == 1),
-    QOB2 = as.integer(QOB == 2),
-    QOB3 = as.integer(QOB == 3),
-    QOB4 = as.integer(QOB == 4)
   )
 ```
 
@@ -90,7 +86,7 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   geom_point(color = "blue") +
   labs(title = "Relationship Between Education and Wage",
        x = "Years of Education",
-       y = "Weekly Wage (in $)") + ylim(0, 1200) +
+       y = "Weekly Wage (in $)") + ylim(0, 12000) +
 
   theme_minimal()
 
@@ -103,7 +99,7 @@ cat("### **3.Estimate the baseline Specification**\n\n")
 ```{r, echo=TRUE}
 #linear model
 
-linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  + QOB2 + QOB3 + QOB4, data = df)
+linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
 stargazer(linear_model1,type="text",style="all")
 ```
 
@@ -149,7 +145,7 @@ being born in Q2 is associated with a $3.94 lower wage compared to Q1,
 Being born in Q3 is associated with a $4.79 higher wage compared to Q1, while Being born in Q4 is associated with a $3.73 lower wage compared to Q1.None of the QOB coefficients are significant, meaning quarter of birth does not have a meaningful impact on wages in this model.
 The p-values (all > 0.5) suggest that there is no strong evidence that being born in a particular quarter affects wages
 
-While the model is statistically significant, it explains only 13.4% of the variation in wages. Other unobserved factors (e.g. experience, skills) likely play a major role."
+While the model is statistically significant, it explains only 13.4% of the variation in wages. Other unobserved factors (e.g. ability, skills) likely play a major role."
 )
 }
 
@@ -247,7 +243,7 @@ if (show_interpretation) {
   df$residuals = residuals
   cor(df[, c("residuals", "EDUC", "AGE", "RACE", "SMSA", "MARRIED",
            "REGION2", "REGION3", "REGION4", "REGION5", "REGION6",
-           "REGION7", "REGION8", "REGION9", "QOB2", "QOB3", "QOB4")])
+           "REGION7", "REGION8", "REGION9")])
   
 }
 ```

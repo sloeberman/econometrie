@@ -19,16 +19,21 @@ library(car)
 library(tseries)
 library(lmtest)
 library(dplyr)
+library(purrr)
 
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
+df <- df %>%# update de dataset , nu met categorical var
+  mutate(REGION = factor(REGION, 
+                         levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9), 
+                         labels = c("New England", "Middle Atlantic", "East North Central", "West North Central","South Atlantic","East South     Central","West South Central","Mountain","Pacific ")))
 ```
 
 ```{r hypothesis_test, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
   cat("### **1.Hypothesis Testing**\n\n")  # Adds a Markdown header for clarity
   
-  cat("**H0:** B2 = 0 → Education has no effect on wages.\n\n")
+  cat("**H0:** B2 ≤ 0 → Education has no effect on wages.\n\n")
   cat("**H1:** B2 > 0 → Education has a positive effect on wages.\n\n")
   
   cat("One-sided hypotheses are appropriate in this case because education is expected to increase earnings (according to economic theories).  
@@ -60,37 +65,73 @@ describe(df)
 cov(df)
 ```
 
-```{r cor, echo=TRUE}
-cor(df)
-```
+```{r statisctics per region, echo=TRUE}
+library(dplyr)
+library(psych)
 
-```{r dummies, echo=TRUE}
-#Creation of dummy vars for the regions and QOBs
-df <- df %>%
-  mutate(
-    REGION1 = as.integer(REGION == 1),
-    REGION2 = as.integer(REGION == 2),
-    REGION3 = as.integer(REGION == 3),
-    REGION4 = as.integer(REGION == 4),
-    REGION5 = as.integer(REGION == 5),
-    REGION6 = as.integer(REGION == 6),
-    REGION7 = as.integer(REGION == 7),
-    REGION8 = as.integer(REGION == 8),
-    REGION9 = as.integer(REGION == 9),
-
-    QOB1 = as.integer(QOB == 1),
-    QOB2 = as.integer(QOB == 2),
-    QOB3 = as.integer(QOB == 3),
-    QOB4 = as.integer(QOB == 4)
+df %>%
+  group_by(REGION) %>%
+  summarize(
+    mean_wage = mean(WAGE, na.rm = TRUE),
+    mean_educ = mean(EDUC, na.rm = TRUE),
+    mean_age = mean(AGE, na.rm = TRUE),
+    
+    sd_wage = sd(WAGE, na.rm = TRUE),
+    sd_educ = sd(EDUC, na.rm = TRUE),
+    sd_age = sd(AGE, na.rm = TRUE),
+    
+    var_wage = var(WAGE, na.rm = TRUE),
+    var_educ = var(EDUC, na.rm = TRUE),
+    var_age = var(AGE, na.rm = TRUE),
+    
+    
+    count = n()
   )
 ```
+
+
+```{r cov per regio, echo=TRUE , results='asis'}
+cat(" ###cov matrices per regio")
+df %>%
+  group_by(REGION) %>%
+  group_split() %>%
+  map(~ {
+    region_name <- as.character(unique(.x$REGION))  # Extracts region name as text
+    cat("\n## Covariance Matrix for REGION:", region_name, "\n\n")  # Now correctly displays region name!
+    print(cov(select_if(.x, is.numeric), use = "pairwise.complete.obs"))  # Compute and display covariance
+    cat("\n-----------------------------------------------------\n")
+  })
+
+
+
+```
+```{r cor per regio, echo=TRUE , results='asis'}
+cat(" ###cor matrices per regio")
+df %>%
+  group_by(REGION) %>%
+  group_split() %>%
+  map(~ {
+    region_name <- as.character(unique(.x$REGION))  # Extracts region name as text
+    cat("\n## Correlation Matrix for REGION:", region_name, "\n\n")  # Now correctly displays region name!
+    print(cor(select_if(.x, is.numeric), use = "pairwise.complete.obs"))  # Compute and display covariance
+    cat("\n-----------------------------------------------------\n")
+  })
+
+```
+
+
+
+
+
+
+
 
 ```{r plot, echo=TRUE}
 ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   geom_point(color = "blue") +
   labs(title = "Relationship Between Education and Wage",
        x = "Years of Education",
-       y = "Weekly Wage (in $)") + ylim(0, 1200) +
+       y = "Weekly Wage (in $)")+
 
   theme_minimal()
 
@@ -103,7 +144,7 @@ cat("### **3.Estimate the baseline Specification**\n\n")
 ```{r, echo=TRUE}
 #linear model
 
-linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  + QOB2 + QOB3 + QOB4, data = df)
+linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
 stargazer(linear_model1,type="text",style="all")
 ```
 
@@ -111,12 +152,12 @@ stargazer(linear_model1,type="text",style="all")
 ```{r betekenins coef, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("### Interpretation of the estimated Coefficient \n\n")
-  cat("\n EDUC (26.729, p < 0.001)
+  cat("\n EDUC (26.696, p < 0.001)
 
-A one-year increase in education leads to a $26.73 increase in wages.
+A one-year increase in education leads to a $26.696 increase in weelky wages.
 This is highly significant (p = 0.000).
 
-AGE (2.226, p = 0.020)
+AGE ( 2.244, p = 0.020)
 A one-year increase in age increases wages by $2.23.
 Significant at the 5% level (p = 0.020).
 
@@ -144,13 +185,7 @@ Non-Significant Regions:
 REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)
 These regions do not significantly differ from the reference region in terms of wages.
 
-QOB:
-being born in Q2 is associated with a $3.94 lower wage compared to Q1,
-Being born in Q3 is associated with a $4.79 higher wage compared to Q1, while Being born in Q4 is associated with a $3.73 lower wage compared to Q1.None of the QOB coefficients are significant, meaning quarter of birth does not have a meaningful impact on wages in this model.
-The p-values (all > 0.5) suggest that there is no strong evidence that being born in a particular quarter affects wages
-
-While the model is statistically significant, it explains only 13.4% of the variation in wages. Other unobserved factors (e.g. experience, skills) likely play a major role."
-)
+")
 }
 
 ```
@@ -270,12 +305,8 @@ bptest(linear_model1)
 ```
 ```{r Breusch pagan interpretie, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat(" euuhhh , deze test zegt dat er geen heteroskedasticity is , maar onze residuals zijn wel niet nrml verdeeld lol . geen idee hoe ik verder moet ")
+  cat(" geen heteorskedasticity")
 }
 ```
-```{r}
 
-
-
-```
 

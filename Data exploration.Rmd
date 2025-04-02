@@ -69,7 +69,7 @@ cov(df)
 library(dplyr)
 library(psych)
 
-<<<<<<< HEAD
+
 df %>%
   group_by(REGION) %>%
   summarize(
@@ -87,22 +87,6 @@ df %>%
     
     
     count = n()
-=======
-```{r dummies, echo=TRUE}
-#Creation of dummy vars for the regions and QOBs
-df <- df %>%
-  mutate(
-    REGION1 = as.integer(REGION == 1),
-    REGION2 = as.integer(REGION == 2),
-    REGION3 = as.integer(REGION == 3),
-    REGION4 = as.integer(REGION == 4),
-    REGION5 = as.integer(REGION == 5),
-    REGION6 = as.integer(REGION == 6),
-    REGION7 = as.integer(REGION == 7),
-    REGION8 = as.integer(REGION == 8),
-    REGION9 = as.integer(REGION == 9),
-
->>>>>>> 770d2de51b92fcc682d9ca47cd91898f4d0abd2a
   )
 ```
 
@@ -148,11 +132,7 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   geom_point(color = "blue") +
   labs(title = "Relationship Between Education and Wage",
        x = "Years of Education",
-<<<<<<< HEAD
        y = "Weekly Wage (in $)")+
-=======
-       y = "Weekly Wage (in $)") + ylim(0, 12000) +
->>>>>>> 770d2de51b92fcc682d9ca47cd91898f4d0abd2a
 
   theme_minimal()
 
@@ -165,11 +145,9 @@ cat("### **3.Estimate the baseline Specification**\n\n")
 ```{r, echo=TRUE}
 #linear model
 
-<<<<<<< HEAD
+
 linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
-=======
-linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
->>>>>>> 770d2de51b92fcc682d9ca47cd91898f4d0abd2a
+
 stargazer(linear_model1,type="text",style="all")
 ```
 
@@ -210,17 +188,8 @@ Non-Significant Regions:
 REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)
 These regions do not significantly differ from the reference region in terms of wages.
 
-<<<<<<< HEAD
-")
-=======
-QOB:
-being born in Q2 is associated with a $3.94 lower wage compared to Q1,
-Being born in Q3 is associated with a $4.79 higher wage compared to Q1, while Being born in Q4 is associated with a $3.73 lower wage compared to Q1.None of the QOB coefficients are significant, meaning quarter of birth does not have a meaningful impact on wages in this model.
-The p-values (all > 0.5) suggest that there is no strong evidence that being born in a particular quarter affects wages
 
-While the model is statistically significant, it explains only 13.4% of the variation in wages. Other unobserved factors (e.g. ability, skills) likely play a major role."
-)
->>>>>>> 770d2de51b92fcc682d9ca47cd91898f4d0abd2a
+")
 }
 
 ```

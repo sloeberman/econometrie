@@ -1,8 +1,10 @@
 ---
-title: "Case Solution 1 Group 5"
-author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke vanhaverbeke, Stef Desender, Seppe Van Campe"
+title: "Case Solution Group 5"
+author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Stef
+  Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 df_print: paged
@@ -23,25 +25,68 @@ library(purrr)
 
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
-df <- df %>%# update de dataset , nu met categorical var
-  mutate(REGION = factor(REGION, 
-                         levels = c(1, 2, 3, 4, 5, 6, 7, 8, 9), 
-                         labels = c("New England", "Middle Atlantic", "East North Central", "West North Central","South Atlantic","East South     Central","West South Central","Mountain","Pacific ")))
+df <- df %>% mutate(
+REGION1 = as.integer(REGION == 1), 
+REGION2 = as.integer(REGION == 2), 
+REGION3 = as.integer(REGION == 3),
+REGION4 = as.integer(REGION == 4),
+REGION5 = as.integer(REGION == 5),
+REGION6 = as.integer(REGION == 6),
+REGION7 = as.integer(REGION == 7),
+REGION8 = as.integer(REGION == 8),
+REGION9 = as.integer(REGION == 9),
+
+QOB1 = as.integer(QOB == 1),
+QOB2 = as.integer(QOB == 2),
+QOB3 = as.integer(QOB == 3),
+QOB4 = as.integer(QOB == 4)
+)
 ```
 
 ```{r hypothesis_test, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
-  cat("### **1.Hypothesis Testing**\n\n")  # Adds a Markdown header for clarity
-  
-  cat("**H0:** B2 ≤ 0 → Education has no effect on wages.\n\n")
-  cat("**H1:** B2 > 0 → Education has a positive effect on wages.\n\n")
-  
-  cat("One-sided hypotheses are appropriate in this case because education is expected to increase earnings (according to economic theories).  
-  In addition, there’s often little reason to test whether more education reduces wages because that result is counterintuitive.")
+  cat("### **1. Empirical Specification and Hypotheses**\n\n")
+
+cat("Baseline model:\n\n")
+cat("WAGEi = B1 + B2 · EDUCi + A · Xi + mui\n\n")
+cat("Where Xi includes AGE, RACE, MARRIED, SMSA, and REGION.\n\n")
+
+cat("### **Hypothesis Tests:**\n\n")
+
+cat("EDUC: Education\n\n")
+cat("H0: B2 $\\leq$ 0 → Education has no or a negative effect on wages.\n\n")
+cat("H1: B2 $>$ 0 → Education has a positive effect on wages.\n\n")
+cat("One-sided test: Economic theory predicts that more education increases wages, so a negative effect would be counterintuitive.\n\n")
+
+cat("AGE: Age\n\n")
+cat("H0: A(AGE) $\\leq$ 0 → Age has no or a negative effect on wages.\n\n")
+cat("H1: A(AGE) $>$ 0 → Age has a positive effect on wages.\n\n")
+cat("One-sided test: Age is often associated with experience, which is expected to increase wages.\n\n")
+
+cat("MARRIED: Marital Status\n\n")
+cat("H0: A(MARRIED) $\\leq$ 0 → Being married has no or a negative effect on wages.\n\n")
+cat("H1: A(MARRIED) $>$ 0 → Being married has a positive effect on wages.\n\n")
+cat("One-sided test: Being married may indicate stability and a positive impact on productivity, leading to higher wages.\n\n")
+
+cat("SMSA: Metropolitan Area\n\n")
+cat("H0: A(SMSA) $\\leq$ 0 → Living in a metropolitan area has no or a negative effect on wages.\n\n")
+cat("H1: A(SMSA) $>$ 0 → Living in a metropolitan area has a positive effect on wages.\n\n")
+cat("One-sided test: Urban areas typically have more job opportunities and higher wages, driving this expectation.\n\n")
+
+cat("RACE: Race (1 = Black, 0 = White)\n\n")
+cat("H0: A(RACE) $\\geq$ 0 → Race has no or a positive effect on wages.\n\n")
+cat("H1: A(RACE) $<$ 0 → Race has a negative effect on wages.\n\n")
+cat("One-sided test: Structural inequalities often result in lower wages for minority groups.\n\n")
+
+cat("REGION: Geographic Region\n\n")
+cat("H0: A(REGION) $\\leq$ 0 → There are no positive wage differences across regions.\n\n")
+cat("H1: A(REGION) $>$ 0 → At least one region has a positive effect on wages.\n\n")
+cat("One-sided test: Certain regions, especially those that are economically stronger or more urbanized, may offer higher wages.\n\n")
+
 }
 ```
 
-```{r echo=FALSE, results='asis'}
+```{r header 2, echo=FALSE, results='asis'}
 cat("### **2. Explore the Data**\n\n")
 ```
 
@@ -64,8 +109,19 @@ describe(df)
 ```{r cov, echo=TRUE}
 cov(df)
 ```
+```{r statisctics per region, echo=FALSE, results="asis"}
+if (isTRUE(show_interpretation)) {
+  cat("### **Statistics per region**\n\n")  # Adds a Markdown header for clarity
+  cat("WAGE: Largest wage disparities in regions 2, 6, and 9; high SD, skewness, and kurtosis → outliers with very high incomes.\n\n")
+  cat("EDUC: Highest in region 9, lowest in region 6; slightly more variation in regions 5 and 6.\n\n")
+  cat("AGE: Almost uniformly ~45 years across regions; low spread, minimal differences.\n\n")
+  cat("RACE: Mostly white population (>90%); region 5 relatively more diversity; high kurtosis indicates outliers.\n\n")
+  cat("SMSA: Regions 4 & 6 are more urban, region 2 is the most rural; skewed → most live outside urban areas.\n\n")
+  cat("MARRIED: High marriage rates across all regions (~85–89%); region 9 slightly lower.\n\n")
+}
+```
 
-```{r statisctics per region, echo=TRUE}
+```{r statisctics per region code, echo=FALSE}
 library(dplyr)
 library(psych)
 
@@ -88,46 +144,84 @@ df %>%
     
     count = n()
   )
+
+#dit is hoe polina het toont in feedback (ook zelfde uitkomsten als haar)
+#alleen de relevante kolommen (alle numerieke behalve dummies)
+numeric_vars <- df %>% 
+  select_if(is.numeric) %>%
+  select(-starts_with("REGION"), -starts_with("QOB"))  # dummies eruit
+
+#combineer met regio
+df_subset1 <- df %>% 
+  select(REGION) %>% 
+  bind_cols(numeric_vars)
+
+#beschrijvende statistieken per regio
+describeBy(df_subset1, group = "REGION")
 ```
 
 
-```{r cov per regio, echo=TRUE , results='asis'}
-cat(" ###cov matrices per regio")
+
+```{r statisctics per age, echo=FALSE, results="asis"}
+if (isTRUE(show_interpretation)) {
+  cat("### **Statistics per age**\n\n")
+  cat("AGE GROUPS:\n\n")
+  cat("AGE >= 40 & AGE < 42 ~ '40-41 GROUP 1',\n\n")
+  cat("AGE >= 42 & AGE < 44 ~ '42-43 GROUP 2',\n\n")
+  cat("AGE >= 44 & AGE < 46 ~ '44-45 GROUP 3',\n\n")
+  cat("AGE >= 46 & AGE < 48 ~ '46-47 GROUP 4',\n\n")
+  cat("AGE >= 48 & AGE <= 50 ~ '48-50 GROUP 5'\n\n")
+}
+```
+
+
+```{r statisctics per age code, echo=FALSE}
+#dit is voor age groups
+df_subset2 <- df %>%
+  mutate(AGE_GROUP = case_when(
+    AGE >= 40 & AGE < 42 ~ "40-41",
+    AGE >= 42 & AGE < 44 ~ "42-43",
+    AGE >= 44 & AGE < 46 ~ "44-45",
+    AGE >= 46 & AGE < 48 ~ "46-47",
+    AGE >= 48 & AGE <= 50 ~ "48-50"
+  )) %>%
+  select(-starts_with("REGION"), -starts_with("QOB"))
+
+# Beschrijvende statistieken per AGE_GROUP
+describeBy(df_subset2, group = "AGE_GROUP")
+```
+
+
+```{r cov per regio, echo=FALSE , results='asis'}
+cat("### **Covariance matrices per regio**\n\n")
 df %>%
   group_by(REGION) %>%
   group_split() %>%
   map(~ {
     region_name <- as.character(unique(.x$REGION))  # Extracts region name as text
-    cat("\n## Covariance Matrix for REGION:", region_name, "\n\n")  # Now correctly displays region name!
-    print(cov(select_if(.x, is.numeric), use = "pairwise.complete.obs"))  # Compute and display covariance
-    cat("\n-----------------------------------------------------\n")
+    knitr::kable(cov(select(.x, WAGE, EDUC, AGE, RACE, SMSA, MARRIED, QOB, QOB1:QOB4), use = "pairwise.complete.obs"), 
+             caption = paste("Covariance Matrix for REGION:", region_name),
+             digits = 3)
   })
 
-
-
 ```
-```{r cor per regio, echo=TRUE , results='asis'}
-cat(" ###cor matrices per regio")
+
+
+```{r cor per regio, echo=FALSE , results='asis'}
+cat("### **Correlation matrices per regio**\n\n")
 df %>%
   group_by(REGION) %>%
   group_split() %>%
   map(~ {
     region_name <- as.character(unique(.x$REGION))  # Extracts region name as text
-    cat("\n## Correlation Matrix for REGION:", region_name, "\n\n")  # Now correctly displays region name!
-    print(cor(select_if(.x, is.numeric), use = "pairwise.complete.obs"))  # Compute and display covariance
-    cat("\n-----------------------------------------------------\n")
+    knitr::kable(cor(select(.x, WAGE, EDUC, AGE, RACE, SMSA, MARRIED, QOB, QOB1:QOB4),  use = "pairwise.complete.obs"),
+             caption = paste("Correlation Matrix for REGION:", region_name),
+             digits = 3)
   })
 
 ```
 
-
-
-
-
-
-
-
-```{r plot, echo=TRUE}
+```{r plot, echo=FALSE}
 ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   geom_point(color = "blue") +
   labs(title = "Relationship Between Education and Wage",
@@ -138,16 +232,17 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
 
 ```
 
-```{r echo=FALSE, results='asis'}
+```{r header 3, echo=FALSE, results='asis'}
 cat("### **3.Estimate the baseline Specification**\n\n")
 ```
 
-```{r, echo=TRUE}
+```{r linear model, echo=TRUE}
 #linear model
+linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+```
 
-
-linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
-
+```{r stargazer lin model, echo=FALSE}
 stargazer(linear_model1,type="text",style="all")
 ```
 
@@ -187,19 +282,26 @@ These regions have higher wages compared to the reference region.
 Non-Significant Regions:
 REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)
 These regions do not significantly differ from the reference region in terms of wages.
-
-
 ")
 }
 
 ```
 
-```{r Joint significance tests}
+```{r Joint significance tests, echo=FALSE}
 # Joint significance test: Test whether AGE, RACE, MARRIED, and SMSA jointly contribute to explaining WAGE.
 linearHypothesis(linear_model1, c("AGE = 0", "RACE = 0", "MARRIED = 0", "SMSA = 0"))
 
 ```
-```{r Regional differences}
+
+```{r interpretatie joint significance tests, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("The joint significance test shows that AGE, RACE, MARRIED, and SMSA jointly contribute significantly to explaining WAGE.\n",
+    "The F-statistic is 60.23 with a p-value < 2.2e-16, indicating strong statistical significance.\n",
+    "We reject the null hypothesis that these four variables have no joint effect on wages.\n")
+}
+```
+
+```{r Regional differences, echo=FALSE}
 #Assess whether regional differences are statistically significant.
 linearHypothesis(linear_model1, c("REGION2 = 0","REGION3 = 0", "REGION4 = 0", "REGION5 = 0", "REGION6 = 0", "REGION7 = 0", "REGION8 = 0", "REGION9 = 0" ))
 ```
@@ -210,13 +312,29 @@ if (show_interpretation) {
 }
 ```
 
+```{r header 4, echo=FALSE, results="asis"}
+cat("### **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n
+4a. Stochastic Regressors\n\n")
+```
+
+
 ```{r stochastic of deterministic, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat("MKV 1: EDC en AGE zijn stochastic, dummy variables zijn deterministic\n")
+  cat("All the variables are stochastic.\n\n")
+  cat("
+Strictly exogenous: AGE, RACE, QOB
+- These variables are fixed and not influenced by wages or the error term.
+
+Weakly exogenous: SMSA, REGION
+- These variables may be correlated with unobserved factors affecting wages, but are not directly influenced by wages.
+
+Endogenous: EDUC, MARRIED
+- Potential for reverse causality or correlation with the error term (e.g., higher wages → more education or higher likelihood of marriage).
+")
 }
 ```
 
-```{r}
+```{r residuals plot, echo=FALSE}
 plot(linear_model1$fitted.values, resid(linear_model1),
      main = "Residuals vs. Fitted Values",
      xlab = "Fitted Values",
@@ -227,9 +345,7 @@ abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
 
 
 
-
-
-```{r}
+```{r histogram plot, echo=FALSE}
 
 # Updated upstream
 
@@ -239,23 +355,27 @@ residuals <- residuals(linear_model1)
 # Histogram van de residuen
 ggplot(data.frame(residuals), aes(x = residuals)) +
   geom_histogram(binwidth = 5, color = "black", fill = "blue", alpha = 0.7) +
-  labs(title = "Histogram van de Residuen", x = "Residuals", y = "Frequentie") +
+  labs(title = "Histogram Residuals", x = "Residuals", y = "Frequentie") +
   theme_minimal()
 ```
-```{r}
+
+
+```{r QQ plot, echo=FALSE}
 # Q-Q plot
 qqnorm(residuals)
 qqline(residuals, col = "red", lwd = 2)
 
 ```
 
-```{r, echo=FALSE, results="asis"}
+```{r jarque bera test, echo=FALSE, results="asis"}
 # Jarque-Bera test uitvoeren
 jarque.bera.test(residuals)
 
 if (show_interpretation) {
   cat("Since the p value is small, we reject the null hypothesis .Therefore the residuals are NOT normally distributed.
+  
       Implications for OLS:
+      
       1) Unbiasedness: Non-normal residuals do not affect the unbiasedness of OLS estimators as long as key assumptions (like linearity,        exogeneity of regressors, and zero-mean error term) are satisfied
       
       2) Efficiency:
@@ -267,15 +387,11 @@ if (show_interpretation) {
       4) Heteroscedasticity or Outliers:
       Non-normality can signal issues like heteroscedasticity (non-constant error variance), the presence of outliers, or omitted variable bias. 
       
-      Remediation:
-      Based on the histogram and Q-Q Plot which is slightly right skewed, we can conclude that the residuals deviate slightly from normality, so OLS may still perform adequately, particularly in our large sample where asymptotic normality applies.
-      
-      
-      "
+      Remediation:Based on the histogram and Q-Q Plot which is slightly right skewed, we can conclude that the residuals deviate slightly from normality, so OLS may still perform adequately, particularly in our large sample where asymptotic normality applies."
 )}
 ```
 
-```{r, echo=FALSE, results="asis"}
+```{r GM assumptrions, echo=FALSE, results="asis"}
 
 if (show_interpretation) {
   cat("Gauss-Markov assumptions:
@@ -283,16 +399,12 @@ if (show_interpretation) {
   \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model) FAIL
   \n Correlation between explanatory variables and error terms:
   ")
-  df$residuals = residuals
-  cor(df[, c("residuals", "EDUC", "AGE", "RACE", "SMSA", "MARRIED",
-           "REGION2", "REGION3", "REGION4", "REGION5", "REGION6",
-           "REGION7", "REGION8", "REGION9")])
   
 }
 ```
 
 
-```{r}
+```{r assumption 3}
 print(mean(residuals))
 print(t.test(residuals, mu = 0))
 if (show_interpretation) {

@@ -48,7 +48,7 @@ if (isTRUE(show_interpretation)) {
   cat("### **1. Empirical Specification and Hypotheses**\n\n")
 
 cat("Baseline model:\n\n")
-cat("WAGEi = B1 + B2 · EDUCi + A · Xi + mui\n\n")
+cat("$$WAGE_i = \\beta_1 + \\beta_2 \\, EDUCi + \\alpha \\, X_i + \\mu_i$$\n\n")
 cat("Where Xi includes AGE, RACE, MARRIED, SMSA, and REGION.\n\n")
 
 cat("### **Hypothesis Tests:**\n\n")
@@ -79,9 +79,9 @@ cat("H1: A(RACE) $<$ 0 → Race has a negative effect on wages.\n\n")
 cat("One-sided test: Structural inequalities often result in lower wages for minority groups.\n\n")
 
 cat("REGION: Geographic Region\n\n")
-cat("H0: A(REGION) $\\leq$ 0 → There are no positive wage differences across regions.\n\n")
-cat("H1: A(REGION) $>$ 0 → At least one region has a positive effect on wages.\n\n")
-cat("One-sided test: Certain regions, especially those that are economically stronger or more urbanized, may offer higher wages.\n\n")
+cat("H0: A(REGION) $\\neq$ 0 → (There are no positive wage differences across regions.)\n\n")
+cat("H1: A(REGION) $=$ 0 → (At least one region has a positive effect on wages.)\n\n")
+cat("Two-sided test: Region could impact wages in either direction\n\n")
 
 }
 ```
@@ -92,8 +92,6 @@ cat("### **2. Explore the Data**\n\n")
 
 
 ```{r head, echo=TRUE}
-
-
 head(df)
 ```
 
@@ -313,8 +311,9 @@ if (show_interpretation) {
 ```
 
 ```{r header 4, echo=FALSE, results="asis"}
-cat("### **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n
-4a. Stochastic Regressors\n\n")
+cat("### **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
+cat("#### **4a. Stochastic Regressors**\n\n")
+
 ```
 
 
@@ -359,12 +358,47 @@ ggplot(data.frame(residuals), aes(x = residuals)) +
   theme_minimal()
 ```
 
+```{r header 4b, echo=FALSE, results="asis"}
+cat("#### **4b. Normality Error Terms**\n\n")
+```
 
 ```{r QQ plot, echo=FALSE}
-# Q-Q plot
 qqnorm(residuals)
 qqline(residuals, col = "red", lwd = 2)
+```
 
+```{r QQ plot_layout, echo=FALSE, fig.width=8, fig.height=6}
+qqnorm(residuals)
+qqline(residuals, col = "red", lwd = 2)
+```
+
+```{r jarque bera test_layout, echo=FALSE, results="asis"}
+# Jarque-Bera test uitvoeren
+jarque.bera.test(residuals)
+
+if (show_interpretation) {
+  cat(paste(
+    "Since the p value is small, we reject the null hypothesis. Therefore the residuals are NOT normally distributed.",
+    "",
+    "Implications for OLS:",
+    "",
+    "1) Unbiasedness:",
+    "Non-normal residuals do not affect the unbiasedness of OLS estimators as long as key assumptions (like linearity, exogeneity of regressors, and zero-mean error term) are satisfied.",
+    "",
+    "2) Efficiency:",
+    "OLS estimators may lose their efficiency because normality of residuals is necessary for OLS to be the Best Linear Unbiased Estimator (BLUE) under the Gauss-Markov assumptions.",
+    "",
+    "3) Hypothesis Testing:",
+    "The validity of tests (e.g., t-tests and F-tests) and confidence intervals relies on the normality assumption. Non-normal residuals can lead to incorrect p-values.",
+    "",
+    "4) Heteroscedasticity or Outliers:",
+    "Non-normality can signal issues like heteroscedasticity (non-constant error variance), the presence of outliers, or omitted variable bias.",
+    "",
+    "Remediation:",
+    "Based on the histogram and Q-Q Plot which is slightly right-skewed, we can conclude that the residuals deviate slightly from normality, so OLS may still perform adequately, particularly in our large sample where asymptotic normality applies.",
+    sep = "\n"
+  ))
+}
 ```
 
 ```{r jarque bera test, echo=FALSE, results="asis"}
@@ -390,6 +424,7 @@ if (show_interpretation) {
       Remediation:Based on the histogram and Q-Q Plot which is slightly right skewed, we can conclude that the residuals deviate slightly from normality, so OLS may still perform adequately, particularly in our large sample where asymptotic normality applies."
 )}
 ```
+
 
 ```{r GM assumptrions, echo=FALSE, results="asis"}
 

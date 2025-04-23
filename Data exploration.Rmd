@@ -4,9 +4,9 @@ author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Ste
   Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 df_print: paged
 ---
 
@@ -456,7 +456,7 @@ if (show_interpretation) {
 bptest(linear_model1)
 
 ```
-```{r Breusch pagan interpretie, echo=FALSE, results="asis"}
+```{r Breusch pagan interpretie_, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat(" geen heteorskedasticity")
 }
@@ -521,6 +521,12 @@ plot(df_ordered$residuals, type = "l",
 
 ```{r autocorrelation runs test}
 runs.test(df$residuals)
+if (show_interpretation) {
+  cat("Assumptions:
+  1) no need to assume specific error structure
+  2) The observations should be in a meaningful order as the test evaluates the sequence
+  High p-value suggest that there is no autocorrelation.")
+  }
 ```
 
 ```{r autocorrelation DW test}
@@ -529,6 +535,13 @@ DW=dwtest(linear_model1)
 DW_summary=c(DW$statistic,DW$p.value)
 names(DW_summary)=c("Test-statistic","P-value")
 stargazer(DW_summary,type="text")
+if (show_interpretation) {
+  cat("Assumptions:
+  1) Error terms follow an AR(1) process
+  2) Error terms are normally distributed
+  3) The regression model does not include lagged dependent variables
+  High p-value suggest that there is no autocorrelation.")
+  }
 ```
 
 ```{r autocorrelation BG test}
@@ -536,5 +549,12 @@ BG = bgtest(linear_model1, order = 6)  # Change order as needed
 BG_summary=c(BG$statistic,BG$p.value)
 names(BG_summary)=c("Test-statistic","P-value")
 stargazer(BG_summary,type="text")
+if (show_interpretation) {
+  cat("Assumptions:
+  1) Allows for stochastic regressors
+  2) Tests for higher-order autocorrelation
+  3) Allows for lagged dependent variables
+  High p-value suggest that there is no autocorrelation.")
+  }
 ```
 

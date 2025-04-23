@@ -22,6 +22,7 @@ library(tseries)
 library(lmtest)
 library(dplyr)
 library(purrr)
+library(corrplot)
 
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
@@ -459,5 +460,51 @@ if (show_interpretation) {
   cat(" geen heteorskedasticity")
 }
 ```
+```{r Breusch pagan interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("Multicollinearity\n
+      Gauss-Markov assumption (no perfect multicollinearity) is met.
+      \n\n
+      Analysis of Variance Inflation Factors and correlation:
+      Low VIFs (<5): Most of the variables have VIF values close to 1, including EDUC (1.07), AGE (1.01), RACE (1.05), SMSA (1.07), and MARRIED (1.02). These values suggest minimal multicollinearity, meaning these predictors are relatively independent.\n
+      
+      Moderate VIFs (Between 2 and 5): Some regional variables—REGION2 (3.28), REGION3 (3.67), REGION4 (2.18), REGION5 (3.51), REGION6 (2.06), REGION7 (2.54), REGION8 (1.82), and REGION9 (2.92)—show moderate correlation with other predictors. These values indicate some degree of collinearity, but they are not alarmingly high.
+      \n
+      High VIFs (>5): None of the variables exceed 5, which suggests that severe multicollinearity is not a major issue in this regression model. But even if VIF would be high (VIF>5), a large sample (n = 10 000 in this case) and high variance
+in the explanatory variables can still lead to precise estimates.
 
+
+
+      Implications for the properties and precision of the OLS estimator:
+      1) Parameters remain identifiable.\n
+      2) Under the CNLRM assumptions, the OLS estimator remains BLUE and normally distributed.\n
+      3) OLS estimators exhibit larger variance and covariance, especially the regions.\n
+      4) Wider confidence intervals and lower t-statistics 
+      ->variables appear less significantly different from zero, higher probability of making a Type II error\n
+      5) The overall model fit (R2) is largely unaffected: even if individual coefficients are insignificant, the F -test may
+indicate that the coefficients are jointly significant, and can be estimated with high precision.\n
+      6) Regression coefficients may change substantially\n
+      ")
+
+
+
+correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
+                                 "REGION2", "REGION3", "REGION4", "REGION5", 
+                                 "REGION6", "REGION7", "REGION8", "REGION9")])
+
+
+corrplot(correlation_matrix, method = "circle")
+
+}
+
+```
+```{r}
+print(correlation_matrix)
+print(max(abs(correlation_matrix)))
+```
+```{r}
+print('VIF values')
+vif_values = vif(linear_model1)
+print(vif_values)
+```
 

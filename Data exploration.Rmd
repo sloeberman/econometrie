@@ -23,6 +23,7 @@ library(lmtest)
 library(dplyr)
 library(purrr)
 library(corrplot)
+library(randtests)
 
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
@@ -498,6 +499,7 @@ corrplot(correlation_matrix, method = "circle")
 }
 
 ```
+
 ```{r}
 print(correlation_matrix)
 print(max(abs(correlation_matrix)))
@@ -506,5 +508,33 @@ print(max(abs(correlation_matrix)))
 print('VIF values')
 vif_values = vif(linear_model1)
 print(vif_values)
+```
+
+
+```{r autocorrelation graph}
+df$residuals <- residuals
+df_ordered <- df[order(df$EDUC, df$AGE), ]
+plot(df_ordered$residuals, type = "l",
+     main = "Residuals Ordered by EDUC and AGE",
+     ylab = "Residuals", xlab = "Observation Index")
+```
+
+```{r autocorrelation runs test}
+runs.test(df$residuals)
+```
+
+```{r autocorrelation DW test}
+DW=dwtest(linear_model1)
+# print to screen
+DW_summary=c(DW$statistic,DW$p.value)
+names(DW_summary)=c("Test-statistic","P-value")
+stargazer(DW_summary,type="text")
+```
+
+```{r autocorrelation BG test}
+BG = bgtest(linear_model1, order = 6)  # Change order as needed
+BG_summary=c(BG$statistic,BG$p.value)
+names(BG_summary)=c("Test-statistic","P-value")
+stargazer(BG_summary,type="text")
 ```
 

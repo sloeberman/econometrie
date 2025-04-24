@@ -636,3 +636,12 @@ if (show_interpretation) {
   }
 ```
 
+```{r autocorrelation implications for OLS}
+if (show_interpretation) {
+  cat("Implications for OLS if autocorrelation is present:
+  1) Standard variance formula is incorrect
+  2) OLS estimator no longer efficient")
+  cat("Inference: Standard errors are incorrect, leading to invalid t-tests, F-tests, and confidence intervals")
+  cat("It does not make sense to interpret autocorrelation as a structural feature since there is no natural ordering for the dataset.")
+  }
+```

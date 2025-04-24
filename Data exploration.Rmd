@@ -50,40 +50,40 @@ QOB4 = as.integer(QOB == 4)
 
 ```{r hypothesis_test, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
-  cat("### **1. Empirical Specification and Hypotheses**\n\n")
+  cat("# **1. Empirical Specification and Hypotheses**\n\n")
 
 cat("Baseline model:\n\n")
 cat("$$WAGE_i = \\beta_1 + \\beta_2 \\, EDUCi + \\alpha \\, X_i + \\mu_i$$\n\n")
 cat("Where Xi includes AGE, RACE, MARRIED, SMSA, and REGION.\n\n")
 
-cat("### **Hypothesis Tests:**\n\n")
+cat("## **Hypothesis Tests:**\n\n")
 
-cat("EDUC: Education\n\n")
+cat("##### **EDUC: Education**\n\n")
 cat("H0: B2 $\\leq$ 0 → Education has no or a negative effect on wages.\n\n")
 cat("H1: B2 $>$ 0 → Education has a positive effect on wages.\n\n")
 cat("One-sided test: Economic theory predicts that more education increases wages, so a negative effect would be counterintuitive.\n\n")
 
-cat("AGE: Age\n\n")
+cat("##### **AGE: Age**\n\n")
 cat("H0: A(AGE) $\\leq$ 0 → Age has no or a negative effect on wages.\n\n")
 cat("H1: A(AGE) $>$ 0 → Age has a positive effect on wages.\n\n")
 cat("One-sided test: Age is often associated with experience, which is expected to increase wages.\n\n")
 
-cat("MARRIED: Marital Status\n\n")
+cat(" ##### **MARRIED: Marital Status**\n\n")
 cat("H0: A(MARRIED) $\\leq$ 0 → Being married has no or a negative effect on wages.\n\n")
 cat("H1: A(MARRIED) $>$ 0 → Being married has a positive effect on wages.\n\n")
 cat("One-sided test: Being married may indicate stability and a positive impact on productivity, leading to higher wages.\n\n")
 
-cat("SMSA: Metropolitan Area\n\n")
+cat(" ##### **SMSA: Metropolitan Area**\n\n")
 cat("H0: A(SMSA) $\\leq$ 0 → Living in a metropolitan area has no or a negative effect on wages.\n\n")
 cat("H1: A(SMSA) $>$ 0 → Living in a metropolitan area has a positive effect on wages.\n\n")
 cat("One-sided test: Urban areas typically have more job opportunities and higher wages, driving this expectation.\n\n")
 
-cat("RACE: Race (1 = Black, 0 = White)\n\n")
+cat(" ##### **RACE: Race (1 = Black, 0 = White)**\n\n")
 cat("H0: A(RACE) $\\geq$ 0 → Race has no or a positive effect on wages.\n\n")
 cat("H1: A(RACE) $<$ 0 → Race has a negative effect on wages.\n\n")
 cat("One-sided test: Structural inequalities often result in lower wages for minority groups.\n\n")
 
-cat("REGION: Geographic Region\n\n")
+cat("##### **REGION: Geographic Region**\n\n")
 cat("H0: A(REGION) $\\neq$ 0 → (There are no positive wage differences across regions.)\n\n")
 cat("H1: A(REGION) $=$ 0 → (At least one region has a positive effect on wages.)\n\n")
 cat("Two-sided test: Region could impact wages in either direction\n\n")
@@ -92,7 +92,7 @@ cat("Two-sided test: Region could impact wages in either direction\n\n")
 ```
 
 ```{r header 2, echo=FALSE, results='asis'}
-cat("### **2. Explore the Data**\n\n")
+cat("# **2. Explore the Data**\n\n")
 ```
 
 
@@ -114,7 +114,7 @@ cov(df)
 ```
 ```{r statisctics per region, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
-  cat("### **Statistics per region**\n\n")  # Adds a Markdown header for clarity
+  cat("### **2.1 Statistics per region**\n\n")  # Adds a Markdown header for clarity
   cat("WAGE: Largest wage disparities in regions 2, 6, and 9; high SD, skewness, and kurtosis → outliers with very high incomes.\n\n")
   cat("EDUC: Highest in region 9, lowest in region 6; slightly more variation in regions 5 and 6.\n\n")
   cat("AGE: Almost uniformly ~45 years across regions; low spread, minimal differences.\n\n")
@@ -167,7 +167,7 @@ describeBy(df_subset1, group = "REGION")
 
 ```{r statisctics per age, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
-  cat("### **Statistics per age**\n\n")
+  cat("### **2.2 Statistics per age**\n\n")
   cat("AGE GROUPS:\n\n")
   cat("AGE >= 40 & AGE < 42 ~ '40-41 GROUP 1',\n\n")
   cat("AGE >= 42 & AGE < 44 ~ '42-43 GROUP 2',\n\n")
@@ -196,7 +196,7 @@ describeBy(df_subset2, group = "AGE_GROUP")
 
 
 ```{r cov per regio, echo=FALSE , results='asis'}
-cat("### **Covariance matrices per regio**\n\n")
+cat("### **2.3 Covariance matrices per regio**\n\n")
 df %>%
   group_by(REGION) %>%
   group_split() %>%
@@ -211,7 +211,7 @@ df %>%
 
 
 ```{r cor per regio, echo=FALSE , results='asis'}
-cat("### **Correlation matrices per regio**\n\n")
+cat("### **2.4 Correlation matrices per regio**\n\n")
 df %>%
   group_by(REGION) %>%
   group_split() %>%
@@ -236,7 +236,7 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
 ```
 
 ```{r header 3, echo=FALSE, results='asis'}
-cat("### **3.Estimate the baseline Specification**\n\n")
+cat("# **3.Estimate the baseline Specification**\n\n")
 ```
 
 ```{r linear model, echo=TRUE}
@@ -252,7 +252,7 @@ stargazer(linear_model1,type="text",style="all")
 
 ```{r betekenins coef, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat("### Interpretation of the estimated Coefficient \n\n")
+  cat("### **3.1 Interpretation of the estimated Coefficient **\n\n")
   cat("\n EDUC (26.696, p < 0.001)
 
 A one-year increase in education leads to a $26.696 increase in weelky wages.
@@ -316,7 +316,7 @@ if (show_interpretation) {
 ```
 
 ```{r header 4, echo=FALSE, results="asis"}
-cat("### **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
+cat("# **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
 cat("#### **4a. Stochastic Regressors**\n\n")
 
 ```
@@ -406,35 +406,11 @@ if (show_interpretation) {
 }
 ```
 
-```{r jarque bera test, echo=FALSE, results="asis"}
-# Jarque-Bera test uitvoeren
-jarque.bera.test(residuals)
-
-if (show_interpretation) {
-  cat("Since the p value is small, we reject the null hypothesis .Therefore the residuals are NOT normally distributed.
-  
-      Implications for OLS:
-      
-      1) Unbiasedness: Non-normal residuals do not affect the unbiasedness of OLS estimators as long as key assumptions (like linearity,        exogeneity of regressors, and zero-mean error term) are satisfied
-      
-      2) Efficiency:
-      OLS estimators may lose their efficiency because normality of residuals is necessary for OLS to be the Best Linear Unbiased Estimator  (BLUE) under the Gauss-Markov assumptions.
-      
-      3) Hypothesis Testing:
-      The validity of tests (e.g., (t)-tests and (F)-tests) and confidence intervals relies on the normality assumption. Non-normal residuals         can lead to incorrect p-values
-      
-      4) Heteroscedasticity or Outliers:
-      Non-normality can signal issues like heteroscedasticity (non-constant error variance), the presence of outliers, or omitted variable bias. 
-      
-      Remediation:Based on the histogram and Q-Q Plot which is slightly right skewed, we can conclude that the residuals deviate slightly from normality, so OLS may still perform adequately, particularly in our large sample where asymptotic normality applies."
-)}
-```
-
 
 ```{r GM assumptrions, echo=FALSE, results="asis"}
 
 if (show_interpretation) {
-  cat("Gauss-Markov assumptions:
+  cat("###**Gauss-Markov assumptions**:
   \n Assumption 1: Linearity in the parameters: CHECK
   \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model) FAIL
   \n Correlation between explanatory variables and error terms:
@@ -480,52 +456,72 @@ for (var in explanatory_vars) {
 
 
 ```
-```{r uitleg_plots, echo=FALSE ,results='asis'}
-if (show_interpretation) {
-  cat("Fitted values 
-        we see a slight increase in the spread , when the fitted values increase, what a sign of heteroskedasticity isµ
-      EDC
-        for EDC we see first a slight increase and then a decrease, which again is a pattern , so again a sign of heteroskedasticity
-      RACE
-        we see a bigger spread for white people
-      SMSA
-        not living in a metroploarian place has a bigger spread
-      MARRIED
-        same
-      REGION
-         for every region we see a different spread between 0 and          1
-      CONCLUSION
-      we see clear signs of heteroskedasticity in the plots")}
 
+```{r uitleg_plots, echo=FALSE, results='asis'}
+if (show_interpretation) {
+  cat("
+### Interpretation of Residual Plots:
+
+1. **Fitted Values**:
+   - Slight increase in spread as fitted values increase
+   - This pattern indicates potential heteroskedasticity
+
+2. **EDUC**:
+   - Initial increase followed by decrease in spread
+   - Non-constant variance pattern visible
+
+3. **RACE**:
+   - Larger spread observed for white participants
+   - Unequal variance between groups
+
+4. **SMSA**:
+   - Non-metropolitan areas show greater spread
+   - Variance differs by urban/rural classification
+
+5. **MARRIED**:
+   - Similar variance pattern as other categorical variables
+
+6. **REGION**:
+   - Different spreads observed across regions (0-1 range)
+   - Geographic heterogeneity in variance
+
+**Conclusion**:\n\n
+Clear signs of heteroskedasticity across multiple predictors, suggesting violations of the constant variance assumption.
+")
+}
 ```
 
 ```{r Heteroskedasticity_test, echo=FALSE, results='asis'}
-cat("Heteroskedasticity test ")
+cat("## **4(d).1**Heteroskedasticity test **\n\n")
+
 ```
 
+```{r echo=FALSE, results="asis"}
+cat("#### **white's general test**\n\n")
+```
 
 
 ```{r White_test , echo=TRUE , results="asis"}
+
 white_test <- bptest(linear_model1, ~ fitted(linear_model1) + I(fitted(linear_model1)^2))
-
-# Output result
 print(white_test)
-
 ```
+
 ```{r White_ interpretie, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat(" the p value of 0.02977 says that we  reject the null hyptothis , which implies that we reject homoskedastiscity
-      
-      for white there are not properties")
+  cat(" the p value of 0.02977 says that we  reject the null hyptothis , which implies that we reject homoskedastiscity\n
+**properties**\n\n
+-for white there are not properties")
 }
+```
+
+```{r echo=FALSE, results="asis"}
+cat("#### **goldfeld-quant test**\n\n")
 ```
 
 ```{r QF_test , echo=TRUE , results="asis"}
 gqtest_result <- gqtest(linear_model1)
-
-# Output result
 print(gqtest_result)
-
 ```
 
 
@@ -534,40 +530,93 @@ if (show_interpretation) {
   cat(" the p value of p-value =
 5.067e-09 says that we strongly reject the null hyptothis , which implies that we reject homoskedastiscity
 
-properties
-   You split the dataset into two non-overlapping groups (dropping middle observations).
-
-Errors are normally distributed.")
+**properties**\n\n
+-You split the dataset into two non-overlapping groups (dropping middle observations).\n
+-Errors are normally distributed.
+\n\n
+\n\n")
 }
 
 
 ```
 ```{r Implications_for OLS , echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat(" Implications for OLS Estimators
-      the coef( the betas ) are not normally distr in small              samples
-       var of the coef changes , we have a more robust variance V       formula if we use OLS
-      OLS is no longer effecient , we use UGLS wich has a lower       variance of the estimator
-     How might heteroskedasticity distort inference about the
-    return to education 
-    the st errors of edc are underestimated and are not to be         trusted")
+  cat(" **Implications for OLS Estimators**\n\n
+-the coef( the betas ) are not normally distr in small samples\n\n
+-var of the coef changes , we have a more robust variance formula if we use OLS \n\n
+-OLS is no longer effecient , we use UGLS wich has a lower variance of the estimator\n\n
+-the st errors of the coef are underestimated and are not to be trusted, therefore infernce bout the significance is wrong \n\n")
 }
 ```
+```{r edzs, echo=FALSE,results='asis'}
+cat("## **4(d).2 adressing heteroskedasticity**\n\n")
+```
 
-```{r Adress-heterskedasticity robust-st,  echo=TRUE,results="asis"}
 
+
+```{r address-heteroskedasticity-robust, echo=FALSE, results="asis"}
+# Calculate robust standard errors (HC1 for Stata-like small sample adjustment)
 robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC1")))
-stargazer(linear_model1, type = "text", se = list(robust_se), title = "Robust Standard Errors")
+
+# Create publication-quality table with robust SEs
+stargazer(linear_model1,
+          type = "html",  
+          title = "OLS Regression with Robust Standard Errors",
+          se = list(robust_se),
+          dep.var.labels = "Weekly Wage",
+          covariate.labels = c("Education", "Age", "Race (1=Black)", "SMSA", "Married",
+                             "Region 2", "Region 3", "Region 4", "Region 5",
+                             "Region 6", "Region 7", "Region 8", "Region 9"),
+          notes = "Heteroskedasticity-consistent standard errors in parentheses",
+          notes.append = TRUE,
+          digits = 4,  # Controls decimal places
+          single.row = FALSE,
+          model.numbers = FALSE)
+
 if (show_interpretation) {
-  cat("we see an increase in st errors of OLS , as expected bcs we have heteroskedasticity")
+  cat("\n\n##### **Interpretation:\n**")
+  cat("- Robust standard errors are larger than conventional OLS standard errors\n")
+  cat("- This pattern confirms the presence of heteroskedasticity in the data\n") 
+  cat("- The HC1 estimator provides consistent inference under heteroskedasticity\n")
+  cat("- Coefficient estimates remain unchanged, but significance levels may differ\n")
 }
 
+```
+
+```{r echo=FALSE, results="asis"}
+cat("**EGLS** ")
 ```
 
 ```{r EGLS, echo=TRUE,results="asis"}
 gls_model <- gls(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
                  weights = varIdent(form = ~1 | group_var)
+```
+
+```{r ,echo=FALSE,results='asis'}
+stargazer(gls_model,
+          type = "html", # Use "html" for HTML output, "latex" for PDF
+          title = "EGLS Estimation Results",
+          dep.var.labels = "Weekly Wages",
+          covariate.labels = c("Education", "Age", "Race (1=Black)", "SMSA", "Married",
+                             "Region 2", "Region 3", "Region 4", "Region 5",
+                             "Region 6", "Region 7", "Region 8", "Region 9"),
+          notes = "Standard errors in parentheses",
+          notes.append = TRUE,
+          model.numbers = FALSE,
+          column.sep.width = "1pt",
+          single.row = TRUE)
+
+
+if (show_interpretation) {
+  cat("\n##### **Comparison with Robust Standard Errors:**\n")
+  cat("- EGLS provides more efficient estimates than OLS with robust standard errors\n")
+  cat("- Standard errors are typically larger than OLS with incorrect variance formula\n")
+  cat("- The efficiency gain comes from properly modeling the heteroskedasticity structure\n")
+  cat("- Interpretation of coefficients remains the same as OLS\n")
+}
+```
+
 
 
 ```

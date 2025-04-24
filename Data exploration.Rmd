@@ -24,6 +24,9 @@ library(dplyr)
 library(purrr)
 library(corrplot)
 library(randtests)
+library(sandwich)
+library(nlme)
+
 
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
@@ -535,6 +538,34 @@ properties
 
 Errors are normally distributed.")
 }
+
+
+```
+```{r Implications_for OLS , echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" Implications for OLS Estimators
+      the coef( the betas ) are not normally distr in small              samples
+       var of the coef changes , we have a more robust variance V       formula if we use OLS
+      OLS is no longer effecient , we use UGLS wich has a lower       variance of the estimator
+     How might heteroskedasticity distort inference about the
+    return to education 
+    the st errors of edc are underestimated and are not to be         trusted")
+}
+```
+
+```{r Adress-heterskedasticity robust-st  echo=True,results="asis"}
+
+robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC1")))
+stargazer(linear_model1, type = "text", se = list(robust_se), title = "Robust Standard Errors")
+if (show_interpretation) {
+  cat("we see an increase in st errors of OLS , as expected bcs we have heteroskedasticity")
+
+```
+
+```{r EGLS echo=True,results="asis"}
+gls_model <- gls(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+                 weights = varIdent(form = ~1 | group_var)) 
 
 
 ```

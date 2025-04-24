@@ -480,7 +480,7 @@ for (var in explanatory_vars) {
 
 
 ```
-```{r uitleg_plots echo=False ,results='asis'}
+```{r uitleg_plots, echo=FALSE ,results='asis'}
 if (show_interpretation) {
   cat("Fitted values 
         we see a slight increase in the spread , when the fitted values increase, what a sign of heteroskedasticity isµ
@@ -498,13 +498,14 @@ if (show_interpretation) {
       we see clear signs of heteroskedasticity in the plots")}
 
 ```
+
 ```{r Heteroskedasticity_test, echo=FALSE, results='asis'}
 cat("Heteroskedasticity test ")
 ```
 
 
 
-```{r White_test  echo=True , results="asis"}
+```{r White_test , echo=TRUE , results="asis"}
 white_test <- bptest(linear_model1, ~ fitted(linear_model1) + I(fitted(linear_model1)^2))
 
 # Output result
@@ -519,7 +520,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r QF_test  echo=True , results="asis"}
+```{r QF_test , echo=TRUE , results="asis"}
 gqtest_result <- gqtest(linear_model1)
 
 # Output result
@@ -553,19 +554,20 @@ if (show_interpretation) {
 }
 ```
 
-```{r Adress-heterskedasticity robust-st  echo=True,results="asis"}
+```{r Adress-heterskedasticity robust-st,  echo=TRUE,results="asis"}
 
 robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC1")))
 stargazer(linear_model1, type = "text", se = list(robust_se), title = "Robust Standard Errors")
 if (show_interpretation) {
   cat("we see an increase in st errors of OLS , as expected bcs we have heteroskedasticity")
+}
 
 ```
 
-```{r EGLS echo=True,results="asis"}
+```{r EGLS, echo=TRUE,results="asis"}
 gls_model <- gls(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
-                 weights = varIdent(form = ~1 | group_var)) 
+                 weights = varIdent(form = ~1 | group_var)
 
 
 ```

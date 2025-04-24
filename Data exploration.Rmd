@@ -448,19 +448,97 @@ if (show_interpretation) {
   cat("Assumption 3: The expected V value of the error terms is zero: CHECK")
 }
 ```
+```{r Heterskedasticity, echo=FALSE, results='asis'}
+cat("### **4(d) Heteroskedasticity**\n\n")
+```
 
+```{r residuals_plot, echo=FALSE}
+squared_res <- resid(linear_model1)^2
+plot(linear_model1$fitted.values, squared_res,
+     main = "Squared residuals vs. Fitted Values",
+     xlab = "Fitted Values",
+     ylab = "Squared residuals",
+     pch = 16, col = "black")
+abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
 
+explanatory_vars <- names(linear_model1$model)[-1]  # exclude response variable
 
+# Plot squared residuals vs each predictor
+par(mar = c(4, 4, 1, 1))  # Set smaller margins
+# Adjust layout if needed
+for (var in explanatory_vars) {
+  plot(linear_model1$model[[var]], squared_res,
+       main = paste("Squared Residuals vs", var),
+       xlab = var,
+       ylab = "Squared Residuals",
+       pch = 16, col = "black")
+  abline(h = 0, lty = 2, col = "red")
+}
 
-```{r testen op heteroskedasticity via Breusch-Pagan }
-bptest(linear_model1)
 
 ```
-```{r Breusch pagan interpretie_, echo=FALSE, results="asis"}
+```{r uitleg_plots echo=False ,results='asis'}
 if (show_interpretation) {
-  cat(" geen heteorskedasticity")
+  cat("Fitted values 
+        we see a slight increase in the spread , when the fitted values increase, what a sign of heteroskedasticity isµ
+      EDC
+        for EDC we see first a slight increase and then a decrease, which again is a pattern , so again a sign of heteroskedasticity
+      RACE
+        we see a bigger spread for white people
+      SMSA
+        not living in a metroploarian place has a bigger spread
+      MARRIED
+        same
+      REGION
+         for every region we see a different spread between 0 and          1
+      CONCLUSION
+      we see clear signs of heteroskedasticity in the plots")}
+
+```
+```{r Heteroskedasticity_test, echo=FALSE, results='asis'}
+cat("Heteroskedasticity test ")
+```
+
+
+
+```{r White_test  echo=True , results="asis"}
+white_test <- bptest(linear_model1, ~ fitted(linear_model1) + I(fitted(linear_model1)^2))
+
+# Output result
+print(white_test)
+
+```
+```{r White_ interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" the p value of 0.02977 says that we  reject the null hyptothis , which implies that we reject homoskedastiscity
+      
+      for white there are not properties")
 }
 ```
+
+```{r QF_test  echo=True , results="asis"}
+gqtest_result <- gqtest(linear_model1)
+
+# Output result
+print(gqtest_result)
+
+```
+
+
+```{r GF_ interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" the p value of p-value =
+5.067e-09 says that we strongly reject the null hyptothis , which implies that we reject homoskedastiscity
+
+properties
+   You split the dataset into two non-overlapping groups (dropping middle observations).
+
+Errors are normally distributed.")
+}
+
+
+```
+
 ```{r Breusch pagan interpretie, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("Multicollinearity\n

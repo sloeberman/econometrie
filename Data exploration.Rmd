@@ -4,9 +4,9 @@ author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Ste
   Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
 df_print: paged
 ---
 
@@ -432,11 +432,11 @@ cat("### **4(d) Heteroskedasticity**\n\n")
 ```
 
 ```{r residuals_plot, echo=FALSE}
-squared_res <- resid(linear_model1)^2
-plot(linear_model1$fitted.values, squared_res,
-     main = "Squared residuals vs. Fitted Values",
+res <- resid(linear_model1)
+plot(linear_model1$fitted.values, res,
+     main = " residuals vs. Fitted Values",
      xlab = "Fitted Values",
-     ylab = "Squared residuals",
+     ylab = " residuals",
      pch = 16, col = "black")
 abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
 
@@ -446,10 +446,10 @@ explanatory_vars <- names(linear_model1$model)[-1]  # exclude response variable
 par(mar = c(4, 4, 1, 1))  # Set smaller margins
 # Adjust layout if needed
 for (var in explanatory_vars) {
-  plot(linear_model1$model[[var]], squared_res,
-       main = paste("Squared Residuals vs", var),
+  plot(linear_model1$model[[var]], res,
+       main = paste(" Residuals vs", var),
        xlab = var,
-       ylab = "Squared Residuals",
+       ylab = " Residuals",
        pch = 16, col = "black")
   abline(h = 0, lty = 2, col = "red")
 }
@@ -532,7 +532,7 @@ if (show_interpretation) {
 
 **properties**\n\n
 -You split the dataset into two non-overlapping groups (dropping middle observations).\n
--Errors are normally distributed.
+-Errors are normally distributed., but in our case they are not so be carefull with the interpratation of this test
 \n\n
 \n\n")
 }
@@ -560,7 +560,7 @@ robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC1")))
 
 # Create publication-quality table with robust SEs
 stargazer(linear_model1,
-          type = "html",  
+          type = "latex",  
           title = "OLS Regression with Robust Standard Errors",
           se = list(robust_se),
           dep.var.labels = "Weekly Wage",
@@ -590,12 +590,12 @@ cat("**EGLS** ")
 ```{r EGLS, echo=TRUE,results="asis"}
 gls_model <- gls(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
-                 weights = varIdent(form = ~1 | group_var)
+                 weights = varIdent(form = ~1 | EDC)
 ```
 
 ```{r ,echo=FALSE,results='asis'}
 stargazer(gls_model,
-          type = "html", # Use "html" for HTML output, "latex" for PDF
+          type = "latex", # Use "html" for HTML output, "latex" for PDF
           title = "EGLS Estimation Results",
           dep.var.labels = "Weekly Wages",
           covariate.labels = c("Education", "Age", "Race (1=Black)", "SMSA", "Married",

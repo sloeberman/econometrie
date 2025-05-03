@@ -1,0 +1,2145 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.3)  3 MAY 2025 23:40
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Data-exploration.tex
+(./Data-exploration.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-14>
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count272
+\c@section=\count273
+\c@subsection=\count274
+\c@subsubsection=\count275
+\c@paragraph=\count276
+\c@subparagraph=\count277
+\c@figure=\count278
+\c@table=\count279
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen146
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2024/11/05 v2.17t AMS math features
+\@mathmargin=\skip51
+For additional information on amsmath, use the `?' option.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen147
+)) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen148
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count280
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count281
+\leftroot@=\count282
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count283
+\DOTSCASE@=\count284
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen149
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count285
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count286
+\dotsspace@=\muskip17
+\c@parentequation=\count287
+\dspbrk@lvl=\count288
+\tag@help=\toks18
+\row@=\count289
+\column@=\count290
+\maxfields@=\count291
+\andhelp@=\toks19
+\eqnshift@=\dimen150
+\alignsep@=\dimen151
+\tagshift@=\dimen152
+\tagwidth@=\dimen153
+\totwidth@=\dimen154
+\lineht@=\dimen155
+\@envbody=\toks20
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks22
+\inpenc@posthook=\toks23
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks24
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count292
+\Gm@cntv=\count293
+\c@Gm@tempcnt=\count294
+\Gm@bindingoffset=\dimen156
+\Gm@wd@mp=\dimen157
+\Gm@odd@mp=\dimen158
+\Gm@even@mp=\dimen159
+\Gm@layoutwidth=\dimen160
+\Gm@layoutheight=\dimen161
+\Gm@layouthoffset=\dimen162
+\Gm@layoutvoffset=\dimen163
+\Gm@dimlist=\toks25
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
+\FV@CodeLineNo=\count295
+\FV@InFile=\read2
+\FV@TabBox=\box55
+\c@FancyVerbLine=\count296
+\FV@StepNumber=\count297
+\FV@OutFile=\write3
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip54
+\fb@frw=\dimen164
+\fb@frh=\dimen165
+\FrameRule=\dimen166
+\FrameSep=\dimen167
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2024-10-27 v4.22 Multi-page Table package (DPC)
+\LTleft=\skip55
+\LTright=\skip56
+\LTpre=\skip57
+\LTpost=\skip58
+\LTchunksize=\count298
+\LTcapwidth=\dimen168
+\LT@head=\box56
+\LT@firsthead=\box57
+\LT@foot=\box58
+\LT@lastfoot=\box59
+\LT@gbox=\box60
+\LT@cols=\count299
+\LT@rows=\count300
+\c@LT@tables=\count301
+\c@LT@chunks=\count302
+\LT@p@ftn=\toks26
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen169
+\lightrulewidth=\dimen170
+\cmidrulewidth=\dimen171
+\belowrulesep=\dimen172
+\belowbottomsep=\dimen173
+\aboverulesep=\dimen174
+\abovetopsep=\dimen175
+\cmidrulesep=\dimen176
+\cmidrulekern=\dimen177
+\defaultaddspace=\dimen178
+\@cmidla=\count303
+\@cmidlb=\count304
+\@aboverulesep=\dimen179
+\@belowrulesep=\dimen180
+\@thisruleclass=\count305
+\@lastruleclass=\count306
+\@thisrulewidth=\dimen181
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
+\col@sep=\dimen182
+\ar@mcellbox=\box61
+\extrarowheight=\dimen183
+\NC@list=\toks27
+\extratabsurround=\skip59
+\backup@length=\skip60
+\ar@cellbox=\box62
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count307
+\calc@Bcount=\count308
+\calc@Adimen=\dimen184
+\calc@Bdimen=\dimen185
+\calc@Askip=\skip61
+\calc@Bskip=\skip62
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count309
+\calc@Cskip=\skip63
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count310
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box63
+\fn@width=\dimen186
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+)
+\Gin@req@height=\dimen187
+\Gin@req@width=\dimen188
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip64
+\multirow@cntb=\count311
+\multirow@dima=\skip65
+\bigstrutjot=\dimen189
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen190
+\WF@size=\dimen191
+\c@WF@wrappedlines=\count312
+\WF@box=\box64
+\WF@everypar=\toks28
+Package: wrapfig 2003/01/31  v 3.6
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count313
+\float@exts=\toks29
+\float@box=\box65
+\@float@everytoks=\toks30
+\@floatcapt=\box66
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
+\everycr=\toks31
+\minrowclearance=\skip66
+\rownum=\count314
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box67
+\sift@deathcycles=\count315
+\@vwid@loff=\dimen192
+\@vwid@roff=\dimen193
+)
+\c@taburow=\count316
+\tabu@nbcols=\count317
+\tabu@cnt=\count318
+\tabu@Xcol=\count319
+\tabu@alloc=\count320
+\tabu@nested=\count321
+\tabu@target=\dimen194
+\tabu@spreadtarget=\dimen195
+\tabu@naturalX=\dimen196
+\tabucolX=\dimen197
+\tabu@Xsum=\dimen198
+\extrarowdepth=\dimen199
+\abovetabulinesep=\dimen256
+\belowtabulinesep=\dimen257
+\tabustrutrule=\dimen258
+\tabu@thebody=\toks32
+\tabu@footnotes=\toks33
+\tabu@box=\box68
+\tabu@arstrutbox=\box69
+\tabu@hleads=\box70
+\tabu@vleads=\box71
+\tabu@cellskip=\skip67
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box72
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\TPTL@width=\skip68
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box73
+\UL@hyphenbox=\box74
+\UL@skip=\skip69
+\UL@hook=\toks34
+\UL@height=\dimen259
+\UL@pe=\count322
+\UL@pixel=\dimen260
+\ULC@box=\box75
+Package: ulem 2019/11/18
+\ULdepth=\dimen261
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen262
+\c@nlinenum=\count323
+\TeXr@lab=\toks35
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count324
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+)
+\@linkdim=\dimen263
+\Hy@linkcounter=\count325
+\Hy@pagecounter=\count326
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count327
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4040.
+Package hyperref Info: Hyper figures OFF on input line 4157.
+Package hyperref Info: Link nesting OFF on input line 4162.
+Package hyperref Info: Hyper index ON on input line 4165.
+Package hyperref Info: Plain pages OFF on input line 4172.
+Package hyperref Info: Backreferencing OFF on input line 4177.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4424.
+\c@Hy@tempcnt=\count328
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4763.
+\XeTeXLinkMargin=\dimen264
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count329
+\Field@Width=\dimen265
+\Fld@charsize=\dimen266
+Package hyperref Info: Hyper figures OFF on input line 6042.
+Package hyperref Info: Link nesting OFF on input line 6047.
+Package hyperref Info: Hyper index ON on input line 6050.
+Package hyperref Info: backreferencing OFF on input line 6057.
+Package hyperref Info: Link coloring OFF on input line 6062.
+Package hyperref Info: Link coloring with OCG OFF on input line 6067.
+Package hyperref Info: PDF/A mode OFF on input line 6072.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count330
+\c@Item=\count331
+\c@Hfootnote=\count332
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2024-11-05 v7.01l Hyperref driver for pdfTeX
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+with kernel methods
+)
+\Fld@listcount=\count333
+\c@bookmark@seq@number=\count334
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+)
+\Hy@SectionHShift=\skip70
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
+\BKM@id=\count335
+))
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 138.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count336
+) (./Data-exploration.aux)
+\openout1 = `Data-exploration.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 138.
+LaTeX Font Info:    ... okay on input line 138.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package hyperref Info: Link coloring OFF on input line 138.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 140.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 140.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 140.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 140.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 140.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 140.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 140.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 140.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 140.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (70.60841pt too wide) in paragraph at lines 140--140
+ [][] 
+ []
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 146.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 146.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 146.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 156.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+[1
+
+{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 218.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 219.
+
+
+[2]
+
+[3]
+
+[4]
+
+[5]
+
+[6]
+
+[7]
+
+[8]
+
+[9]
+
+[10]
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 808--809
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 812--813
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 816--817
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 818--819
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 820--821
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 822--823
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 835--836
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 839--840
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 843--844
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 845--846
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 847--848
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 849--850
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (1.35092pt too wide) in paragraph at lines 855--855
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (5.66058pt too wide) in paragraph at lines 855--855
+ []|\T1/lmr/m/n/10 59622.389|
+ []
+
+
+Overfull \hbox (3.08711pt too wide) in paragraph at lines 855--855
+ []|\T1/lmr/m/n/10 326.291|
+ []
+
+
+Overfull \hbox (1.80295pt too wide) in paragraph at lines 855--855
+ []|\T1/lmr/m/n/10 19.889|
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 865--865
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+[11]
+Overfull \hbox (2.07632pt too wide) in paragraph at lines 906--907
+ []\T1/lmr/m/n/10 SMSA
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 908--909
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 912--913
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 914--915
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 916--917
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 918--919
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (2.07632pt too wide) in paragraph at lines 933--934
+ []\T1/lmr/m/n/10 SMSA
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 935--936
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 939--940
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 941--942
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 943--944
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 945--946
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 951--951
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (7.38281pt too wide) in paragraph at lines 951--951
+ []|\T1/lmr/m/n/10 126020.884|
+ []
+
+
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 951--951
+ []|\T1/lmr/m/n/10 335.536|
+ []
+
+
+Overfull \hbox (2.0761pt too wide) in paragraph at lines 951--951
+ []|\T1/lmr/m/n/10 29.869|
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 961--961
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1000--1001
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1004--1005
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1008--1009
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1010--1011
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1012--1013
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1014--1015
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 989--1017
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1027--1028
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1031--1032
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1035--1036
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1037--1038
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1039--1040
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1041--1042
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1017--1044
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1044--1046
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 1047--1047
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (6.06258pt too wide) in paragraph at lines 1047--1047
+ []|\T1/lmr/m/n/10 69754.484|
+ []
+
+
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 1047--1047
+ []|\T1/lmr/m/n/10 247.163|
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1057--1057
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1046--1069
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+
+[12]
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1096--1097
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1100--1101
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1104--1105
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1106--1107
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1108--1109
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1110--1111
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1085--1113
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1123--1124
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1127--1128
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1131--1132
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1133--1134
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1135--1136
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1137--1138
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1113--1140
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1140--1142
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 1143--1143
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (6.06258pt too wide) in paragraph at lines 1143--1143
+ []|\T1/lmr/m/n/10 69294.730|
+ []
+
+
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 1143--1143
+ []|\T1/lmr/m/n/10 276.252|
+ []
+
+
+Overfull \hbox (2.0761pt too wide) in paragraph at lines 1144--1144
+ []|\T1/lmr/m/n/10 13.151|
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1153--1153
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1142--1165
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+[13]
+Overfull \hbox (20.39804pt too wide) in paragraph at lines 1196--1197
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1200--1201
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1202--1203
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1204--1205
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1206--1207
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (20.39804pt too wide) in paragraph at lines 1223--1224
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1227--1228
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1229--1230
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1231--1232
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1233--1234
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (1.99513pt too wide) in paragraph at lines 1239--1239
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (6.46971pt too wide) in paragraph at lines 1239--1239
+ []|\T1/lmr/m/n/10 68142.878|
+ []
+
+
+Overfull \hbox (3.73132pt too wide) in paragraph at lines 1239--1239
+ []|\T1/lmr/m/n/10 359.308|
+ []
+
+
+Overfull \hbox (2.34409pt too wide) in paragraph at lines 1240--1240
+ []|\T1/lmr/m/n/10 10.164|
+ []
+
+
+Overfull \hbox (20.39804pt too wide) in paragraph at lines 1249--1249
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (20.70212pt too wide) in paragraph at lines 1292--1293
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1296--1297
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1298--1299
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1300--1301
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1302--1303
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (20.70212pt too wide) in paragraph at lines 1319--1320
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1323--1324
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1325--1326
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1327--1328
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1329--1330
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (2.29921pt too wide) in paragraph at lines 1335--1335
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (8.25894pt too wide) in paragraph at lines 1335--1335
+ []|\T1/lmr/m/n/10 108586.360|
+ []
+
+
+Overfull \hbox (4.0354pt too wide) in paragraph at lines 1335--1335
+ []|\T1/lmr/m/n/10 289.292|
+ []
+
+
+Overfull \hbox (2.61723pt too wide) in paragraph at lines 1336--1336
+ []|\T1/lmr/m/n/10 32.889|
+ []
+
+
+Overfull \hbox (2.61723pt too wide) in paragraph at lines 1336--1337
+ []|\T1/lmr/m/n/10 11.524|
+ []
+
+
+Overfull \hbox (20.70212pt too wide) in paragraph at lines 1345--1345
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+[14]
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1388--1389
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1392--1393
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1394--1395
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1396--1397
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1398--1399
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1373--1401
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1415--1416
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1419--1420
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1421--1422
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1423--1424
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1425--1426
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1401--1428
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1428--1430
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 1431--1431
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (6.06258pt too wide) in paragraph at lines 1431--1431
+ []|\T1/lmr/m/n/10 70637.866|
+ []
+
+
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 1431--1431
+ []|\T1/lmr/m/n/10 357.447|
+ []
+
+
+Overfull \hbox (2.0761pt too wide) in paragraph at lines 1431--1431
+ []|\T1/lmr/m/n/10 26.277|
+ []
+
+
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1441--1441
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1430--1453
+ [] [] [] [] [] [] [] [] [] [] [] [] 
+ []
+
+
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1480--1481
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1484--1485
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1488--1489
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1490--1491
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1492--1493
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1494--1495
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1507--1508
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1511--1512
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1515--1516
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1517--1518
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1519--1520
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1521--1522
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (1.35092pt too wide) in paragraph at lines 1527--1527
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (5.66058pt too wide) in paragraph at lines 1527--1527
+ []|\T1/lmr/m/n/10 55763.738|
+ []
+
+
+Overfull \hbox (3.08711pt too wide) in paragraph at lines 1527--1527
+ []|\T1/lmr/m/n/10 204.967|
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1537--1537
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+[15]
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1576--1577
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (1.80318pt too wide) in paragraph at lines 1578--1579
+ []\T1/lmr/m/n/10 SMSA
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1580--1581
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1584--1585
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1586--1587
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1588--1589
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1590--1591
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1603--1604
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (1.80318pt too wide) in paragraph at lines 1605--1606
+ []\T1/lmr/m/n/10 SMSA
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1607--1608
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1611--1612
+ []\T1/lmr/m/n/10 QOB1
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1613--1614
+ []\T1/lmr/m/n/10 QOB2
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1615--1616
+ []\T1/lmr/m/n/10 QOB3
+ []
+
+
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1617--1618
+ []\T1/lmr/m/n/10 QOB4
+ []
+
+
+Overfull \hbox (1.35092pt too wide) in paragraph at lines 1623--1623
+[]|\T1/lmr/m/n/10 WAGE|  
+ []
+
+
+Overfull \hbox (6.94473pt too wide) in paragraph at lines 1623--1623
+ []|\T1/lmr/m/n/10 119854.165|
+ []
+
+
+Overfull \hbox (3.08711pt too wide) in paragraph at lines 1623--1623
+ []|\T1/lmr/m/n/10 270.881|
+ []
+
+
+Overfull \hbox (1.80295pt too wide) in paragraph at lines 1623--1623
+ []|\T1/lmr/m/n/10 33.568|
+ []
+
+
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1633--1633
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1669--1670
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1671--1672
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1675--1676
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1679--1680
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1696--1697
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1698--1699
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1702--1703
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1706--1707
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1732--1732
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+
+[16]
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1765--1766
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1767--1768
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1771--1772
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1775--1776
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1792--1793
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1794--1795
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1798--1799
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1802--1803
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1828--1828
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1861--1862
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1863--1864
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1867--1868
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1871--1872
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1888--1889
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1890--1891
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1894--1895
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1898--1899
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1924--1924
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1957--1958
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1959--1960
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1963--1964
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1967--1968
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1984--1985
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1986--1987
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1990--1991
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1994--1995
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2020--2020
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+
+[17]
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2053--2054
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2055--2056
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2059--2060
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2063--2064
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2080--2081
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2082--2083
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2086--2087
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2090--2091
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2116--2116
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2149--2150
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2151--2152
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2155--2156
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2159--2160
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2176--2177
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2178--2179
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2182--2183
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2186--2187
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2212--2212
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2245--2246
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2247--2248
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2251--2252
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2255--2256
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2272--2273
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2274--2275
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2278--2279
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2282--2283
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2308--2308
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+
+[18]
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2341--2342
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2343--2344
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2347--2348
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2351--2352
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2368--2369
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2370--2371
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2374--2375
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2378--2379
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2404--2404
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2437--2438
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2439--2440
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2443--2444
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2447--2448
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2464--2465
+ []\T1/lmr/m/n/10 WAGE
+ []
+
+
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2466--2467
+ []\T1/lmr/m/n/10 EDUC
+ []
+
+
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2470--2471
+ []\T1/lmr/m/n/10 RACE
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2474--2475
+ []\T1/lmr/m/n/10 MARRIED
+ []
+
+
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2500--2500
+[]|\T1/lmr/m/n/10 MARRIED|  
+ []
+
+
+
+[19]
+<Data-exploration_files/figure-latex/plot-1.pdf, id=125, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/plot-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/plot-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/plot-1.pdf  used on input line 2524.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[20 <./Data-exploration_files/figure-latex/plot-1.pdf>]
+
+[21]
+
+[22]
+<Data-exploration_files/figure-latex/residuals plot-1.pdf, id=147, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals plot-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals plot-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals plot-1.pdf  used on input line 2716.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[23]
+<Data-exploration_files/figure-latex/histogram plot-1.pdf, id=154, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/histogram plot-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/histogram plot-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/histogram plot-1.pdf  used on input line 2718.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[24 <./Data-exploration_files/figure-latex/residuals plot-1.pdf>]
+<Data-exploration_files/figure-latex/QQ plot-1.pdf, id=165, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/QQ plot-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/QQ plot-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/QQ plot-1.pdf  used on input line 2723.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (145.07973pt too wide) in paragraph at lines 2723--2724
+ []\T1/lmr/bx/n/10 4b. Nor-mal-ity Er-ror Terms[] [] 
+ []
+
+
+
+[25 <./Data-exploration_files/figure-latex/histogram plot-1.pdf>]
+<Data-exploration_files/figure-latex/QQ plot_layout-1.pdf, id=179, 578.16pt x 433.62pt>
+File: Data-exploration_files/figure-latex/QQ plot_layout-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/QQ plot_layout-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/QQ plot_layout-1.pdf  used on input line 2725.
+(pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
+
+
+[26 <./Data-exploration_files/figure-latex/QQ plot-1.pdf>]
+
+[27 <./Data-exploration_files/figure-latex/QQ plot_layout-1.pdf>]
+<Data-exploration_files/figure-latex/residuals_plot-1.pdf, id=205, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-1.pdf  used on input line 2818.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-2.pdf, id=206, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-2.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-2.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-2.pdf  used on input line 2819.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-3.pdf, id=207, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-3.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-3.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-3.pdf  used on input line 2820.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-4.pdf, id=208, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-4.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-4.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-4.pdf  used on input line 2821.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-5.pdf, id=209, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-5.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-5.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-5.pdf  used on input line 2822.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-6.pdf, id=210, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-6.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-6.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-6.pdf  used on input line 2823.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-7.pdf, id=211, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-7.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-7.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-7.pdf  used on input line 2824.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-8.pdf, id=212, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-8.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-8.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-8.pdf  used on input line 2825.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-9.pdf, id=213, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-9.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-9.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-9.pdf  used on input line 2826.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-10.pdf, id=214, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-10.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-10.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-10.pdf  used on input line 2827.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-11.pdf, id=215, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-11.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-11.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-11.pdf  used on input line 2828.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-12.pdf, id=216, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-12.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-12.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-12.pdf  used on input line 2829.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-13.pdf, id=217, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-13.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-13.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-13.pdf  used on input line 2830.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data-exploration_files/figure-latex/residuals_plot-14.pdf, id=218, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/residuals_plot-14.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/residuals_plot-14.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/residuals_plot-14.pdf  used on input line 2831.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2818--2832
+[]
+ []
+
+
+
+[28]
+Overfull \vbox (25.95663pt too high) has occurred while \output is active []
+
+
+
+[29 <./Data-exploration_files/figure-latex/residuals_plot-1.pdf> <./Data-exploration_files/figure-latex/residuals_plot-2.pdf>]
+
+[30 <./Data-exploration_files/figure-latex/residuals_plot-3.pdf>]
+
+[31 <./Data-exploration_files/figure-latex/residuals_plot-4.pdf>]
+
+[32 <./Data-exploration_files/figure-latex/residuals_plot-5.pdf>]
+
+[33 <./Data-exploration_files/figure-latex/residuals_plot-6.pdf>]
+
+[34 <./Data-exploration_files/figure-latex/residuals_plot-7.pdf>]
+
+[35 <./Data-exploration_files/figure-latex/residuals_plot-8.pdf>]
+
+[36 <./Data-exploration_files/figure-latex/residuals_plot-9.pdf>]
+
+[37 <./Data-exploration_files/figure-latex/residuals_plot-10.pdf>]
+
+[38 <./Data-exploration_files/figure-latex/residuals_plot-11.pdf>]
+
+[39 <./Data-exploration_files/figure-latex/residuals_plot-12.pdf>]
+
+[40 <./Data-exploration_files/figure-latex/residuals_plot-13.pdf>]
+
+[41 <./Data-exploration_files/figure-latex/residuals_plot-14.pdf>]
+
+[42]
+
+LaTeX Warning: Float too large for page by 13.30377pt on input line 3079.
+
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 3116.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+[43]
+
+[44]
+Overfull \hbox (133.99323pt too wide) in paragraph at lines 3205--3205
+[]\T1/lmtt/m/n/10 ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com[] 
+ []
+
+
+
+[45]
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 3205--3205
+[]\T1/lmtt/m/n/10 ## \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\[] 
+ []
+
+
+
+[46]
+Overfull \hbox (832.2412pt too wide) in paragraph at lines 3242--3242
+[]  \T1/lmtt/m/n/10 Low VIFs (<5): Most of the variables have VIF values close to 1, including EDUC (1.07), AGE (1.01), RACE (1.05), SMSA (1.07), and MARRIED (1.02). These values suggest minimal multicollinearity, meaning these predictors are relatively independent.[] 
+ []
+
+
+Overfull \hbox (1225.99005pt too wide) in paragraph at lines 3242--3242
+[]  \T1/lmtt/m/n/10 Moderate VIFs (Between 2 and 5): Some regional variables^^VREGION2 (3.28), REGION3 (3.67), REGION4 (2.18), REGION5 (3.51), REGION6 (2.06), REGION7 (2.54), REGION8 (1.82), and REGION9 (2.92)^^Vshow moderate correlation with other predictors. These values indicate some degree of collinearity, but they are not alarmingly high.[] 
+ []
+
+
+Overfull \hbox (784.99133pt too wide) in paragraph at lines 3242--3242
+[]  \T1/lmtt/m/n/10 High VIFs (>5): None of the variables exceed 5, which suggests that severe multicollinearity is not a major issue in this regression model. But even if VIF would be high (VIF>5), a large sample (n = 10 000 in this case) and high variance[] 
+ []
+
+
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 3258--3258
+[]  \T1/lmtt/m/n/10 2) Under the CNLRM assumptions, the OLS estimator remains BLUE and normally distributed.[] 
+ []
+
+
+Overfull \hbox (81.49338pt too wide) in paragraph at lines 3258--3258
+[]  \T1/lmtt/m/n/10 ->variables appear less significantly different from zero, higher probability of making a Type II error[] 
+ []
+
+
+Overfull \hbox (165.49313pt too wide) in paragraph at lines 3258--3258
+[]  \T1/lmtt/m/n/10 5) The overall model fit (R2) is largely unaffected: even if individual coefficients are insignificant, the F -test may[] 
+ []
+
+
+
+[47]
+
+[48]
+<Data-exploration_files/figure-latex/ordering data-1.pdf, id=408, 469.755pt x 325.215pt>
+File: Data-exploration_files/figure-latex/ordering data-1.pdf Graphic file (type pdf)
+<use Data-exploration_files/figure-latex/ordering data-1.pdf>
+Package pdftex.def Info: Data-exploration_files/figure-latex/ordering data-1.pdf  used on input line 3381.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[49 <./Data-exploration_files/figure-latex/ordering data-1.pdf>]
+
+[50]
+Overfull \hbox (952.99084pt too wide) in paragraph at lines 3492--3492
+[]\T1/lmtt/m/n/10 ##   2) OLS estimator no longer efficientInference: Standard errors are incorrect, leading to invalid t-tests, F-tests, and confidence intervalsIt does not make sense to interpret autocorrelation as a structural feature since there is no natural ordering for the dataset.[] 
+ []
+
+
+
+[51] (./Data-exploration.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-14>
+ ***********
+ ) 
+Here is how much of TeX's memory you used:
+ 13786 strings out of 471589
+ 221870 string characters out of 5519311
+ 721542 words of memory out of 5000000
+ 40003 multiletter control sequences out of 15000+600000
+ 679175 words of font info for 87 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 89i,11n,93p,868b,604s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on Data-exploration.pdf (51 pages, 8739512 bytes).
+PDF statistics:
+ 566 PDF objects out of 1000 (max. 8388607)
+ 436 compressed objects within 5 object streams
+ 102 named destinations out of 1000 (max. 500000)
+ 205 words of extra memory for PDF output out of 10000 (max. 10000000)
+

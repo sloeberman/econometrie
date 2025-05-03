@@ -26,6 +26,8 @@ library(corrplot)
 library(randtests)
 library(sandwich)
 library(nlme)
+library(knitr)
+library(kableExtra)
 
 
 # Load dataset
@@ -329,10 +331,10 @@ if (show_interpretation) {
 Strictly exogenous: AGE, RACE, QOB
 - These variables are fixed and not influenced by wages or the error term.
 
-Weakly exogenous: SMSA, REGION
+Weakly exogenous: SMSA, REGION, MARRIED
 - These variables may be correlated with unobserved factors affecting wages, but are not directly influenced by wages.
 
-Endogenous: EDUC, MARRIED
+Endogenous: EDUC, 
 - Potential for reverse causality or correlation with the error term (e.g., higher wages → more education or higher likelihood of marriage).
 ")
 }
@@ -463,7 +465,7 @@ if (show_interpretation) {
 ### Interpretation of Residual Plots:
 
 1. **Fitted Values**:
-   - Slight increase in spread as fitted values increase
+   - increase in spread as fitted values increase
    - This pattern indicates potential heteroskedasticity
 
 2. **EDUC**:
@@ -473,14 +475,16 @@ if (show_interpretation) {
 3. **RACE**:
    - Larger spread observed for white participants
    - Unequal variance between groups
+    ( aigan moer white than black , see SMSA)
 
 4. **SMSA**:
    - Non-metropolitan areas show greater spread
-   - Variance differs by urban/rural classification
+   - Variance differs by urban/rural classification, but this is  
+   our data is more or less 90 percent non metropolitan (more data , more spread)
 
 5. **MARRIED**:
    - Similar variance pattern as other categorical variables
-
+   - same thing as SMSA , 90 percent of df is married ( so these       are natural spreads , and the problem of heteroskedasticity       will not be here )
 6. **REGION**:
    - Different spreads observed across regions (0-1 range)
    - Geographic heterogeneity in variance
@@ -511,27 +515,53 @@ print(white_test)
 if (show_interpretation) {
   cat(" the p value of 0.02977 says that we  reject the null hyptothis , which implies that we reject homoskedastiscity\n
 **properties**\n\n
+-for white there are not properties, ( idk zie slide bij verbetring stond in rood , maar ze zei er niks over")
+}
+```
+```{r White_test_trimmed , echo=TRUE , results="asis"}
+
+
+# Step 1: Define a trimmed version of your data (removing outliers based on WAGE, for example)
+# Adjust variable and trimming logic as needed
+trimmed_data <- df %>%
+  filter(between(WAGE, quantile(WAGE, 0.01, na.rm = TRUE), 
+                        quantile(WAGE, 0.99, na.rm = TRUE)))
+
+# Step 2: Refit your linear model on the trimmed dataset
+linear_model_trimmed <- lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  ,  data = trimmed_data)
+
+# Step 3: White test on the new model
+white_test_trimmed <- bptest(linear_model_trimmed, 
+                             ~ fitted(linear_model_trimmed) + I(fitted(linear_model_trimmed)^2))
+print(white_test_trimmed)
+
+```
+```{r White_trimmed_interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" even with trimmed date , we have even a smaller p value  reject the null hyptothis , which implies that we reject homoskedastiscity\n
+**properties**\n\n
 -for white there are not properties")
 }
 ```
+
 
 ```{r echo=FALSE, results="asis"}
 cat("#### **goldfeld-quant test**\n\n")
 ```
 
 ```{r QF_test , echo=TRUE , results="asis"}
-gqtest_result <- gqtest(linear_model1)
+gqtest_result <- gqtest(linear_model1, order.by =df$EDUC ,fraction = 1000)
 print(gqtest_result)
 ```
 
 
 ```{r GF_ interpretie, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat(" the p value of p-value =
-5.067e-09 says that we strongly reject the null hyptothis , which implies that we reject homoskedastiscity
+  cat(" very small p value , we order by educ bcs the plot educ vs residuals was a clear sign of heteroskedasticity, t we strongly reject the null hyptothis , which implies that we reject homoskedastiscity
 
 **properties**\n\n
--You split the dataset into two non-overlapping groups (dropping middle observations).\n
+-You split the dataset into two non-overlapping groups( splitting by increasin educ) (dropping middle observations).\n
 -Errors are normally distributed., but in our case they are not so be carefull with the interpratation of this test
 \n\n
 \n\n")
@@ -544,7 +574,7 @@ if (show_interpretation) {
   cat(" **Implications for OLS Estimators**\n\n
 -the coef( the betas ) are not normally distr in small samples\n\n
 -var of the coef changes , we have a more robust variance formula if we use OLS \n\n
--OLS is no longer effecient , we use UGLS wich has a lower variance of the estimator\n\n
+-OLS is no longer effecient , we use EGLS wich has a lower variance of the estimator\n\n
 -the st errors of the coef are underestimated and are not to be trusted, therefore infernce bout the significance is wrong \n\n")
 }
 ```
@@ -574,12 +604,13 @@ stargazer(linear_model1,
           model.numbers = FALSE)
 
 if (show_interpretation) {
-  cat("\n\n##### **Interpretation:\n**")
+  cat("\n\n##### Interpretation:\n")
   cat("- Robust standard errors are larger than conventional OLS standard errors\n")
   cat("- This pattern confirms the presence of heteroskedasticity in the data\n") 
   cat("- The HC1 estimator provides consistent inference under heteroskedasticity\n")
   cat("- Coefficient estimates remain unchanged, but significance levels may differ\n")
 }
+
 
 ```
 
@@ -587,25 +618,34 @@ if (show_interpretation) {
 cat("**EGLS** ")
 ```
 
-```{r EGLS, echo=TRUE,results="asis"}
-gls_model <- gls(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
-                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
-                 weights = varIdent(form = ~1 | EDC)
-```
+```{r EGLS estimation, echo=TRUE}
+# Step 1: Get design matrix and response variable
+X <- model.matrix(linear_model1)  # Includes intercept & region dummies
+Y <- df$WAGE
 
-```{r ,echo=FALSE,results='asis'}
-stargazer(gls_model,
-          type = "latex", # Use "html" for HTML output, "latex" for PDF
+# Step 2: Get initial residuals from baseline model
+resid_init <- residuals(linear_model1)
+
+# Step 3: Create y_bar (mean of Y)
+y_bar <- mean(Y)
+
+# Step 4: Transform X and Y
+X_star <- X / y_bar
+Y_star <- Y / y_bar  # Element-wise division
+
+# Step 5: EGLS estimation (no intercept needed as it's in X_star)
+egls_model <- lm(Y_star ~ X_star - 1)  # -1 removes additional intercept
+
+stargazer(egls_model,
+          type = "latex",
           title = "EGLS Estimation Results",
-          dep.var.labels = "Weekly Wages",
-          covariate.labels = c("Education", "Age", "Race (1=Black)", "SMSA", "Married",
-                             "Region 2", "Region 3", "Region 4", "Region 5",
-                             "Region 6", "Region 7", "Region 8", "Region 9"),
-          notes = "Standard errors in parentheses",
+          dep.var.labels = "Transformed WAGE (Y/ȳ)",
+          covariate.labels = c("Intercept", "EDUC", "AGE", "RACE", "SMSA", "MARRIED",
+                             "REGION2", "REGION3", "REGION4", "REGION5",
+                             "REGION6", "REGION7", "REGION8", "REGION9"),
+          notes = "Variables transformed by dividing by mean wage (ȳ)",
           notes.append = TRUE,
-          model.numbers = FALSE,
-          column.sep.width = "1pt",
-          single.row = TRUE)
+          digits = 4)
 
 
 if (show_interpretation) {
@@ -617,11 +657,7 @@ if (show_interpretation) {
 }
 ```
 
-
-
-```
-
-```{r Breusch pagan interpretie, echo=FALSE, results="asis"}
+```{r multicollin, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("Multicollinearity\n
       Gauss-Markov assumption (no perfect multicollinearity) is met.
@@ -660,9 +696,11 @@ corrplot(correlation_matrix, method = "circle")
 
 ```
 
-```{r}
+```{r corr matrix , echo=TRUE, results='markup', message=FALSE}
 print(correlation_matrix)
 print(max(abs(correlation_matrix)))
+
+
 ```
 ```{r}
 print('VIF values')
@@ -670,43 +708,64 @@ vif_values = vif(linear_model1)
 print(vif_values)
 ```
 
+```{r ordering data, echo=TRUE,results='asis'}
+df_ordered_educ <- df %>% arrange(EDUC)
 
-```{r autocorrelation graph}
-df$residuals <- residuals
-df_ordered <- df[order(df$EDUC, df$AGE), ]
-plot(df_ordered$residuals, type = "l",
+# Re-run baseline linear model on ordered data
+linear_model_ordered <- lm(
+  WAGE ~ EDUC + AGE + RACE + SMSA + MARRIED + 
+  REGION2 + REGION3 + REGION4 + REGION5 + 
+  REGION6 + REGION7 + REGION8 + REGION9,
+  data = df_ordered_educ
+)
+
+# Store residuals
+residuals_ordered <- residuals(linear_model_ordered)
+
+plot(residuals_ordered, 
+    type = "p",  # "p" for points instead of "l" for lines
+     pch = 16,    # Solid circle points (other options: 1-25)
+     col = "blue", # Color of points
+     cex = 0.4,   # Size of points
      main = "Residuals Ordered by EDUC and AGE",
-     ylab = "Residuals", xlab = "Observation Index")
+     ylab = "Residuals", 
+     xlab = "Observation Index")
+abline(h = 0, lty = 2, col = "red")  # Reference line
+
+
 ```
 
-```{r autocorrelation runs test}
-runs.test(df$residuals)
+
+```{r runstest, echo=TRUE,results='asis'}
+runs_test_ordered <- runs.test(residuals_ordered)
+print(runs_test_ordered)
 if (show_interpretation) {
-  cat("Assumptions:
-  1) no need to assume specific error structure
-  2) The observations should be in a meaningful order as the test evaluates the sequence
-  High p-value suggest that there is no autocorrelation.")
+  cat("sippe tijden , p value is hoog dus toch corr ")
   }
 ```
 
-```{r autocorrelation DW test}
-DW=dwtest(linear_model1)
-# print to screen
-DW_summary=c(DW$statistic,DW$p.value)
-names(DW_summary)=c("Test-statistic","P-value")
+
+
+```{r dw, echo=TRUE,results='asis'}
+# Run Durbin-Watson test
+dw_test_ordered <- dwtest(linear_model_ordered)
+
+# Create summary properly
+DW_summary <- c(dw_test_ordered$statistic, dw_test_ordered$p.value)
+names(DW_summary) <- c("Test-statistic", "P-value")
 stargazer(DW_summary,type="text")
 if (show_interpretation) {
   cat("Assumptions:
   1) Error terms follow an AR(1) process
   2) Error terms are normally distributed
   3) The regression model does not include lagged dependent variables
-  High p-value suggest that there is no autocorrelation.")
+ hahahah dikke pech , toch corr  :)")
   }
 ```
 
 ```{r autocorrelation BG test}
-BG = bgtest(linear_model1, order = 6)  # Change order as needed
-BG_summary=c(BG$statistic,BG$p.value)
+bg_test_ordered <- bgtest(linear_model_ordered, order = 6)  # Test up to 3 lags
+BG_summary=c(bg_test_ordered$statistic,bg_test_ordered$p.value)
 names(BG_summary)=c("Test-statistic","P-value")
 stargazer(BG_summary,type="text")
 if (show_interpretation) {
@@ -714,8 +773,7 @@ if (show_interpretation) {
   1) Allows for stochastic regressors
   2) Tests for higher-order autocorrelation
   3) Allows for lagged dependent variables
-  High p-value suggest that there is no autocorrelation.")
-  }
+geprankt er is gwn corr  , idk")  }
 ```
 
 ```{r autocorrelation implications for OLS}

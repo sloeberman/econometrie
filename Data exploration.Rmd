@@ -28,8 +28,8 @@ library(sandwich)
 library(nlme)
 library(knitr)
 library(kableExtra)
-
-
+library(broom)
+library(modelsummary)
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 df <- df %>% mutate(
@@ -569,6 +569,7 @@ if (show_interpretation) {
 
 
 ```
+
 ```{r Implications_for OLS , echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat(" **Implications for OLS Estimators**\n\n
@@ -586,7 +587,7 @@ cat("## **4(d).2 adressing heteroskedasticity**\n\n")
 
 ```{r address-heteroskedasticity-robust, echo=FALSE, results="asis"}
 # Calculate robust standard errors (HC1 for Stata-like small sample adjustment)
-robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC1")))
+robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC0")))
 
 # Create publication-quality table with robust SEs
 stargazer(linear_model1,
@@ -594,7 +595,7 @@ stargazer(linear_model1,
           title = "OLS Regression with Robust Standard Errors",
           se = list(robust_se),
           dep.var.labels = "Weekly Wage",
-          covariate.labels = c("Education", "Age", "Race (1=Black)", "SMSA", "Married",
+          covariate.labels = c("Education", "Age", "Race", "SMSA", "Married",
                              "Region 2", "Region 3", "Region 4", "Region 5",
                              "Region 6", "Region 7", "Region 8", "Region 9"),
           notes = "Heteroskedasticity-consistent standard errors in parentheses",
@@ -602,7 +603,9 @@ stargazer(linear_model1,
           digits = 4,  # Controls decimal places
           single.row = FALSE,
           model.numbers = FALSE)
+```
 
+```{r interpretation White SE, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("\n\n##### Interpretation:\n")
   cat("- Robust standard errors are larger than conventional OLS standard errors\n")
@@ -611,42 +614,58 @@ if (show_interpretation) {
   cat("- Coefficient estimates remain unchanged, but significance levels may differ\n")
 }
 
-
 ```
 
 ```{r echo=FALSE, results="asis"}
 cat("**EGLS** ")
 ```
 
-```{r EGLS estimation, echo=TRUE}
+```{r EGLS estimation, echo=TRUE, results="asis"}
 # Step 1: Get design matrix and response variable
 X <- model.matrix(linear_model1)  # Includes intercept & region dummies
 Y <- df$WAGE
 
-# Step 2: Get initial residuals from baseline model
-resid_init <- residuals(linear_model1)
+# Step 2: Transform X and Y
+y_hat <- fitted(linear_model1)
+X_star <- X / y_hat
+Y_star <- Y / y_hat  # Element-wise division
 
-# Step 3: Create y_bar (mean of Y)
-y_bar <- mean(Y)
-
-# Step 4: Transform X and Y
-X_star <- X / y_bar
-Y_star <- Y / y_bar  # Element-wise division
-
-# Step 5: EGLS estimation (no intercept needed as it's in X_star)
+# Step 3: EGLS estimation (no intercept needed as it's in X_star)
 egls_model <- lm(Y_star ~ X_star - 1)  # -1 removes additional intercept
 
 stargazer(egls_model,
           type = "latex",
           title = "EGLS Estimation Results",
-          dep.var.labels = "Transformed WAGE (Y/ȳ)",
+          dep.var.labels = "Transformed WAGE",
           covariate.labels = c("Intercept", "EDUC", "AGE", "RACE", "SMSA", "MARRIED",
                              "REGION2", "REGION3", "REGION4", "REGION5",
                              "REGION6", "REGION7", "REGION8", "REGION9"),
-          notes = "Variables transformed by dividing by mean wage (ȳ)",
+          notes = "Variables transformed by dividing by y hat)",
           notes.append = TRUE,
           digits = 4)
 
+# Show table in basic format
+modelsummary(
+    list("Baseline (White SEs)" = linear_model1, "EGLS" = egls_model),
+    coef_rename = c(
+        "X_starEDUC" = "EDUC", 
+        "X_starAGE" = "AGE", 
+        "X_starRACE" = "RACE",
+        "X_starMARRIED" = "MARRIED", 
+        "X_starSMSA" = "SMSA",
+        "X_star(Intercept)" = "(Intercept)",
+        "X_starREGION_factor2" = "REGION_factor2", 
+        "X_starREGION_factor3" = "REGION_factor3",
+        "X_starREGION_factor4" = "REGION_factor4", 
+        "X_starREGION_factor5" = "REGION_factor5",
+        "X_starREGION_factor6" = "REGION_factor6", 
+        "X_starREGION_factor7" = "REGION_factor7",
+        "X_starREGION_factor8" = "REGION_factor8", 
+        "X_starREGION_factor9" = "REGION_factor9"
+    ),
+    vcov=list(vcovHC(linear_model1, type="HC0"),NULL),
+    stars=TRUE
+)
 
 if (show_interpretation) {
   cat("\n##### **Comparison with Robust Standard Errors:**\n")
@@ -708,6 +727,10 @@ vif_values = vif(linear_model1)
 print(vif_values)
 ```
 
+```{r autocor, echo=FALSE, results='asis'}
+cat("### **4(e) Autocorrelation**\n\n")
+```
+
 ```{r ordering data, echo=TRUE,results='asis'}
 df_ordered_educ <- df %>% arrange(EDUC)
 
@@ -727,9 +750,9 @@ plot(residuals_ordered,
      pch = 16,    # Solid circle points (other options: 1-25)
      col = "blue", # Color of points
      cex = 0.4,   # Size of points
-     main = "Residuals Ordered by EDUC and AGE",
+     main = "Residuals Ordered by EDUC",
      ylab = "Residuals", 
-     xlab = "Observation Index")
+     xlab = "Ordered index by EDUC")
 abline(h = 0, lty = 2, col = "red")  # Reference line
 
 

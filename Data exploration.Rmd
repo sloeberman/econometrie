@@ -872,5 +872,5 @@ So: include I(EDUC^2) and I(AGE^2) in the preferred model going forward")
 ```{r interaction effects, echo=TRUE,results='asis'}
 int_model <-lm(WAGE~ EDUC + AGE + RACE + EDUC*AGE + EDUC*RACE + I(EDUC^2) + I(AGE^2)+SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
 linearHypothesis(int_model, c("EDUC:AGE = 0", "EDUC:RACE = 0"))
-
+cat("You reject the null hypothesis that the interaction terms are irrelevant.The interaction effects between EDUC and AGE, and between EDUC and RACE, contribute significantly to explaining variation in wages.")
 ```

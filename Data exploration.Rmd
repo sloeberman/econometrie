@@ -850,4 +850,27 @@ log_model <- lm(log(WAGE)~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION
 par(mfrow = c(2, 2))
 plot(linear_model1, which = 1)  # Residuals for linear model
 plot(log_model, which = 1)     # Residuals for log-linear model
+# compare AIC
+AIC(linear_model1, log_model)
+# compare BIC
+BIC(linear_model1, log_model)
+cat("The log model has a lower AIC and BIC than the linear model, so log model has a better fit")
+```
+```{r nonlinear effects, echo=TRUE,results='asis'}
+quad_model <- lm(WAGE~ EDUC + I(EDUC^2) + AGE + I(AGE^2) + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+linearHypothesis(quad_model, c("I(EDUC^2) = 0", "I(AGE^2) = 0"))
+cat("You reject the null hypothesis that the squared terms are irrelevant. This means:
+
+The relationship between wage and education, and wage and age, is not linear.
+
+Quadratic model fits the data significantly better when it includes these quadratic terms.
+
+So: include I(EDUC^2) and I(AGE^2) in the preferred model going forward")
+```
+
+```{r interaction effects, echo=TRUE,results='asis'}
+int_model <-lm(WAGE~ EDUC + AGE + RACE + EDUC*AGE + EDUC*RACE + I(EDUC^2) + I(AGE^2)+SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+linearHypothesis(int_model, c("EDUC:AGE = 0", "EDUC:RACE = 0"))
+
 ```

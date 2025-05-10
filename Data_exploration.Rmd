@@ -1,0 +1,1039 @@
+---
+title: "Case Solution Group 5"
+author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Stef
+  Desender, Seppe Van Campe"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+df_print: paged
+---
+
+```{r setup, include=FALSE}
+# Global setting: Toggle to TRUE for feedback version, FALSE for exam version
+show_interpretation <-TRUE
+#load libraries
+library(stargazer)
+library(psych)
+library(ggplot2)
+library(car)
+library(tseries)
+library(lmtest)
+library(dplyr)
+library(purrr)
+library(corrplot)
+library(randtests)
+library(sandwich)
+library(nlme)
+library(knitr)
+library(kableExtra)
+library(broom)
+library(modelsummary)
+library(lmtest)
+# Load dataset
+df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
+df <- df %>% mutate(
+REGION1 = as.integer(REGION == 1), 
+REGION2 = as.integer(REGION == 2), 
+REGION3 = as.integer(REGION == 3),
+REGION4 = as.integer(REGION == 4),
+REGION5 = as.integer(REGION == 5),
+REGION6 = as.integer(REGION == 6),
+REGION7 = as.integer(REGION == 7),
+REGION8 = as.integer(REGION == 8),
+REGION9 = as.integer(REGION == 9),
+
+QOB1 = as.integer(QOB == 1),
+QOB2 = as.integer(QOB == 2),
+QOB3 = as.integer(QOB == 3),
+QOB4 = as.integer(QOB == 4)
+)
+```
+
+```{r hypothesis_test, echo=FALSE, results="asis"}
+if (isTRUE(show_interpretation)) {
+  cat("# **1. Empirical Specification and Hypotheses**\n\n")
+
+cat("Baseline model:\n\n")
+cat("$$WAGE_i = \\beta_1 + \\beta_2 \\, EDUCi + \\alpha \\, X_i + \\mu_i$$\n\n")
+cat("Where Xi includes AGE, RACE, MARRIED, SMSA, and REGION.\n\n")
+
+cat("## **Hypothesis Tests:**\n\n")
+
+cat("##### **EDUC: Education**\n\n")
+cat("H0: B2 $\\leq$ 0 → Education has no or a negative effect on wages.\n\n")
+cat("H1: B2 $>$ 0 → Education has a positive effect on wages.\n\n")
+cat("One-sided test: Economic theory predicts that more education increases wages, so a negative effect would be counterintuitive.\n\n")
+
+cat("##### **AGE: Age**\n\n")
+cat("H0: A(AGE) $\\leq$ 0 → Age has no or a negative effect on wages.\n\n")
+cat("H1: A(AGE) $>$ 0 → Age has a positive effect on wages.\n\n")
+cat("One-sided test: Age is often associated with experience, which is expected to increase wages.\n\n")
+
+cat("##### **MARRIED: Marital Status**\n\n")
+cat("H0: A(MARRIED) $\\leq$ 0 → Being married has no or a negative effect on wages.\n\n")
+cat("H1: A(MARRIED) $>$ 0 → Being married has a positive effect on wages.\n\n")
+cat("One-sided test: Being married may indicate stability and a positive impact on productivity, leading to higher wages.\n\n")
+
+cat("##### **SMSA: Metropolitan Area**\n\n")
+cat("H0: A(SMSA) $\\leq$ 0 → Living in a metropolitan area has no or a negative effect on wages.\n\n")
+cat("H1: A(SMSA) $>$ 0 → Living in a metropolitan area has a positive effect on wages.\n\n")
+cat("One-sided test: Urban areas typically have more job opportunities and higher wages, driving this expectation.\n\n")
+
+cat(" ##### **RACE: Race (1 = Black, 0 = White)**\n\n")
+cat("H0: A(RACE) $\\geq$ 0 → Race has no or a positive effect on wages.\n\n")
+cat("H1: A(RACE) $<$ 0 → Race has a negative effect on wages.\n\n")
+cat("One-sided test: Structural inequalities often result in lower wages for minority groups.\n\n")
+
+cat("##### **REGION: Geographic Region**\n\n")
+cat("H0: A(REGION) $\\neq$ 0 → (There are no positive wage differences across regions.)\n\n")
+cat("H1: A(REGION) $=$ 0 → (At least one region has a positive effect on wages.)\n\n")
+cat("Two-sided test: Region could impact wages in either direction\n\n")
+
+}
+```
+
+```{r header 2, echo=FALSE, results='asis'}
+cat("# **2. Explore the Data**\n\n")
+```
+
+
+```{r head, echo=TRUE}
+head(df)
+```
+
+```{r summary, echo=TRUE}
+summary(df)
+```
+
+
+```{r describe, echo=TRUE}
+describe(df)
+```
+
+```{r cov, echo=TRUE}
+cov(df)
+```
+```{r statisctics per region, echo=FALSE, results="asis"}
+if (isTRUE(show_interpretation)) {
+  cat("### **2.1 Statistics per region**\n\n")  # Adds a Markdown header for clarity
+  cat("WAGE: Largest wage disparities in regions 2, 6, and 9; high SD, skewness, and kurtosis → outliers with very high incomes.\n\n")
+  cat("EDUC: Highest in region 9, lowest in region 6; slightly more variation in regions 5 and 6.\n\n")
+  cat("AGE: Almost uniformly ~45 years across regions; low spread, minimal differences.\n\n")
+  cat("RACE: Mostly white population (>90%); region 5 relatively more diversity; high kurtosis indicates outliers.\n\n")
+  cat("SMSA: Regions 4 & 6 are more urban, region 2 is the most rural; skewed → most live outside urban areas.\n\n")
+  cat("MARRIED: High marriage rates across all regions (~85–89%); region 9 slightly lower.\n\n")
+}
+```
+
+```{r statisctics per region code, echo=FALSE}
+library(dplyr)
+library(psych)
+
+
+df %>%
+  group_by(REGION) %>%
+  summarize(
+    mean_wage = mean(WAGE, na.rm = TRUE),
+    mean_educ = mean(EDUC, na.rm = TRUE),
+    mean_age = mean(AGE, na.rm = TRUE),
+    
+    sd_wage = sd(WAGE, na.rm = TRUE),
+    sd_educ = sd(EDUC, na.rm = TRUE),
+    sd_age = sd(AGE, na.rm = TRUE),
+    
+    var_wage = var(WAGE, na.rm = TRUE),
+    var_educ = var(EDUC, na.rm = TRUE),
+    var_age = var(AGE, na.rm = TRUE),
+    
+    
+    count = n()
+  )
+
+#dit is hoe polina het toont in feedback (ook zelfde uitkomsten als haar)
+#alleen de relevante kolommen (alle numerieke behalve dummies)
+numeric_vars <- df %>% 
+  select_if(is.numeric) %>%
+  select(-starts_with("REGION"), -starts_with("QOB"))  # dummies eruit
+
+#combineer met regio
+df_subset1 <- df %>% 
+  select(REGION) %>% 
+  bind_cols(numeric_vars)
+
+#beschrijvende statistieken per regio
+describeBy(df_subset1, group = "REGION")
+```
+
+
+
+```{r statisctics per age, echo=FALSE, results="asis"}
+if (isTRUE(show_interpretation)) {
+  cat("### **2.2 Statistics per age**\n\n")
+  cat("AGE GROUPS:\n\n")
+  cat("AGE >= 40 & AGE < 42 ~ '40-41 GROUP 1',\n\n")
+  cat("AGE >= 42 & AGE < 44 ~ '42-43 GROUP 2',\n\n")
+  cat("AGE >= 44 & AGE < 46 ~ '44-45 GROUP 3',\n\n")
+  cat("AGE >= 46 & AGE < 48 ~ '46-47 GROUP 4',\n\n")
+  cat("AGE >= 48 & AGE <= 50 ~ '48-50 GROUP 5'\n\n")
+}
+```
+
+
+```{r statisctics per age code, echo=FALSE}
+#dit is voor age groups
+df_subset2 <- df %>%
+  mutate(AGE_GROUP = case_when(
+    AGE >= 40 & AGE < 42 ~ "40-41",
+    AGE >= 42 & AGE < 44 ~ "42-43",
+    AGE >= 44 & AGE < 46 ~ "44-45",
+    AGE >= 46 & AGE < 48 ~ "46-47",
+    AGE >= 48 & AGE <= 50 ~ "48-50"
+  )) %>%
+  select(-starts_with("REGION"), -starts_with("QOB"))
+
+# Beschrijvende statistieken per AGE_GROUP
+describeBy(df_subset2, group = "AGE_GROUP")
+```
+
+
+```{r cov per regio, echo=FALSE , results='asis'}
+cat("### **2.3 Covariance matrices per regio**\n\n")
+df %>%
+  group_by(REGION) %>%
+  group_split() %>%
+  map(~ {
+    region_name <- as.character(unique(.x$REGION))  # Extracts region name as text
+    knitr::kable(cov(select(.x, WAGE, EDUC, AGE, RACE, SMSA, MARRIED, QOB, QOB1:QOB4), use = "pairwise.complete.obs"), 
+             caption = paste("Covariance Matrix for REGION:", region_name),
+             digits = 3)
+  })
+
+```
+
+
+```{r cor per regio, echo=FALSE , results='asis'}
+cat("### **2.4 Correlation matrices per regio**\n\n")
+df %>%
+  group_by(REGION) %>%
+  group_split() %>%
+  map(~ {
+    region_name <- as.character(unique(.x$REGION))  # Extracts region name as text
+    knitr::kable(cor(select(.x, WAGE, EDUC, AGE, RACE, SMSA, MARRIED, QOB, QOB1:QOB4),  use = "pairwise.complete.obs"),
+             caption = paste("Correlation Matrix for REGION:", region_name),
+             digits = 3)
+  })
+
+```
+
+```{r plot, echo=FALSE}
+ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
+  geom_point(color = "blue") +
+  labs(title = "Relationship Between Education and Wage",
+       x = "Years of Education",
+       y = "Weekly Wage (in $)")+
+
+  theme_minimal()
+
+```
+
+```{r header 3, echo=FALSE, results='asis'}
+cat("# **3.Estimate the baseline Specification**\n\n")
+```
+
+```{r linear model, echo=TRUE}
+#linear model
+linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+```
+
+```{r stargazer lin model, echo=FALSE}
+stargazer(linear_model1,type="text",style="all")
+```
+
+
+```{r betekenins coef, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("### **3.1 Interpretation of the estimated Coefficient **\n\n")
+  cat("\n EDUC (26.696, p < 0.001)
+
+A one-year increase in education leads to a $26.696 increase in weelky wages.
+This is highly significant (p = 0.000).
+
+AGE ( 2.244, p = 0.020)
+A one-year increase in age increases wages by $2.23.
+Significant at the 5% level (p = 0.020).
+
+RACE (-77.478, p < 0.001)
+Suggests a wage penalty of $77.48 for certain racial groups (assuming a binary variable where non-white = 1).
+Highly significant (p = 0.000).
+
+SMSA (-63.654, p < 0.001)
+Living in an SMSA (Standard Metropolitan Statistical Area) is associated with a $63.65 lower wage.
+Significant at p = 0.000.
+
+MARRIED (77.927, p < 0.001)
+Being married increases wages by $77.93.
+Highly significant (p = 0.000).
+
+Regional Effects on Wages
+
+Significant Regions:
+REGION2 (B = 41.204, p = 0.003)
+REGION3 (B = 49.071, p = 0.0003)
+REGION9 (B = 63.543, p = 0.00001)
+These regions have higher wages compared to the reference region.
+
+Non-Significant Regions:
+REGION4, REGION5, REGION6, REGION7, REGION8 (p > 0.05)
+These regions do not significantly differ from the reference region in terms of wages.
+")
+}
+
+```
+
+```{r Joint significance tests, echo=FALSE}
+# Joint significance test: Test whether AGE, RACE, MARRIED, and SMSA jointly contribute to explaining WAGE.
+linearHypothesis(linear_model1, c("AGE = 0", "RACE = 0", "MARRIED = 0", "SMSA = 0"))
+
+```
+
+```{r interpretatie joint significance tests, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("The joint significance test shows that AGE, RACE, MARRIED, and SMSA jointly contribute significantly to explaining WAGE.\n",
+    "The F-statistic is 60.23 with a p-value < 2.2e-16, indicating strong statistical significance.\n",
+    "We reject the null hypothesis that these four variables have no joint effect on wages.\n")
+}
+```
+
+```{r Regional differences, echo=FALSE}
+#Assess whether regional differences are statistically significant.
+linearHypothesis(linear_model1, c("REGION2 = 0","REGION3 = 0", "REGION4 = 0", "REGION5 = 0", "REGION6 = 0", "REGION7 = 0", "REGION8 = 0", "REGION9 = 0" ))
+```
+
+```{r interpretatie van joint significance, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nSince the p-value is extremely small (<0.001), we reject the null hypothesis. This means that at least one of the region coefficients is significantly different from zero, implying that region does have a statistically significant effect on wages.")
+}
+```
+
+```{r header 4, echo=FALSE, results="asis"}
+cat("# **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
+```
+
+```{r GM assumptrions, echo=FALSE, results="asis"}
+
+if (show_interpretation) {
+  cat("### **Gauss-Markov assumptions**:
+  \n Assumption 1: Linearity in the parameters: CHECK
+  \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model) FAIL
+  \n Correlation between explanatory variables and error terms:
+  ")
+  
+}
+```
+
+
+```{r assumption 3, echo=TRUE, results="markup" }
+residuals <- residuals(linear_model1)
+print(mean(residuals))
+print(t.test(residuals, mu = 0))
+if (show_interpretation) {
+  cat("Assumption 3: The expected value of the error terms is zero( nulhypothese niet verwerpen : CHECK")
+}
+```
+
+```{r header 4a, echo=FALSE, results="asis"}
+cat("## **4(a). Stochastic Regressors**\n\n")
+
+```
+
+
+```{r stochastic of deterministic, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("All the variables are stochastic.\n\n")
+  cat("
+Strictly exogenous: AGE, RACE, QOB\n
+- These variables are fixed and not influenced by wages or the error term.
+
+Weakly exogenous: SMSA, REGION, MARRIED\n
+- These variables may be correlated with unobserved factors affecting wages, but are not directly influenced by wages.
+
+Endogenous: EDUC\n 
+- Potential for reverse causality or correlation with the error term (e.g., higher wages → more education or higher likelihood of marriage).
+")
+}
+```
+
+```{r residuals plot, echo=FALSE}
+plot(linear_model1$fitted.values, resid(linear_model1),
+     main = "Residuals vs. Fitted Values",
+     xlab = "Fitted Values",
+     ylab = "Residuals",
+     pch = 16, col = "black")
+abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
+```
+
+
+
+```{r histogram plot, echo=FALSE}
+
+# Updated upstream
+
+
+# Residuen opslaan
+residuals <- residuals(linear_model1) 
+# Histogram van de residuen
+ggplot(data.frame(residuals), aes(x = residuals)) +
+  geom_histogram(binwidth = 5, color = "black", fill = "blue", alpha = 0.7) +
+  labs(title = "Histogram Residuals", x = "Residuals", y = "Frequentie") +
+  theme_minimal()
+```
+
+```{r header 4b, echo=FALSE, results="asis"}
+cat("## **4(b). Normality Error Terms**\n\n")
+```
+
+```{r QQ plot, echo=FALSE}
+qqnorm(residuals)
+qqline(residuals, col = "red", lwd = 2)
+```
+
+```{r QQ plot_layout, echo=FALSE, fig.width=8, fig.height=6}
+qqnorm(residuals)
+qqline(residuals, col = "red", lwd = 2)
+```
+
+```{r jarque bera test_layout, echo=FALSE, results="asis"}
+# Jarque-Bera test uitvoeren
+jarque.bera.test(residuals)
+
+if (show_interpretation) {
+  cat(paste(
+    "Since the p value is small, we reject the null hypothesis. Therefore the residuals are NOT normally distributed.",
+    "",
+    "Implications for OLS:",
+    "",
+    "1) Unbiasedness:",
+    "Non-normal residuals do not affect the unbiasedness of OLS estimators as long as key assumptions (like linearity, exogeneity of regressors, and zero-mean error term) are satisfied.",
+    "",
+    "2) Efficiency:",
+    "OLS estimators may lose their efficiency because normality of residuals is necessary for OLS to be the Best Linear Unbiased Estimator (BLUE) under the Gauss-Markov assumptions.",
+    "",
+    "3) Hypothesis Testing:",
+    "The validity of tests (e.g., t-tests and F-tests) and confidence intervals relies on the normality assumption. Non-normal residuals can lead to incorrect p-values.",
+    "",
+    "4) Heteroscedasticity or Outliers:",
+    "Non-normality can signal issues like heteroscedasticity (non-constant error variance), the presence of outliers, or omitted variable bias.",
+    "",
+    "Remediation:",
+    "Based on the histogram and Q-Q Plot which is slightly right-skewed, we can conclude that the residuals deviate slightly from normality, so OLS may still perform adequately, particularly in our large sample where asymptotic normality applies.",
+    sep = "\n"
+  ))
+}
+```
+
+
+
+```{r Heterskedasticity, echo=FALSE, results='asis'}
+cat("## **4(d) Heteroskedasticity**\n\n")
+```
+
+```{r residuals_plot, echo=FALSE}
+res <- resid(linear_model1)
+plot(linear_model1$fitted.values, res,
+     main = " residuals vs. Fitted Values",
+     xlab = "Fitted Values",
+     ylab = " residuals",
+     pch = 16, col = "black")
+abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
+
+explanatory_vars <- names(linear_model1$model)[-1]  # exclude response variable
+
+# Plot squared residuals vs each predictor
+par(mar = c(4, 4, 1, 1))  # Set smaller margins
+# Adjust layout if needed
+for (var in explanatory_vars) {
+  plot(linear_model1$model[[var]], res,
+       main = paste(" Residuals vs", var),
+       xlab = var,
+       ylab = " Residuals",
+       pch = 16, col = "black")
+  abline(h = 0, lty = 2, col = "red")
+}
+
+
+```
+
+```{r uitleg_plots, echo=FALSE, results='asis'}
+if (show_interpretation) {
+  cat("
+### Interpretation of Residual Plots:
+
+1. **Fitted Values**:
+   - increase in spread as fitted values increase
+   - This pattern indicates potential heteroskedasticity
+
+2. **EDUC**:
+   - Initial increase followed by decrease in spread
+   - Non-constant variance pattern visible
+
+3. **RACE**:
+   - Larger spread observed for white participants
+   - Unequal variance between groups
+    ( aigan moer white than black , see SMSA)
+
+4. **SMSA**:
+   - Non-metropolitan areas show greater spread
+   - Variance differs by urban/rural classification, but this is  
+   our data is more or less 90 percent non metropolitan (more data , more spread)
+
+5. **MARRIED**:
+   - Similar variance pattern as other categorical variables
+   - same thing as SMSA , 90 percent of df is married ( so these       are natural spreads , and the problem of heteroskedasticity       will not be here )
+6. **REGION**:
+   - Different spreads observed across regions (0-1 range)
+   - Geographic heterogeneity in variance
+
+**Conclusion**:\n\n
+Clear signs of heteroskedasticity across multiple predictors, suggesting violations of the constant variance assumption.
+")
+}
+```
+
+```{r Heteroskedasticity_test, echo=FALSE, results='asis'}
+cat("### **4(d).1**Heteroskedasticity tests**\n\n")
+
+```
+
+```{r echo=FALSE, results="asis"}
+cat("##### **white's general test**\n\n")
+```
+
+```{r White_test , echo=TRUE , results="markup"}
+white_test <- bptest(linear_model1, ~ fitted(linear_model1) + I(fitted(linear_model1)^2))
+print(white_test)
+```
+
+```{r White_ interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" the p value of 0.02977 says that we  reject the null hyptothis , which implies that we reject homoskedastiscity\n
+**properties**\n\n
+-for white there are not properties, ( idk zie slide bij verbetring stond in rood , maar ze zei er niks over")
+}
+```
+
+```{r  TRIMME,echo=FALSE, results="asis"}
+cat("##### **white's general test trimmed dataset**\n\n")
+```
+
+```{r White_test_trimmed , echo=FALSE , results="asis"}
+# Step 1: Define a trimmed version of your data (removing outliers based on WAGE, for example)
+# Adjust variable and trimming logic as needed
+trimmed_data <- df %>%
+  filter(between(WAGE, quantile(WAGE, 0.01, na.rm = TRUE), 
+                        quantile(WAGE, 0.99, na.rm = TRUE)))
+
+# Step 2: Refit your linear model on the trimmed dataset
+linear_model_trimmed <- lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  ,  data = trimmed_data)
+```
+
+
+```{r White_test_trimmedr , echo=FALSE , results="markup"}
+# Step 3: White test on the new model
+white_test_trimmed <- bptest(linear_model_trimmed, 
+                             ~ fitted(linear_model_trimmed) + I(fitted(linear_model_trimmed)^2))
+print(white_test_trimmed)
+
+```
+
+```{r White_trimmed_interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" even with trimmed date , we have even a smaller p value  reject the null hyptothis , which implies that we reject homoskedastiscity\n
+**properties**\n\n
+-for white there are not properties")
+}
+```
+
+```{r echo=FALSE, results="asis"}
+cat("#### **goldfeld-quant test**\n\n")
+```
+
+```{r QF_test , echo=TRUE , results="markup"}
+gqtest_result <- gqtest(linear_model1, order.by =df$EDUC ,fraction = 1000)
+print(gqtest_result)
+```
+
+
+```{r GF_ interpretie, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" very small p value , we order by educ bcs the plot educ vs residuals was a clear sign of heteroskedasticity, t we strongly reject the null hyptothis , which implies that we reject homoskedastiscity
+
+**properties**\n\n
+-You split the dataset into two non-overlapping groups( splitting by increasin educ) (dropping middle observations).\n
+-Errors are normally distributed., but in our case they are not so be carefull with the interpratation of this test
+\n\n
+\n\n")
+}
+
+
+```
+
+```{r Implications_for OLS , echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat(" **Implications for OLS Estimators**\n\n
+-the coef( the betas ) are not normally distr in small samples\n\n
+-var of the coef changes , we have a more robust variance formula if we use OLS \n\n
+-OLS is no longer effecient , we use EGLS wich has a lower variance of the estimator\n\n
+-the st errors of the coef are underestimated and are not to be trusted, therefore infernce bout the significance is wrong \n\n")
+}
+```
+
+```{r edzs, echo=FALSE,results='asis'}
+cat("### **4(d).2 adressing heteroskedasticity**\n\n")
+```
+
+
+
+```{r address-heteroskedasticity-robust, echo=FALSE, results="markup"}
+# Calculate robust standard errors (HC1 for Stata-like small sample adjustment)
+robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC0")))
+summary(robust_se)
+# Create publication-quality table with robust SEs
+stargazer(linear_model1,
+          type = "latex",  
+          title = "OLS Regression with Robust Standard Errors",
+          se = list(robust_se),
+          dep.var.labels = "Weekly Wage",
+          covariate.labels = c("Education", "Age", "Race", "SMSA", "Married",
+                             "Region 2", "Region 3", "Region 4", "Region 5",
+                             "Region 6", "Region 7", "Region 8", "Region 9"),
+          notes = "Heteroskedasticity-consistent standard errors in parentheses",
+          notes.append = TRUE,
+          digits = 4,  # Controls decimal places
+          single.row = FALSE,
+          model.numbers = FALSE)
+```
+
+```{r interpretation White SE, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\n\n##### Interpretation:\n")
+  cat("- Robust standard errors are larger than conventional OLS standard errors\n")
+  cat("- This pattern confirms the presence of heteroskedasticity in the data\n") 
+  cat("- The HC1 estimator provides consistent inference under heteroskedasticity\n")
+  cat("- Coefficient estimates remain unchanged, but significance levels may differ\n")
+}
+
+```
+
+```{r echo=FALSE, results="asis"}
+cat("**EGLS** ")
+```
+
+```{r EGLS estimation, echo=FALSE, results="asis"}
+# Step 1: Get design matrix and response variable
+X <- model.matrix(linear_model1)  # Includes intercept & region dummies
+Y <- df$WAGE
+
+# Step 2: Transform X and Y
+y_hat <- fitted(linear_model1)
+X_star <- X / y_hat
+Y_star <- Y / y_hat  # Element-wise division
+
+# Step 3: EGLS estimation (no intercept needed as it's in X_star)
+egls_model <- lm(Y_star ~ X_star - 1)  # -1 removes additional intercept
+
+stargazer(egls_model,
+          type = "latex",
+          title = "EGLS Estimation Results",
+          dep.var.labels = "Transformed WAGE",
+          covariate.labels = c("Intercept", "EDUC", "AGE", "RACE", "SMSA", "MARRIED",
+                             "REGION2", "REGION3", "REGION4", "REGION5",
+                             "REGION6", "REGION7", "REGION8", "REGION9"),
+          notes = "Variables transformed by dividing by y hat)",
+          notes.append = TRUE,
+          digits = 4)
+
+
+if (show_interpretation) {
+  cat("\n##### **Comparison with Robust Standard Errors:**\n")
+  cat("- EGLS provides more efficient estimates than OLS with robust standard errors\n")
+  cat("- Standard errors are typically larger than OLS with incorrect variance formula\n")
+  cat("- The efficiency gain comes from properly modeling the heteroskedasticity structure\n")
+  cat("- Interpretation of coefficients remains the same as OLS\n")
+}
+```
+
+```{r multicollin, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("Multicollinearity\n
+      Gauss-Markov assumption (no perfect multicollinearity) is met.
+      \n\n
+      Analysis of Variance Inflation Factors and correlation:
+      Low VIFs (<5): Most of the variables have VIF values close to 1, including EDUC (1.07), AGE (1.01), RACE (1.05), SMSA (1.07), and MARRIED (1.02). These values suggest minimal multicollinearity, meaning these predictors are relatively independent.\n
+      
+      Moderate VIFs (Between 2 and 5): Some regional variables—REGION2 (3.28), REGION3 (3.67), REGION4 (2.18), REGION5 (3.51), REGION6 (2.06), REGION7 (2.54), REGION8 (1.82), and REGION9 (2.92)—show moderate correlation with other predictors. These values indicate some degree of collinearity, but they are not alarmingly high.
+      \n
+      High VIFs (>5): None of the variables exceed 5, which suggests that severe multicollinearity is not a major issue in this regression model. But even if VIF would be high (VIF>5), a large sample (n = 10 000 in this case) and high variance
+in the explanatory variables can still lead to precise estimates.
+
+
+
+      Implications for the properties and precision of the OLS estimator:
+      1) Parameters remain identifiable.\n
+      2) Under the CNLRM assumptions, the OLS estimator remains BLUE and normally distributed.\n
+      3) OLS estimators exhibit larger variance and covariance, especially the regions.\n
+      4) Wider confidence intervals and lower t-statistics 
+      ->variables appear less significantly different from zero, higher probability of making a Type II error\n
+      5) The overall model fit (R2) is largely unaffected: even if individual coefficients are insignificant, the F -test may
+indicate that the coefficients are jointly significant, and can be estimated with high precision.\n
+      6) Regression coefficients may change substantially\n
+      ")
+
+
+
+correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
+                                 "REGION2", "REGION3", "REGION4", "REGION5", 
+                                 "REGION6", "REGION7", "REGION8", "REGION9")])
+
+
+corrplot(correlation_matrix, method = "circle")
+
+}
+
+```
+
+```{r corr matrix , echo=TRUE, results='markup', message=FALSE}
+print(correlation_matrix)
+print(max(abs(correlation_matrix)))
+
+
+```
+```{r}
+print('VIF values')
+vif_values = vif(linear_model1)
+print(vif_values)
+```
+
+```{r autocor, echo=FALSE, results='asis'}
+cat("### **4(e) Autocorrelation**\n\n")
+```
+
+```{r ordering data, echo=TRUE,results='asis'}
+df_ordered_educ <- df %>% arrange(EDUC)
+
+# Re-run baseline linear model on ordered data
+linear_model_ordered <- lm(
+  WAGE ~ EDUC + AGE + RACE + SMSA + MARRIED + 
+  REGION2 + REGION3 + REGION4 + REGION5 + 
+  REGION6 + REGION7 + REGION8 + REGION9,
+  data = df_ordered_educ
+)
+
+# Store residuals
+residuals_ordered <- residuals(linear_model_ordered)
+
+plot(residuals_ordered, 
+    type = "p",  # "p" for points instead of "l" for lines
+     pch = 16,    # Solid circle points (other options: 1-25)
+     col = "blue", # Color of points
+     cex = 0.4,   # Size of points
+     main = "Residuals Ordered by EDUC",
+     ylab = "Residuals", 
+     xlab = "Ordered index by EDUC")
+abline(h = 0, lty = 2, col = "red")  # Reference line
+
+
+```
+
+
+```{r runstest, echo=FALSE,results='asis'}
+runs_test_ordered <- runs.test(residuals_ordered)
+print(runs_test_ordered)
+if (show_interpretation) {
+  cat("sippe tijden , p value is hoog dus toch corr ")
+  }
+```
+
+
+
+```{r dw, echo=FALSE,results='asis'}
+# Run Durbin-Watson test
+dw_test_ordered <- dwtest(linear_model_ordered)
+
+# Create summary properly
+DW_summary <- c(dw_test_ordered$statistic, dw_test_ordered$p.value)
+names(DW_summary) <- c("Test-statistic", "P-value")
+stargazer(DW_summary,type="text")
+if (show_interpretation) {
+  cat("Assumptions:
+  1) Error terms follow an AR(1) process
+  2) Error terms are normally distributed
+  3) The regression model does not include lagged dependent variables
+ hahahah dikke pech , toch corr  :)")
+  }
+```
+
+```{r autocorrelation BG test, echo=FALSE,results='asis'}
+bg_test_ordered <- bgtest(linear_model_ordered, order = 6)  # Test up to 3 lags
+BG_summary=c(bg_test_ordered$statistic,bg_test_ordered$p.value)
+names(BG_summary)=c("Test-statistic","P-value")
+stargazer(BG_summary,type="text")
+if (show_interpretation) {
+  cat("Assumptions:
+  1) Allows for stochastic regressors
+  2) Tests for higher-order autocorrelation
+  3) Allows for lagged dependent variables
+geprankt er is gwn corr  , idk")  }
+```
+
+```{r autocorrelation implications for OLS, echo=FALSE,results='asis'}
+if (show_interpretation) {
+  cat("Implications for OLS if autocorrelation is present:
+  1) Standard variance formula is incorrect
+  2) OLS estimator no longer efficient")
+  cat("Inference: Standard errors are incorrect, leading to invalid t-tests, F-tests, and confidence intervals")
+  cat("It does not make sense to interpret autocorrelation as a structural feature since there is no natural ordering for the dataset.")
+  }
+```
+
+```{r Ramsey_1, echo=FALSE,results='asis'}
+Yfit=linear_model1$fitted.values
+Ramsey_model<-lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + +I(Yfit^2)+I(Yfit^3)+REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data=df)
+stargazer(Ramsey_model,type="text",style="all")
+# Calculate Ramsey RESET test statistic
+n <- nrow(df)  # number of observations
+k <- length(coef(linear_model1))  # number of parameters in original model
+ssr_original <- sum(resid(linear_model1)^2)
+ssr_ramsey <- sum(resid(Ramsey_model)^2)
+
+Ramsey_test <- ((ssr_original - ssr_ramsey)/2)/(ssr_ramsey/(n - k - 2))
+p_value <- pf(Ramsey_test, 2, n - k - 2, lower.tail = FALSE)
+Ramsey_summary=c(Ramsey_test,pf(Ramsey_test, 2, 60, lower.tail = FALSE))
+names(Ramsey_summary)=c("Test-statistic","P-value")
+stargazer(Ramsey_summary,type="text")
+```
+
+```{r Ramsey, echo=FALSE,results='asis'}
+reset_test <- resettest(linear_model1, power = 2:3, type = "fitted")
+print(reset_test)
+```
+
+```{r LM test, echo=FALSE,results='asis'}
+res=linear_model1$residuals
+LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3), data = df)
+stargazer(LM_reg,type="text",style="all")
+LM_test = 10000*summary(LM_reg)$r.squared
+LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
+names(LM_summary)=c("Test-statistic","P-value")
+stargazer(LM_summary,type="text")
+```
+
+```{r log, echo=FALSE,results='asis'}
+log_model <- lm(log(WAGE)~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+# Plot residuals vs. fitted values
+par(mfrow = c(2, 2))
+plot(linear_model1, which = 1)  # Residuals for linear model
+plot(log_model, which = 1)     # Residuals for log-linear model
+# compare AIC
+AIC(linear_model1, log_model)
+# compare BIC
+BIC(linear_model1, log_model)
+cat("The log model has a lower AIC and BIC than the linear model, so log model has a better fit")
+```
+
+
+```{r nonlinear effects, echo=TRUE,results='markup'}
+quad_model <- lm(WAGE~ EDUC + I(EDUC^2) + AGE + I(AGE^2) + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+linearHypothesis(quad_model, c("I(EDUC^2) = 0", "I(AGE^2) = 0"))
+```
+
+
+```{r non lin eff, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("You reject the null hypothesis that the squared terms are irrelevant. This means:
+
+The relationship between wage and education, and wage and age, is not linear.
+
+Quadratic model fits the data significantly better when it includes these quadratic terms.
+
+So: include I(EDUC^2) and I(AGE^2) in the preferred model going forward")
+}
+```
+
+```{r interaction effects, echo=FALSE,results='asis'}
+int_model <-lm(WAGE~ EDUC + AGE + RACE + EDUC*AGE + EDUC*RACE + I(EDUC^2) + I(AGE^2)+SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+linearHypothesis(int_model, c("EDUC:AGE = 0", "EDUC:RACE = 0"))
+cat("You reject the null hypothesis that the interaction terms are irrelevant.The interaction effects between EDUC and AGE, and between EDUC and RACE, contribute significantly to explaining variation in wages.")
+```
+
+```{r chi squared_best, echo=FALSE,results='asis'}
+hold <- read.csv("Data_HoldOut_AK91.csv")
+hold <- hold %>% mutate(
+REGION1 = as.integer(REGION == 1), 
+REGION2 = as.integer(REGION == 2), 
+REGION3 = as.integer(REGION == 3),
+REGION4 = as.integer(REGION == 4),
+REGION5 = as.integer(REGION == 5),
+REGION6 = as.integer(REGION == 6),
+REGION7 = as.integer(REGION == 7),
+REGION8 = as.integer(REGION == 8),
+REGION9 = as.integer(REGION == 9))
+best_mod <- int_model
+beta=best_mod$coefficients
+X_hold <- model.matrix(log(WAGE)~ EDUC + I(EDUC^2) + AGE + I(AGE^2) +EDUC:RACE + EDUC:AGE +RACE + MARRIED + SMSA +  REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,data = hold)
+y_hold <- hold$WAGE
+y_hat_base <- X_hold %*% beta
+residuals_holdout <- y_hold - y_hat_base
+# Estimate sigma² from full sample using the BEST model
+sigma2_hat <- summary(best_mod)$sigma^2
+
+# Compute chi² test statistic
+chi2_stat <- sum(residuals_holdout^2) / sigma2_hat
+# Degrees of freedom = # of holdout obs
+p_value <- pchisq(chi2_stat, df = nrow(hold), lower.tail = FALSE)
+
+# Report
+chi2_summary <- c(chi2_stat, p_value)
+names(chi2_summary) <- c("Test-statistic", "P-value")
+
+# Output nicely
+stargazer(chi2_summary, type = "text", summary = FALSE)
+```
+```{r chi squared_linmod, echo=FALSE,results='asis'}
+best_mod <- linear_model1
+beta=best_mod$coefficients
+X_hold <- model.matrix(WAGE~ EDUC + AGE +RACE + MARRIED + SMSA +  REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,data = hold)
+y_hold <- hold$WAGE
+y_hat_base <- X_hold %*% beta
+residuals_holdout <- y_hold - y_hat_base
+# Estimate sigma² from full sample using the BEST model
+sigma2_hat <- summary(best_mod)$sigma^2
+
+# Compute chi² test statistic
+chi2_stat <- sum(residuals_holdout^2) / sigma2_hat
+# Degrees of freedom = # of holdout obs
+p_value <- pchisq(chi2_stat, df = nrow(hold), lower.tail = FALSE)
+
+# Report
+chi2_summary <- c(chi2_stat, p_value)
+names(chi2_summary) <- c("Test-statistic", "P-value")
+
+# Output nicely
+stargazer(chi2_summary, type = "text", summary = FALSE)
+```
+
+```{r header 4g, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("#### **4g. Endogeneity and Instrumental Variables**\n\n
+    
+    ")
+}
+```
+
+
+```{r endogeneity, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("We assumed in 4a that Education is endogenous.
+
+- If EDUC is endogenous (i.e., correlated with the error term), the OLS estimator is biased and inconsistent. 
+
+- To solve this, we use the instrumental variables (IV) approach, specifically Two-Stage Least Squares (2SLS). 
+This method replaces the endogenous regressor with a predicted version from instruments that are: relevant (correlated with EDUC) and exogenous.
+
+- Proposed instrument and justification: we use Quarter of Birth (QOB) as an instrument for EDUC. 
+Justification of choice: QOB affects the age at which individuals can legally drop out of school due to 
+school-starting age laws. QOB is strictly exogenous: it is randomly assigned at birth and unlikely to be 
+correlated with unobserved factors that affect wages directly.
+
+- Assessing the strength of the instrument: we check the F-statistic of the instrument in the first-stage regression.
+
+- Testing for endogeneity: we perform a Hausman test.
+    ")
+}
+```
+
+```{r header 2SLS, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("#### **2SLS estimation**\n\n
+    
+    ")
+}
+```
+
+
+```{r endogeneity iv model, echo=FALSE, results="markup"}
+if (!requireNamespace("AER", quietly = TRUE)) install.packages("AER")
+library(AER)
+
+iv_model <- ivreg(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + factor(REGION) | 
+                    QOB + AGE + RACE + MARRIED + SMSA + factor(REGION),
+                  data = df)
+
+summary(iv_model)
+
+```
+
+```{r endogeneity interpretation, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("In the 2SLS estimation, the coefficient on EDUC is positive (23.29) but not statistically 
+significant (p = 0.577), indicating no strong evidence of a causal effect of education on 
+wages in this IV setup. In contrast, being married significantly increases wages 
+(coef = 78.51, p < 0.001). Some regional dummies (REGION2, REGION3, REGION9) are also 
+significant, suggesting regional wage differences. Other variables, including AGE and RACE,
+are not significant.")
+}
+```
+
+```{r header first-stage regression, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("#### **First-stage regression (Instrument Relevance)**\n\n
+    
+    ")
+}
+```
+
+
+```{r first stage regr, echo=FALSE, results="markup"}
+first_stage <- lm(EDUC ~ QOB + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
+summary(first_stage)
+```
+
+```{r first stage interpretation, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("The instrument QOB is statistically significant (p = 0.038), with a positive coefficient (0.0595).
+This confirms that QOB is correlated with EDUC, satisfying the relevance condition for an instrumental variable")
+}
+```
+
+```{r header Hausman, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("#### **Hausman test**\n\n
+    
+    ")
+}
+```
+
+
+```{r hausman, echo=FALSE, results="markup"}
+first_stage <- lm(EDUC ~ QOB + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
+df$first_stage_residuals <- residuals(first_stage)
+
+augmented_model <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + factor(REGION) + first_stage_residuals, data = df)
+summary(augmented_model)
+
+```
+
+
+```{r hausman interpretation, echo=FALSE, results="asis"}
+if (show_interpretation) {
+cat("The coefficient on the first-stage residuals is not statistically significant (p = 0.935).
+This suggests no evidence of endogeneity in EDUC.
+OLS is consistent, and IV is not strictly necessary in this case.")
+}
+```

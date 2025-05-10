@@ -883,6 +883,61 @@ linearHypothesis(int_model, c("EDUC:AGE = 0", "EDUC:RACE = 0"))
 cat("You reject the null hypothesis that the interaction terms are irrelevant.The interaction effects between EDUC and AGE, and between EDUC and RACE, contribute significantly to explaining variation in wages.")
 ```
 
+```{r chi squared_best, echo=FALSE,results='asis'}
+hold <- read.csv("Data_HoldOut_AK91.csv")
+hold <- hold %>% mutate(
+REGION1 = as.integer(REGION == 1), 
+REGION2 = as.integer(REGION == 2), 
+REGION3 = as.integer(REGION == 3),
+REGION4 = as.integer(REGION == 4),
+REGION5 = as.integer(REGION == 5),
+REGION6 = as.integer(REGION == 6),
+REGION7 = as.integer(REGION == 7),
+REGION8 = as.integer(REGION == 8),
+REGION9 = as.integer(REGION == 9))
+best_mod <- int_model
+beta=best_mod$coefficients
+X_hold <- model.matrix(log(WAGE)~ EDUC + I(EDUC^2) + AGE + I(AGE^2) +EDUC:RACE + EDUC:AGE +RACE + MARRIED + SMSA +  REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,data = hold)
+y_hold <- hold$WAGE
+y_hat_base <- X_hold %*% beta
+residuals_holdout <- y_hold - y_hat_base
+# Estimate sigma² from full sample using the BEST model
+sigma2_hat <- summary(best_mod)$sigma^2
+
+# Compute chi² test statistic
+chi2_stat <- sum(residuals_holdout^2) / sigma2_hat
+# Degrees of freedom = # of holdout obs
+p_value <- pchisq(chi2_stat, df = nrow(hold), lower.tail = FALSE)
+
+# Report
+chi2_summary <- c(chi2_stat, p_value)
+names(chi2_summary) <- c("Test-statistic", "P-value")
+
+# Output nicely
+stargazer(chi2_summary, type = "text", summary = FALSE)
+```
+```{r chi squared_linmod, echo=FALSE,results='asis'}
+best_mod <- linear_model1
+beta=best_mod$coefficients
+X_hold <- model.matrix(WAGE~ EDUC + AGE +RACE + MARRIED + SMSA +  REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,data = hold)
+y_hold <- hold$WAGE
+y_hat_base <- X_hold %*% beta
+residuals_holdout <- y_hold - y_hat_base
+# Estimate sigma² from full sample using the BEST model
+sigma2_hat <- summary(best_mod)$sigma^2
+
+# Compute chi² test statistic
+chi2_stat <- sum(residuals_holdout^2) / sigma2_hat
+# Degrees of freedom = # of holdout obs
+p_value <- pchisq(chi2_stat, df = nrow(hold), lower.tail = FALSE)
+
+# Report
+chi2_summary <- c(chi2_stat, p_value)
+names(chi2_summary) <- c("Test-statistic", "P-value")
+
+# Output nicely
+stargazer(chi2_summary, type = "text", summary = FALSE)
+```
 
 ```{r header 4g, echo=FALSE, results="asis"}
 if (show_interpretation) {

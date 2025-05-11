@@ -747,7 +747,7 @@ print(runs_test_ordered)
 
 ```{r runstest inter, echo=FALSE,results='asis'}
 if (show_interpretation) {
-  cat(" p laag , teken van corr ")
+  cat(" We have a very low p-value which means we reject the null hypothesis of no autocorrelation.")
   }
 ```
 
@@ -765,8 +765,9 @@ if (show_interpretation) {
   cat("Assumptions:\n
   1) Error terms follow an AR(1) process\n
   2) Error terms are normally distributed\n
-  3) The regression model does not include lagged dependent      variables\n
- hahahah dikke pech , toch corr  :)")
+  3) The regression model does not include lagged dependent variables\n
+  4) The regressors are non-stochastic\n
+  Since assumptions 1, 2 and 4 are violated, this might not be the best test")
   }
 ```
 
@@ -781,8 +782,7 @@ if (show_interpretation) {
   cat("Assumptions:\n
   1) Allows for stochastic regressors\n
   2) Tests for higher-order autocorrelation\n
-  3) Allows for lagged dependent variables\n
-     geprankt er is gwn corr  , idk")  }
+  3) Allows for lagged dependent variables\n")  }
 ```
 
 ```{r autocorrelation implications for OLS, echo=FALSE,results='asis'}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.3)  10 MAY 2025 22:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.3)  11 MAY 2025 10:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -476,7 +476,23 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count336
-) (./Data_exploration.aux)
+) (./Data_exploration.aux
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+)
 \openout1 = `Data_exploration.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 138.
@@ -586,12 +602,12 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 [1
 
 {c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 220.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 221.
 (c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 221.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 222.
 
 
 [2]
@@ -611,1225 +627,1225 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 [9]
 
 [10]
-Overfull \hbox (2.6359pt too wide) in paragraph at lines 810--811
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 811--812
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 814--815
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 815--816
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 818--819
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 819--820
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 820--821
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 821--822
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 822--823
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 823--824
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 824--825
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 825--826
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (2.6359pt too wide) in paragraph at lines 837--838
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 838--839
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 841--842
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 842--843
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 845--846
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 846--847
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 847--848
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 848--849
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 849--850
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 850--851
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 851--852
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 852--853
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (1.35092pt too wide) in paragraph at lines 857--857
+Overfull \hbox (1.35092pt too wide) in paragraph at lines 858--858
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (5.66058pt too wide) in paragraph at lines 857--857
+Overfull \hbox (5.66058pt too wide) in paragraph at lines 858--858
  []|\T1/lmr/m/n/10 59622.389|
  []
 
 
-Overfull \hbox (3.08711pt too wide) in paragraph at lines 857--857
+Overfull \hbox (3.08711pt too wide) in paragraph at lines 858--858
  []|\T1/lmr/m/n/10 326.291|
  []
 
 
-Overfull \hbox (1.80295pt too wide) in paragraph at lines 857--857
+Overfull \hbox (1.80295pt too wide) in paragraph at lines 858--858
  []|\T1/lmr/m/n/10 19.889|
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 867--867
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 868--868
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 [11]
-Overfull \hbox (2.07632pt too wide) in paragraph at lines 908--909
+Overfull \hbox (2.07632pt too wide) in paragraph at lines 909--910
  []\T1/lmr/m/n/10 SMSA
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 910--911
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 911--912
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 914--915
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 915--916
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 916--917
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 917--918
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 918--919
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 919--920
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 920--921
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 921--922
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (2.07632pt too wide) in paragraph at lines 935--936
+Overfull \hbox (2.07632pt too wide) in paragraph at lines 936--937
  []\T1/lmr/m/n/10 SMSA
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 937--938
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 938--939
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 941--942
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 942--943
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 943--944
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 944--945
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 945--946
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 946--947
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 947--948
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 948--949
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (1.65498pt too wide) in paragraph at lines 953--953
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 954--954
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (7.38281pt too wide) in paragraph at lines 953--953
+Overfull \hbox (7.38281pt too wide) in paragraph at lines 954--954
  []|\T1/lmr/m/n/10 126020.884|
  []
 
 
-Overfull \hbox (3.39117pt too wide) in paragraph at lines 953--953
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 954--954
  []|\T1/lmr/m/n/10 335.536|
  []
 
 
-Overfull \hbox (2.0761pt too wide) in paragraph at lines 953--953
+Overfull \hbox (2.0761pt too wide) in paragraph at lines 954--954
  []|\T1/lmr/m/n/10 29.869|
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 963--963
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 964--964
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (2.90904pt too wide) in paragraph at lines 1002--1003
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1003--1004
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1006--1007
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1007--1008
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1010--1011
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1011--1012
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1012--1013
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1013--1014
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1014--1015
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1015--1016
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1016--1017
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1017--1018
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 991--1019
+Overfull \hbox (0.10303pt too wide) in alignment at lines 992--1020
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (2.90904pt too wide) in paragraph at lines 1029--1030
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1030--1031
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1033--1034
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1034--1035
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1037--1038
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1038--1039
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1039--1040
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1040--1041
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1041--1042
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1042--1043
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1043--1044
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1044--1045
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1019--1046
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1020--1047
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1046--1048
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1047--1049
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (1.65498pt too wide) in paragraph at lines 1049--1049
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 1050--1050
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (6.06258pt too wide) in paragraph at lines 1049--1049
+Overfull \hbox (6.06258pt too wide) in paragraph at lines 1050--1050
  []|\T1/lmr/m/n/10 69754.484|
  []
 
 
-Overfull \hbox (3.39117pt too wide) in paragraph at lines 1049--1049
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 1050--1050
  []|\T1/lmr/m/n/10 247.163|
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1059--1059
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1060--1060
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1048--1071
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1049--1072
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
 
 [12]
-Overfull \hbox (2.90904pt too wide) in paragraph at lines 1098--1099
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1099--1100
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1102--1103
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1103--1104
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1106--1107
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1107--1108
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1108--1109
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1109--1110
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1110--1111
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1111--1112
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1112--1113
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1113--1114
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1087--1115
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1088--1116
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (2.90904pt too wide) in paragraph at lines 1125--1126
+Overfull \hbox (2.90904pt too wide) in paragraph at lines 1126--1127
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1129--1130
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1130--1131
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1133--1134
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1134--1135
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1135--1136
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1136--1137
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1137--1138
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1138--1139
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1139--1140
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1140--1141
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1115--1142
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1116--1143
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1142--1144
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1143--1145
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (1.65498pt too wide) in paragraph at lines 1145--1145
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 1146--1146
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (6.06258pt too wide) in paragraph at lines 1145--1145
+Overfull \hbox (6.06258pt too wide) in paragraph at lines 1146--1146
  []|\T1/lmr/m/n/10 69294.730|
  []
 
 
-Overfull \hbox (3.39117pt too wide) in paragraph at lines 1145--1145
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 1146--1146
  []|\T1/lmr/m/n/10 276.252|
  []
 
 
-Overfull \hbox (2.0761pt too wide) in paragraph at lines 1146--1146
+Overfull \hbox (2.0761pt too wide) in paragraph at lines 1147--1147
  []|\T1/lmr/m/n/10 13.151|
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1155--1155
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1156--1156
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1144--1167
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1145--1168
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 [13]
-Overfull \hbox (20.39804pt too wide) in paragraph at lines 1198--1199
+Overfull \hbox (20.39804pt too wide) in paragraph at lines 1199--1200
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1202--1203
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1203--1204
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1204--1205
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1205--1206
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1206--1207
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1207--1208
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1208--1209
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1209--1210
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (20.39804pt too wide) in paragraph at lines 1225--1226
+Overfull \hbox (20.39804pt too wide) in paragraph at lines 1226--1227
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1229--1230
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1230--1231
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1231--1232
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1232--1233
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1233--1234
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1234--1235
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (2.20529pt too wide) in paragraph at lines 1235--1236
+Overfull \hbox (2.20529pt too wide) in paragraph at lines 1236--1237
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (1.99513pt too wide) in paragraph at lines 1241--1241
+Overfull \hbox (1.99513pt too wide) in paragraph at lines 1242--1242
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (6.46971pt too wide) in paragraph at lines 1241--1241
+Overfull \hbox (6.46971pt too wide) in paragraph at lines 1242--1242
  []|\T1/lmr/m/n/10 68142.878|
  []
 
 
-Overfull \hbox (3.73132pt too wide) in paragraph at lines 1241--1241
+Overfull \hbox (3.73132pt too wide) in paragraph at lines 1242--1242
  []|\T1/lmr/m/n/10 359.308|
  []
 
 
-Overfull \hbox (2.34409pt too wide) in paragraph at lines 1242--1242
+Overfull \hbox (2.34409pt too wide) in paragraph at lines 1243--1243
  []|\T1/lmr/m/n/10 10.164|
  []
 
 
-Overfull \hbox (20.39804pt too wide) in paragraph at lines 1251--1251
+Overfull \hbox (20.39804pt too wide) in paragraph at lines 1252--1252
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (20.70212pt too wide) in paragraph at lines 1294--1295
+Overfull \hbox (20.70212pt too wide) in paragraph at lines 1295--1296
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1298--1299
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1299--1300
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1300--1301
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1301--1302
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1302--1303
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1303--1304
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1304--1305
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1305--1306
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (20.70212pt too wide) in paragraph at lines 1321--1322
+Overfull \hbox (20.70212pt too wide) in paragraph at lines 1322--1323
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1325--1326
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1326--1327
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1327--1328
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1328--1329
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1329--1330
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1330--1331
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (2.47844pt too wide) in paragraph at lines 1331--1332
+Overfull \hbox (2.47844pt too wide) in paragraph at lines 1332--1333
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (2.29921pt too wide) in paragraph at lines 1337--1337
+Overfull \hbox (2.29921pt too wide) in paragraph at lines 1338--1338
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (8.25894pt too wide) in paragraph at lines 1337--1337
+Overfull \hbox (8.25894pt too wide) in paragraph at lines 1338--1338
  []|\T1/lmr/m/n/10 108586.360|
  []
 
 
-Overfull \hbox (4.0354pt too wide) in paragraph at lines 1337--1337
+Overfull \hbox (4.0354pt too wide) in paragraph at lines 1338--1338
  []|\T1/lmr/m/n/10 289.292|
  []
 
 
-Overfull \hbox (2.61723pt too wide) in paragraph at lines 1338--1338
+Overfull \hbox (2.61723pt too wide) in paragraph at lines 1339--1339
  []|\T1/lmr/m/n/10 32.889|
  []
 
 
-Overfull \hbox (2.61723pt too wide) in paragraph at lines 1338--1339
+Overfull \hbox (2.61723pt too wide) in paragraph at lines 1339--1340
  []|\T1/lmr/m/n/10 11.524|
  []
 
 
-Overfull \hbox (20.70212pt too wide) in paragraph at lines 1347--1347
+Overfull \hbox (20.70212pt too wide) in paragraph at lines 1348--1348
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 [14]
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1390--1391
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1391--1392
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1394--1395
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1395--1396
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1396--1397
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1397--1398
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1398--1399
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1399--1400
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1400--1401
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1401--1402
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1375--1403
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1376--1404
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1417--1418
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1418--1419
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1421--1422
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1422--1423
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1423--1424
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1424--1425
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1425--1426
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1426--1427
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.9373pt too wide) in paragraph at lines 1427--1428
+Overfull \hbox (1.9373pt too wide) in paragraph at lines 1428--1429
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1403--1430
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1404--1431
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1430--1432
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1431--1433
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (1.65498pt too wide) in paragraph at lines 1433--1433
+Overfull \hbox (1.65498pt too wide) in paragraph at lines 1434--1434
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (6.06258pt too wide) in paragraph at lines 1433--1433
+Overfull \hbox (6.06258pt too wide) in paragraph at lines 1434--1434
  []|\T1/lmr/m/n/10 70637.866|
  []
 
 
-Overfull \hbox (3.39117pt too wide) in paragraph at lines 1433--1433
+Overfull \hbox (3.39117pt too wide) in paragraph at lines 1434--1434
  []|\T1/lmr/m/n/10 357.447|
  []
 
 
-Overfull \hbox (2.0761pt too wide) in paragraph at lines 1433--1433
+Overfull \hbox (2.0761pt too wide) in paragraph at lines 1434--1434
  []|\T1/lmr/m/n/10 26.277|
  []
 
 
-Overfull \hbox (20.05789pt too wide) in paragraph at lines 1443--1443
+Overfull \hbox (20.05789pt too wide) in paragraph at lines 1444--1444
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (0.10303pt too wide) in alignment at lines 1432--1455
+Overfull \hbox (0.10303pt too wide) in alignment at lines 1433--1456
  [] [] [] [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (2.6359pt too wide) in paragraph at lines 1482--1483
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1483--1484
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 1486--1487
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1487--1488
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1490--1491
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1491--1492
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1492--1493
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1493--1494
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1494--1495
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1495--1496
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1496--1497
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1497--1498
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (2.6359pt too wide) in paragraph at lines 1509--1510
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1510--1511
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 1513--1514
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1514--1515
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1517--1518
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1518--1519
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1519--1520
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1520--1521
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1521--1522
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1522--1523
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1523--1524
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1524--1525
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (1.35092pt too wide) in paragraph at lines 1529--1529
+Overfull \hbox (1.35092pt too wide) in paragraph at lines 1530--1530
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (5.66058pt too wide) in paragraph at lines 1529--1529
+Overfull \hbox (5.66058pt too wide) in paragraph at lines 1530--1530
  []|\T1/lmr/m/n/10 55763.738|
  []
 
 
-Overfull \hbox (3.08711pt too wide) in paragraph at lines 1529--1529
+Overfull \hbox (3.08711pt too wide) in paragraph at lines 1530--1530
  []|\T1/lmr/m/n/10 204.967|
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 1539--1539
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1540--1540
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 [15]
-Overfull \hbox (2.6359pt too wide) in paragraph at lines 1578--1579
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1579--1580
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (1.80318pt too wide) in paragraph at lines 1580--1581
+Overfull \hbox (1.80318pt too wide) in paragraph at lines 1581--1582
  []\T1/lmr/m/n/10 SMSA
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 1582--1583
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1583--1584
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1586--1587
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1587--1588
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1588--1589
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1589--1590
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1590--1591
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1591--1592
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1592--1593
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1593--1594
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (2.6359pt too wide) in paragraph at lines 1605--1606
+Overfull \hbox (2.6359pt too wide) in paragraph at lines 1606--1607
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (1.80318pt too wide) in paragraph at lines 1607--1608
+Overfull \hbox (1.80318pt too wide) in paragraph at lines 1608--1609
  []\T1/lmr/m/n/10 SMSA
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 1609--1610
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1610--1611
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1613--1614
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1614--1615
  []\T1/lmr/m/n/10 QOB1
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1615--1616
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1616--1617
  []\T1/lmr/m/n/10 QOB2
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1617--1618
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1618--1619
  []\T1/lmr/m/n/10 QOB3
  []
 
 
-Overfull \hbox (1.66415pt too wide) in paragraph at lines 1619--1620
+Overfull \hbox (1.66415pt too wide) in paragraph at lines 1620--1621
  []\T1/lmr/m/n/10 QOB4
  []
 
 
-Overfull \hbox (1.35092pt too wide) in paragraph at lines 1625--1625
+Overfull \hbox (1.35092pt too wide) in paragraph at lines 1626--1626
 []|\T1/lmr/m/n/10 WAGE|  
  []
 
 
-Overfull \hbox (6.94473pt too wide) in paragraph at lines 1625--1625
+Overfull \hbox (6.94473pt too wide) in paragraph at lines 1626--1626
  []|\T1/lmr/m/n/10 119854.165|
  []
 
 
-Overfull \hbox (3.08711pt too wide) in paragraph at lines 1625--1625
+Overfull \hbox (3.08711pt too wide) in paragraph at lines 1626--1626
  []|\T1/lmr/m/n/10 270.881|
  []
 
 
-Overfull \hbox (1.80295pt too wide) in paragraph at lines 1625--1625
+Overfull \hbox (1.80295pt too wide) in paragraph at lines 1626--1626
  []|\T1/lmr/m/n/10 33.568|
  []
 
 
-Overfull \hbox (19.75383pt too wide) in paragraph at lines 1635--1635
+Overfull \hbox (19.75383pt too wide) in paragraph at lines 1636--1636
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1671--1672
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1672--1673
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1673--1674
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1674--1675
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1677--1678
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1678--1679
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1681--1682
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1682--1683
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1698--1699
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1699--1700
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1700--1701
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1701--1702
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1704--1705
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1705--1706
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1708--1709
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1709--1710
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1734--1734
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1735--1735
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
 
 [16]
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1767--1768
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1768--1769
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1769--1770
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1770--1771
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1773--1774
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1774--1775
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1777--1778
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1778--1779
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1794--1795
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1795--1796
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1796--1797
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1797--1798
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1800--1801
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1801--1802
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1804--1805
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1805--1806
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1830--1830
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1831--1831
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1863--1864
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1864--1865
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1865--1866
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1866--1867
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1869--1870
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1870--1871
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1873--1874
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1874--1875
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1890--1891
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1891--1892
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1892--1893
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1893--1894
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1896--1897
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1897--1898
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1900--1901
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1901--1902
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1926--1926
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1927--1927
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1959--1960
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1960--1961
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1961--1962
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1962--1963
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1965--1966
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1966--1967
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1969--1970
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1970--1971
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 1986--1987
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 1987--1988
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 1988--1989
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 1989--1990
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 1992--1993
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 1993--1994
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 1996--1997
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 1997--1998
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2022--2022
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2023--2023
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
 
 [17]
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2055--2056
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2056--2057
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2057--2058
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2058--2059
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2061--2062
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2062--2063
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2065--2066
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2066--2067
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2082--2083
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2083--2084
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2084--2085
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2085--2086
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2088--2089
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2089--2090
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2092--2093
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2093--2094
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2118--2118
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2119--2119
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2151--2152
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2152--2153
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2153--2154
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2154--2155
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2157--2158
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2158--2159
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2161--2162
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2162--2163
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2178--2179
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2179--2180
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2180--2181
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2181--2182
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2184--2185
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2185--2186
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2188--2189
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2189--2190
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2214--2214
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2215--2215
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2247--2248
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2248--2249
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2249--2250
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2250--2251
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2253--2254
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2254--2255
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2257--2258
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2258--2259
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2274--2275
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2275--2276
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2276--2277
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2277--2278
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2280--2281
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2281--2282
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2284--2285
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2285--2286
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2310--2310
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2311--2311
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
 
 [18]
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2343--2344
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2344--2345
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2345--2346
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2346--2347
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2349--2350
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2350--2351
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2353--2354
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2354--2355
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2370--2371
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2371--2372
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2372--2373
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2373--2374
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2376--2377
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2377--2378
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2380--2381
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2381--2382
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2406--2406
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2407--2407
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2439--2440
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2440--2441
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2441--2442
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2442--2443
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2445--2446
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2446--2447
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2449--2450
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2450--2451
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (3.5464pt too wide) in paragraph at lines 2466--2467
+Overfull \hbox (3.5464pt too wide) in paragraph at lines 2467--2468
  []\T1/lmr/m/n/10 WAGE
  []
 
 
-Overfull \hbox (1.67134pt too wide) in paragraph at lines 2468--2469
+Overfull \hbox (1.67134pt too wide) in paragraph at lines 2469--2470
  []\T1/lmr/m/n/10 EDUC
  []
 
 
-Overfull \hbox (1.11554pt too wide) in paragraph at lines 2472--2473
+Overfull \hbox (1.11554pt too wide) in paragraph at lines 2473--2474
  []\T1/lmr/m/n/10 RACE
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2476--2477
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2477--2478
  []\T1/lmr/m/n/10 MARRIED
  []
 
 
-Overfull \hbox (18.03249pt too wide) in paragraph at lines 2502--2502
+Overfull \hbox (18.03249pt too wide) in paragraph at lines 2503--2503
 []|\T1/lmr/m/n/10 MARRIED|  
  []
 
 
 
 [19]
-<Data_exploration_files/figure-latex/plot-1.pdf, id=127, 469.755pt x 325.215pt>
+<Data_exploration_files/figure-latex/plot-1.pdf, id=128, 469.755pt x 325.215pt>
 File: Data_exploration_files/figure-latex/plot-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/plot-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/plot-1.pdf  used on input line 2526.
+Package pdftex.def Info: Data_exploration_files/figure-latex/plot-1.pdf  used on input line 2527.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
@@ -1838,335 +1854,317 @@ Package pdftex.def Info: Data_exploration_files/figure-latex/plot-1.pdf  used on
 [21]
 
 [22]
-Overfull \hbox (49.99347pt too wide) in paragraph at lines 2753--2753
-[]\T1/lmtt/m/n/10 ## Assumption 3: The expected value of the error terms is zero( nulhypothese niet verwerpen : CHECK[] 
- []
-
-
 
 [23]
-<Data_exploration_files/figure-latex/residuals plot-1.pdf, id=155, 469.755pt x 325.215pt>
+<Data_exploration_files/figure-latex/residuals plot-1.pdf, id=156, 469.755pt x 325.215pt>
 File: Data_exploration_files/figure-latex/residuals plot-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/residuals plot-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals plot-1.pdf  used on input line 2788.
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals plot-1.pdf  used on input line 2780.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/histogram plot-1.pdf, id=156, 469.755pt x 325.215pt>
+<Data_exploration_files/figure-latex/histogram plot-1.pdf, id=157, 469.755pt x 325.215pt>
 File: Data_exploration_files/figure-latex/histogram plot-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/histogram plot-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/histogram plot-1.pdf  used on input line 2790.
+Package pdftex.def Info: Data_exploration_files/figure-latex/histogram plot-1.pdf  used on input line 2782.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [24 <./Data_exploration_files/figure-latex/residuals plot-1.pdf>]
-<Data_exploration_files/figure-latex/QQ plot-1.pdf, id=168, 469.755pt x 325.215pt>
+<Data_exploration_files/figure-latex/QQ plot-1.pdf, id=169, 469.755pt x 325.215pt>
 File: Data_exploration_files/figure-latex/QQ plot-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/QQ plot-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/QQ plot-1.pdf  used on input line 2795.
+Package pdftex.def Info: Data_exploration_files/figure-latex/QQ plot-1.pdf  used on input line 2787.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [25 <./Data_exploration_files/figure-latex/histogram plot-1.pdf>]
-<Data_exploration_files/figure-latex/QQ plot_layout-1.pdf, id=182, 578.16pt x 433.62pt>
+<Data_exploration_files/figure-latex/QQ plot_layout-1.pdf, id=183, 578.16pt x 433.62pt>
 File: Data_exploration_files/figure-latex/QQ plot_layout-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/QQ plot_layout-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/QQ plot_layout-1.pdf  used on input line 2797.
+Package pdftex.def Info: Data_exploration_files/figure-latex/QQ plot_layout-1.pdf  used on input line 2789.
 (pdftex.def)             Requested size: 469.75385pt x 352.31538pt.
 
 
 [26 <./Data_exploration_files/figure-latex/QQ plot-1.pdf>]
-<Data_exploration_files/figure-latex/residuals_plot-1.pdf, id=194, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-1.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-1.pdf  used on input line 2839.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-2.pdf, id=195, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-2.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-2.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-2.pdf  used on input line 2840.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-3.pdf, id=196, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-3.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-3.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-3.pdf  used on input line 2841.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-4.pdf, id=197, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-4.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-4.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-4.pdf  used on input line 2842.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-5.pdf, id=198, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-5.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-5.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-5.pdf  used on input line 2843.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-6.pdf, id=199, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-6.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-6.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-6.pdf  used on input line 2844.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-7.pdf, id=200, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-7.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-7.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-7.pdf  used on input line 2845.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-8.pdf, id=201, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-8.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-8.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-8.pdf  used on input line 2846.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-9.pdf, id=202, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-9.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-9.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-9.pdf  used on input line 2847.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-10.pdf, id=203, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-10.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-10.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-10.pdf  used on input line 2848.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-11.pdf, id=204, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-11.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-11.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-11.pdf  used on input line 2849.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-12.pdf, id=205, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-12.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-12.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-12.pdf  used on input line 2850.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-13.pdf, id=206, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-13.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-13.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-13.pdf  used on input line 2851.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<Data_exploration_files/figure-latex/residuals_plot-14.pdf, id=207, 469.755pt x 325.215pt>
-File: Data_exploration_files/figure-latex/residuals_plot-14.pdf Graphic file (type pdf)
-<use Data_exploration_files/figure-latex/residuals_plot-14.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-14.pdf  used on input line 2852.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2839--2853
-[]
- []
-
-
 
 [27 <./Data_exploration_files/figure-latex/QQ plot_layout-1.pdf>]
-Overfull \vbox (26.45663pt too high) has occurred while \output is active []
-
-
-
-[28 <./Data_exploration_files/figure-latex/residuals_plot-1.pdf> <./Data_exploration_files/figure-latex/residuals_plot-2.pdf>]
-
-[29 <./Data_exploration_files/figure-latex/residuals_plot-3.pdf>]
-
-[30 <./Data_exploration_files/figure-latex/residuals_plot-4.pdf>]
-
-[31 <./Data_exploration_files/figure-latex/residuals_plot-5.pdf>]
-
-[32 <./Data_exploration_files/figure-latex/residuals_plot-6.pdf>]
-
-[33 <./Data_exploration_files/figure-latex/residuals_plot-7.pdf>]
-
-[34 <./Data_exploration_files/figure-latex/residuals_plot-8.pdf>]
-
-[35 <./Data_exploration_files/figure-latex/residuals_plot-9.pdf>]
-
-[36 <./Data_exploration_files/figure-latex/residuals_plot-10.pdf>]
-
-[37 <./Data_exploration_files/figure-latex/residuals_plot-11.pdf>]
-
-[38 <./Data_exploration_files/figure-latex/residuals_plot-12.pdf>]
-
-[39 <./Data_exploration_files/figure-latex/residuals_plot-13.pdf>]
-
-[40 <./Data_exploration_files/figure-latex/residuals_plot-14.pdf>]
-
-[41]
-Overfull \hbox (133.99323pt too wide) in paragraph at lines 3099--3099
-[]\T1/lmtt/m/n/10 ## % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com[] 
- []
-
-
-
-[42]
-Overfull \hbox (13.24358pt too wide) in paragraph at lines 3099--3099
-[]\T1/lmtt/m/n/10 ## \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\[] 
- []
-
-
-
-[43]
-
-LaTeX Warning: Float too large for page by 11.35934pt on input line 3187.
-
-
-Overfull \hbox (832.2412pt too wide) in paragraph at lines 3221--3221
+Overfull \hbox (832.2412pt too wide) in paragraph at lines 2843--2843
 []  \T1/lmtt/m/n/10 Low VIFs (<5): Most of the variables have VIF values close to 1, including EDUC (1.07), AGE (1.01), RACE (1.05), SMSA (1.07), and MARRIED (1.02). These values suggest minimal multicollinearity, meaning these predictors are relatively independent.[] 
  []
 
 
-Overfull \hbox (1225.99005pt too wide) in paragraph at lines 3221--3221
+Overfull \hbox (1225.99005pt too wide) in paragraph at lines 2843--2843
 []  \T1/lmtt/m/n/10 Moderate VIFs (Between 2 and 5): Some regional variables^^VREGION2 (3.28), REGION3 (3.67), REGION4 (2.18), REGION5 (3.51), REGION6 (2.06), REGION7 (2.54), REGION8 (1.82), and REGION9 (2.92)^^Vshow moderate correlation with other predictors. These values indicate some degree of collinearity, but they are not alarmingly high.[] 
  []
 
 
-Overfull \hbox (784.99133pt too wide) in paragraph at lines 3221--3221
+Overfull \hbox (784.99133pt too wide) in paragraph at lines 2843--2843
 []  \T1/lmtt/m/n/10 High VIFs (>5): None of the variables exceed 5, which suggests that severe multicollinearity is not a major issue in this regression model. But even if VIF would be high (VIF>5), a large sample (n = 10 000 in this case) and high variance[] 
  []
 
 
-Overfull \hbox (2.7436pt too wide) in paragraph at lines 3237--3237
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 2859--2859
 []  \T1/lmtt/m/n/10 2) Under the CNLRM assumptions, the OLS estimator remains BLUE and normally distributed.[] 
  []
 
 
-Overfull \hbox (81.49338pt too wide) in paragraph at lines 3237--3237
+Overfull \hbox (81.49338pt too wide) in paragraph at lines 2859--2859
 []  \T1/lmtt/m/n/10 ->variables appear less significantly different from zero, higher probability of making a Type II error[] 
  []
 
 
-Overfull \hbox (165.49313pt too wide) in paragraph at lines 3237--3237
+Overfull \hbox (165.49313pt too wide) in paragraph at lines 2859--2859
 []  \T1/lmtt/m/n/10 5) The overall model fit (R2) is largely unaffected: even if individual coefficients are insignificant, the F -test may[] 
  []
+
+
+
+[28]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 2933.
+(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+<Data_exploration_files/figure-latex/residuals_plot-1.pdf, id=214, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-1.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-1.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-1.pdf  used on input line 2958.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-2.pdf, id=215, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-2.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-2.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-2.pdf  used on input line 2959.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-3.pdf, id=216, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-3.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-3.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-3.pdf  used on input line 2960.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-4.pdf, id=217, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-4.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-4.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-4.pdf  used on input line 2961.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-5.pdf, id=218, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-5.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-5.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-5.pdf  used on input line 2962.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-6.pdf, id=219, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-6.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-6.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-6.pdf  used on input line 2963.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-7.pdf, id=220, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-7.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-7.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-7.pdf  used on input line 2964.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-8.pdf, id=221, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-8.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-8.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-8.pdf  used on input line 2965.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-9.pdf, id=222, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-9.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-9.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-9.pdf  used on input line 2966.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-10.pdf, id=223, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-10.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-10.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-10.pdf  used on input line 2967.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-11.pdf, id=224, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-11.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-11.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-11.pdf  used on input line 2968.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-12.pdf, id=225, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-12.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-12.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-12.pdf  used on input line 2969.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-13.pdf, id=226, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-13.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-13.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-13.pdf  used on input line 2970.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Data_exploration_files/figure-latex/residuals_plot-14.pdf, id=227, 469.755pt x 325.215pt>
+File: Data_exploration_files/figure-latex/residuals_plot-14.pdf Graphic file (type pdf)
+<use Data_exploration_files/figure-latex/residuals_plot-14.pdf>
+Package pdftex.def Info: Data_exploration_files/figure-latex/residuals_plot-14.pdf  used on input line 2971.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2958--2972
+[]
+ []
+
+
+
+[29]
+Overfull \vbox (26.45663pt too high) has occurred while \output is active []
+
+
+
+[30 <./Data_exploration_files/figure-latex/residuals_plot-1.pdf> <./Data_exploration_files/figure-latex/residuals_plot-2.pdf>]
+
+[31 <./Data_exploration_files/figure-latex/residuals_plot-3.pdf>]
+
+[32 <./Data_exploration_files/figure-latex/residuals_plot-4.pdf>]
+
+[33 <./Data_exploration_files/figure-latex/residuals_plot-5.pdf>]
+
+[34 <./Data_exploration_files/figure-latex/residuals_plot-6.pdf>]
+
+[35 <./Data_exploration_files/figure-latex/residuals_plot-7.pdf>]
+
+[36 <./Data_exploration_files/figure-latex/residuals_plot-8.pdf>]
+
+[37 <./Data_exploration_files/figure-latex/residuals_plot-9.pdf>]
+
+[38 <./Data_exploration_files/figure-latex/residuals_plot-10.pdf>]
+
+[39 <./Data_exploration_files/figure-latex/residuals_plot-11.pdf>]
+
+[40 <./Data_exploration_files/figure-latex/residuals_plot-12.pdf>]
+
+[41 <./Data_exploration_files/figure-latex/residuals_plot-13.pdf>]
+
+[42 <./Data_exploration_files/figure-latex/residuals_plot-14.pdf>]
+
+[43]
+
+LaTeX Warning: Float too large for page by 13.30377pt on input line 3212.
+
+
+LaTeX Warning: Float too large for page by 11.35934pt on input line 3300.
 
 
 
 [44]
 
 [45]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 3311.
-(c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
 
 [46]
-<Data_exploration_files/figure-latex/ordering data-1.pdf, id=405, 469.755pt x 325.215pt>
+<Data_exploration_files/figure-latex/ordering data-1.pdf, id=409, 469.755pt x 325.215pt>
 File: Data_exploration_files/figure-latex/ordering data-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/ordering data-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/ordering data-1.pdf  used on input line 3363.
+Package pdftex.def Info: Data_exploration_files/figure-latex/ordering data-1.pdf  used on input line 3350.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 
 [47 <./Data_exploration_files/figure-latex/ordering data-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 3393--3469
-[]\T1/lmr/m/n/10 ==========================================================
- []
 
-
-Overfull \hbox (195.26627pt too wide) in paragraph at lines 3393--3469
-\T1/lmr/m/n/10 F Statis-tic 111.158*** (df = 15; 9984) (p = 0.000) ==========================================================
- []
+LaTeX Warning: Float too large for page by 265.30377pt on input line 3502.
 
 
 
 [48]
-Overfull \hbox (169.7103pt too wide) in paragraph at lines 3481--3509
-\T1/lmr/m/n/10 F Statis-tic 24.612*** (df = 3; 9996) (p = 0.000) ========================================================
- []
-
-
 
 [49]
-<Data_exploration_files/figure-latex/log-1.pdf, id=428, 469.755pt x 325.215pt>
+
+[50]
+<Data_exploration_files/figure-latex/log-1.pdf, id=443, 469.755pt x 325.215pt>
 File: Data_exploration_files/figure-latex/log-1.pdf Graphic file (type pdf)
 <use Data_exploration_files/figure-latex/log-1.pdf>
-Package pdftex.def Info: Data_exploration_files/figure-latex/log-1.pdf  used on input line 3521.
+Package pdftex.def Info: Data_exploration_files/figure-latex/log-1.pdf  used on input line 3594.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (9.44334pt too wide) in paragraph at lines 3518--3522
+Overfull \hbox (9.44334pt too wide) in paragraph at lines 3591--3595
 \T1/lmr/m/n/10 fit[] 
  []
 
 
 
-[50 <./Data_exploration_files/figure-latex/log-1.pdf>]
-
-[51]
+[51 <./Data_exploration_files/figure-latex/log-1.pdf>]
 
 [52]
 
 [53]
 
-[54] (./Data_exploration.aux)
+[54]
+
+[55] (./Data_exploration.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 13823 strings out of 471589
- 222750 string characters out of 5519311
- 722522 words of memory out of 5000000
- 40026 multiletter control sequences out of 15000+600000
+ 13842 strings out of 471589
+ 222953 string characters out of 5519311
+ 722710 words of memory out of 5000000
+ 40031 multiletter control sequences out of 15000+600000
  683139 words of font info for 87 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,11n,93p,868b,604s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,12n,93p,868b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/vanca/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Data_exploration.pdf (54 pages, 9911945 bytes).
+Output written on Data_exploration.pdf (55 pages, 9911403 bytes).
 PDF statistics:
- 616 PDF objects out of 1000 (max. 8388607)
- 480 compressed objects within 5 object streams
- 116 named destinations out of 1000 (max. 500000)
- 250 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 640 PDF objects out of 1000 (max. 8388607)
+ 502 compressed objects within 6 object streams
+ 130 named destinations out of 1000 (max. 500000)
+ 258 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,1076 @@
+---
+title: "Wage Determinants Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+# Global setting
+show_interpretation <- TRUE
+
+# Silently check and install packages
+suppressPackageStartupMessages({
+  if(!require(dplyr)){install.packages("dplyr")}
+if(!require(ggplot2)){install.packages("ggplot2")}
+if(!require(tidyr)){install.packages("tidyr")}
+if(!require(psych)){install.packages("psych")}
+if(!require(corrplot)){install.packages("corrplot")}
+if(!require(car)){install.packages("car")}
+if(!require(stargazer)){install.packages("stargazer")}
+if(!require(AER)){install.packages("AER")}
+if(!require(nlme)){install.packages("nlme")}
+if(!require(ggcorrplot)){install.packages("ggcorrplot")}
+
+if(!require(knitr)){install.packages("knitr")}
+if(!require(lmtest)){install.packages("lmtest")}
+#if(!require(orcutt)){install.packages("orcutt")}
+if(!require(sandwich)){install.packages("sandwich")}
+if(!require(randtests)){install.packages("randtests")}
+  
+
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(psych)
+library(corrplot)
+library(car)
+library(stargazer)
+library(knitr)
+library(lmtest)
+#library(orcutt)
+library(sandwich)
+library(nlme)
+
+library(randtests)
+library(AER)
+library(ggcorrplot)
+})
+
+# TinyTeX handling (outside suppress block)
+if (!requireNamespace("tinytex", quietly = TRUE)) {
+  install.packages("tinytex", quiet = TRUE)
+  tinytex::install_tinytex()
+}
+getwd()
+# Load data
+dataset <- read.csv(file="Data_Sub_AK91.csv", header = T, sep= ",")
+```
+
+# 1. EMPIRICAL SPECIFICATION AND HYPOTHESES
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nWage = beta1 + beta2*dataset$EDUC + beta3*dataset$AGE+ beta4*dataset$RACE + beta5*dataset$MARRIED + beta6*dataset$SMSA +beta7*dataset$REGION + error\n")
+  cat("\nMain hypothesis that needs to be tested: does education have an effect on wage? -> we expect beta2 to be positive. Formulation: H0 beta2 <= 0, H1 beta2 > 0, putting our hypothesis under H1 because this leads to a stronger conclusion\n")
+  cat("\n Other hypotheses: H0.. H1.. \n")
+  cat("\njoint significance test also possibly interesting: H0 beta1 = beta2 = beta3 = .... = 0, H1 beta1 = beta2 = beta3 = .... != 0\n")
+}
+
+```
+
+# 2. LOAD AND EXPLORE THE DATA
+
+```{r}
+head(dataset)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nwage: In dollars\n")
+  cat("\neduc: In years\n")
+  cat("\nage: In years\n")
+  cat("\nrace: 1 = Black, 0 = White\n")
+  cat("\nSMSA: Lives in a metropolitan are, 1 = Yes, 0 = No\n")
+  cat("\nMARRIED: Marital status (1 = Married, 0 = Not Married)\n")
+  cat("\nREGION: Geographic region (1 to 9)\n")
+  cat("\nQOB: Quarter of Birth (1 to 4)\n")
+}
+```
+
+#mutating the cathegorical variables into dummy variables
+```{r}
+dataset <- dataset %>%
+  mutate(REGION_factor = factor(REGION))
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nREGION_1 (New England) used as a reference cathegory (against multicollinearity)\n")
+  cat("\nQOB_4 used as a reference cathegory (against multicollinearity)\n")
+  cat("\nthe reference cathegory contains: a white male, not married, living in a metropolitaint area, born in the 4th quarter of the year who lives in the Passific (0 years old and 0 years of education)\n")
+}
+```
+
+#Compute descriptive statistics full dataset
+```{r}
+summary(dataset)
+describe(dataset)
+
+cov(select(dataset, -REGION, -QOB, - REGION_factor))
+cor(select(dataset, -REGION, -QOB, - REGION_factor))
+cor.ci(select(dataset, -REGION, -QOB, - REGION_factor))
+
+cor_matrix <- dataset %>%
+  select(where(is.numeric)) %>%
+  cor(use = "complete.obs")
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nIn describe(dataset), trimmed: mean of data without outliers\n")
+  cat("\nIn cov(dataset), diagonal elements = variance, others = covariance; variance = sd^2 [seen in describe()]\n")
+  cat("\nin cor(dataset), always a number between -1 & 1, we don't see extreme values of correlation\n")
+}
+```
+
+#Discriptive statistics for regions
+```{r}
+region_cor <- dataset %>%
+  group_by(REGION_factor) %>%
+  summarise(cor_matrix = list(cor(select(ungroup(cur_data()), where(is.numeric)) %>% 
+                                    select(-starts_with("REGION"), -QOB), 
+                                  use = "complete.obs")))
+# Print each region's correlation matrix separately
+for (i in 1:nrow(region_cor)) {
+  cat("\nRegion:", region_cor$REGION_factor[i], "\n")
+  print(region_cor$cor_matrix[[i]])
+}
+```
+
+#scatterplot (added layout to see destiction between races) (IS THAT OKAY?)
+```{r}
+ggplot(data = dataset, aes(x = EDUC, y = WAGE, color = factor(MARRIED))) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "lm", color = "red") +
+  facet_wrap(~ RACE, labeller = labeller(RACE = c("0" = "White", "1" = "Black"))) +
+  labs(
+    color = "Married"
+  ) +
+  theme_minimal()
+ggplot(data = dataset, aes(x = EDUC, y = WAGE, color = factor(MARRIED))) +
+  geom_point(alpha = 0.8) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(
+    color = "Married"
+  ) +
+  theme_minimal()
+```
+
+# 3. ESTIMATE AND ANALYZE THE BASELINE SPECIFICATION
+
+```{r}
+reg1 <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor, data = dataset)
+stargazer(reg1,type="text",digits = 4,style="all")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nsignificant: EDUC, AGE, RACE, MARRIED, SMSA, REGION_2, REGION_3, REGION_9\n")
+  cat("\nThe other variables are not, these are regions 4-8 (+ the intercept), which means that there is not enough difference between them and the base case (region1)\n")
+  cat("\nExample of interpretation: 1 year of education makes your expected wage go up by $26.70 (on average)\n")
+  cat("\nAnother example: When you are in region 2, you earn on average $41.19 more than people in region 1\n")
+  cat("\n\n")
+  cat("\nwe have a F Statistic of 119, this is significant, the H0 hypothesis that all Beta coefficients are zero can be rejected\n")
+  cat("\nwe have a low R^2, Only 13.41% of the variance in wage are explained by our variables, even though maximizing this is not the goal, it shows that our regression doesn't explain a lot of the variability in WAGE. Possibly because of Key challenges (seen in the slides of the case)\n")
+}
+```
+
+#Test if AGE, RACE, MARRIED en SMSA together are significant
+```{r}
+linearHypothesis(reg1, c("AGE = 0", "RACE = 0", "MARRIED = 0", "SMSA = 0"))
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nThe significant F-value indicates that the joint addition of the variables AGE, RACE, MARRIED, and SMSA has a significantly positive effect on the model. This means that these variables collectively make a valuable contribution to the explanatory power of the model compared to a model without these variables\n")
+}
+```
+
+#Test if regonal differences are significant
+```{r}
+linearHypothesis(reg1, c("REGION_factor2 = 0", "REGION_factor3 = 0", "REGION_factor4 = 0", 
+                         "REGION_factor5 = 0", "REGION_factor6 = 0", "REGION_factor7 = 0", 
+                         "REGION_factor8 = 0", "REGION_factor9 = 0"))
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nAlso here we see that the addition of the regions is significant\n")
+}
+```
+
+
+# 4. EVALUATING GAUS MARKOV ASSUMPTIONS AND APPLYING REMEDIAL MEASURES
+# 4(a).STOCHASTIC REGRESSORS
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nIn our model, no variable is determanistic (We are never certain which value a variable will have)\n")
+  cat("\nEDUC: Since that there is a relation between EDUC & motivation, this ability bias + a measurement issue can cause it to be ENDOGENIOUS (Bias + not consistent)\n")
+  cat("\nAGE, RACE, SMSA, REGION (2-9): do not get affected by the measurement issue or ability bias, because of this we can talk about - weak exogeneity -\n")
+   cat("\nAGE, RACE are strictly exogenous, no bias\n")
+  
+  cat("\nEffect on EDUC: ???? -> not seen yet in the lessons (I think?) -> probably test needed for remediation\n")
+  cat("\neffect for weak exogeneity: OLS estimate is biased but remains consistent. It's also asumptotically efficient and asymptotically normal. this all means that OLS remains valid, with justification on asympotic theory, this introduces an apporximation error (in finite samples)\n")
+}
+```
+
+#  4(b). ARE THE ERROR TERMS NORMALLY DISTRIBUTED?
+#graph method
+```{r}
+plot(reg1)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nin the Q-Q resudyaks we see a close fit to the line for most points, but on the RHS we see a large deviation. this shows right skewedness")
+}
+```
+
+#Jarque-Bera
+```{r}
+residuals <- resid(reg1)
+# Calculate skewness and kurtosis
+skew <- skew(residuals)  
+kurt <- kurtosi(residuals)
+n <- length(residuals)
+jb_stat <- (n/6) * (skew^2 + (kurt^2)/4)
+p_value <- pchisq(jb_stat, df = 2, lower.tail = FALSE)  # P(X > jb_stat)
+cat(
+  "Jarque-Bera Test Results:\n",
+  "JB Statistic =", round(jb_stat, 4), "\n",
+  "Kurtosis =", kurt,
+  "Skewness =", skew,
+  "p-value =", format.pval(p_value, eps = 0.001), "\n"
+)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nIn our case we have 10000 observations, this is a large sample size which means that the JB test is reliable. We see that the error terms are not normally distributed!\n")
+  cat("\nThis means our OLS estiomator is BLUE instead of BUE (if we only look at this assumption)\n")
+  cat("\nwe don't need remediation, Since the Central Limit Theorem ensures that the estimators are asymptotically normal in large samples, inference remains valid even if the error terms are not normally distributed.
+\n")
+}
+```
+
+#  4(c). Multicollinearity
+```{r}
+regressors <- dataset %>% 
+  select(EDUC, AGE, RACE, MARRIED, SMSA, REGION)
+cor_matrix <- cor(regressors)
+corrplot(cor_matrix, 
+         method = "color",  
+         type = "upper",
+         tl.col = "black",
+         addCoef.col = "black")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nlooking more into our correlation (!be careful: we already plotted our correlation, but now again for our model instead of the dataset)\n")
+  cat("\nWe don't see extreme values of correlation, already a good sign but not enough, since it could be that multiple smaller amounts of correlation together lead to a higher amount of multicollinearity\n")
+}
+```
+
+```{r}
+vif(reg1)
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nHow to read: GVIF = Generalized Variance Inflation Factor.\n")
+  cat("\nThe most right column is the one we are interested in (it corrects the VIF value for categorical variables), we see all values are very close to 1 which means there are no signs of Multicollinearity.\n")
+  cat("\nBoth the pairwise correlations and the Variance inflation factors don't show indications of (extreme amounts of) Multicollinearity, so there is a lot of evidence that there is no problem for our OLS in this part.\n")
+  cat("\nSmall side note: If we had high multicollinearity there wasn't much we could do about it (except trying to get richer data) if we believe our model is correctly specified, multicollinearity itself doesn't really affect (the assumptions of) OLS on its own.\n")
+}
+```
+
+# 4(d). Heteroskedasticity
+
+```{r}
+fitted_values <- fitted(reg1)
+residuals <- resid(reg1)
+squared_residuals <- residuals^2
+sd_res <- sd(residuals)
+
+dataset$SQUARED_RESIDUALS <- squared_residuals
+dataset$FITTED <- fitted_values
+
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nmaking a dataframe for analysis\n")
+  cat("\nUnderlying assumptions of each test\n")
+  cat("\nlooking at the plots: a great way to get a quick idea\n")
+  cat("\nGoldfeld-Quandt Test: Non-parametric (specification-free) test, you need to decide c, most of the time around 10%. Important to note is that there exist multiple possible ordering criteria\n")
+  cat("\nWhite’s General Heteroskedasticity Test: assumes a general heteroskedasticity pattern (Parametric test)\n")
+}
+```
+
+```{r}
+ggplot(dataset, aes(x = FITTED, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Heteroskedasticiteit: squared residuals vs expected wages",
+       x = "fitted values (expected wages)",
+       y = "residuals^2") +
+  theme_minimal()
+
+ggplot(dataset, aes(x = FITTED, y = resid(reg1))) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Heteroskedasticiteit: residuals (not squared) vs expected wages",
+       x = "fitted values (expected wages)",
+       y = "residuals") +
+  theme_minimal()
+
+gqtest(reg1, order.by = ~ FITTED, data = dataset, fraction = 0.1)
+
+#special for this plot: use of white's general heteroskedasticity test
+trimmed_indices <- abs(residuals) <= 1.96 * sd_res
+
+trimmed_data <- dataset[trimmed_indices, ]
+trimmed_residuals <- residuals[trimmed_indices]
+trimmed_squared_residuals <- trimmed_residuals^2
+
+white <- bptest(trimmed_squared_residuals ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor +I(EDUC^2) + I(AGE^2) + EDUC:AGE + EDUC:RACE + AGE:RACE + EDUC:SMSA, data = trimmed_data)
+print(white)
+
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nExplination of whites test\n")
+  cat("\nwhen we would not trim outliers, we would not get a result in favor of homoskedasticity (this was our previous mistake), but this is wrong. We first trim te outliers to get an accurate result\n")
+  cat("\nafter we have the trimmed data, trimmed residuals and trimmed squared residuals, we can make our auxiliar regression. Here we follow the structure in slide 35 (chapter 11).\n")
+  cat("\n - Important to note here, we don't square things like race, these dummy variables are 1 & 0, if we square them we get the same result. (but I don't know why we don't square the region?)\n")
+  cat("\n - We decided to incorporate the interaction terms in the regression because we have enough degrees of freedom the loss of degrees of freedome that often is a disadvantage of whites test doesn't have a big impact\n")
+  cat("\nNow we can implement the whites test. for the interpretation: see later")
+  
+  cat("\n\nwhite's general heteroskedasticity test could also have been done by doing:\n")
+  cat("\naux_model_trimmed <- lm(trimmed_squared_residuals ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor +I(EDUC^2) + I(AGE^2) + EDUC:AGE + EDUC:RACE + AGE:RACE + EDUC:SMSA, data = trimmed_data)")
+  cat("\n n_trimmed <- nrow(trimmed_data)")
+  cat("\n R2_aux_trimmed <- summary(aux_model_trimmed)$r.squared")
+  cat("\n white_stat_trimmed <- n_trimmed * R2_aux_trimmed")
+  cat("\n df_white_trimmed <- length(coef(aux_model_trimmed)) - 1")
+  cat("\n p_value_trimmed <- pchisq(white_stat_trimmed, df = df_white_trimmed, lower.tail = FALSE)")
+  cat("\ndata.frame(Statistic = c('White's Test Statistic', 'Degrees of Freedom', 'P-value'), Value = c(round(white_stat_trimmed, 4), df_white_trimmed, formatC(p_value_trimmed, format = 'e', digits = 4)))')")
+  
+  cat("\n\nmplot\n")
+  cat("\n - When we plot on residuals squared heteroskedasticity is hard to note, but when we look at the residuals alone (not squared) we see an obvious fan shape. This already makes us suspicious. further tests are needed\n")
+  cat("\nGQ test\n")
+  cat("\n - we take 10% from the middle, this is common for these tests.\n")
+  cat("\n - We reject the null hypothesis of homoskedasticity (p < 0.05) in favor of the alternative hypothesis that residual variance increases with expected wages, consistent with visual patterns in the plot.\n")
+  cat("\nwhite's general heteroskedasticity test\n")
+  cat("\n - a more general test\n")
+  cat("\n - After trimming the outliers, we get a highly significant result, we reject the H0 hypothesis of homoskedasticity.\n")
+  cat("\n => All ways of testing show heteroskedasticity.")
+
+}
+```
+
+```{r}
+ggplot(dataset, aes(x = EDUC, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "squared residuals vs. EDUC", x = "Education (EDUC)", y = "Squared Residuals")
+
+gqtest(reg1, order.by = ~ EDUC, data = dataset, fraction = 0.1)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nmplot\n")
+  cat("\n - Also here it's hard to note a certain trend, but outliers are present mostly on the RHS\n")
+  cat("\nGQ test\n")
+  cat("\n - we take 10% from the middle, this is common for these tests.\n")
+  cat("\n - what can we conclude out of the Goldfeld-Quant test: The H0 of homoskedasticity can be rejected at a 5% level, the variance likely increases from segment 1 to 2. the p value is very low, so there is only a very low chance that we make a type 1 error.\n")
+}
+```
+
+```{r}
+ggplot(dataset, aes(x = AGE, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Squared Residuals vs. AGE", x = "Leeftijd (AGE)", y = "squared residuals")
+
+gqtest(reg1, order.by = ~ -AGE, data = dataset, fraction = 0.1)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nmplot\n")
+  cat("\n - also here it's hard to note a certain trend, but outliers (mostly on the left hand side) are present\n")
+  cat("\nGQ test\n")
+  cat("\n - We performed the GQ test from '-AGE' because we expect the variance not to increase from left to right, but from right to left.\n")
+  cat("\n - we see for our gq test that we can reject the H0 hypothesis of homoskedasticity, the test is in favor of the variance increasing from right to left.
+\n")
+}
+```
+
+```{r}
+levels(factor(dataset$RACE))
+ggplot(dataset, aes(x = RACE, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "squared Residuals vs. Race", x = "Race", y = "squared residuals")
+
+
+
+sample_black <- subset(dataset, RACE == 1)
+sample_white <- subset(dataset, RACE == 0)
+
+reg_black <- lm(WAGE ~  EDUC + AGE + MARRIED + SMSA + REGION_factor, data = sample_black)
+reg_white <- lm(WAGE ~  EDUC + AGE + MARRIED + SMSA + REGION_factor, data = sample_white)
+
+RSS_black <- sum(residuals(reg_black)^2)
+RSS_white <- sum(residuals(reg_white)^2)
+
+n_black <- nrow(sample_black)
+n_white <- nrow(sample_white)
+
+k_race <- length(coef(reg_white))
+
+lambda_RACE_increase <- (RSS_black/(n_black - k_race))/(RSS_white/(n_white - k_race))
+p_value_RACE_increase <- pf(lambda_RACE_increase, df1 = n_white - k_race, df2 = n_black - k_race, lower.tail = FALSE)
+
+lambda_RACE_decrease <- 1/ lambda_RACE_increase
+p_value_RACE_decrease <- pf(lambda_RACE_decrease, df1 = n_white - k_race, df2 = n_black - k_race, lower.tail = FALSE)
+
+results_gq <- data.frame(
+  Hypothese = c("Var(Black) > Var(White)", "Var(Black) < Var(White)"),
+  GQ_statistic = c(round(lambda_RACE_increase, 4), round(lambda_RACE_decrease, 4)),
+  p_value = c(formatC(p_value_RACE_increase, format = "e", digits = 4),
+              formatC(p_value_RACE_decrease, format = "e", digits = 4))
+)
+print(results_gq)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nexplination for the GQ\n")
+  cat("\n 1 we make subsamples by race\n")
+  cat("\n 2 we perform our regression (reg1), but now on the data of each sample\n")
+  cat("\n 3 we calculate the RSS, n for the two samples, k (which will be the same for both gq tests) will also be calculated\n")
+  cat("\n 4 Compute GQ for increasing variance -> white (0) lower variance -> denominator\n")
+  cat("\n 5 Compute GQ for decreasing variance -> black (1) lower variance -> denominator\n")
+  cat("\n 6 Important to note is that df1 & df2 in R is based on the order, since white is 0 -> df1, and black is 1 -> df2\n")
+  
+  cat("\n\nmplot\n")
+  cat("\n - we obviously see heteroskedasticity, where the left part of the graph shows higher residuals (even if you don't look at the outliers)\n")
+  cat("\nGQ test\n")
+  cat("\n - When working with dummy variables, we CANT rely on the 'classical' way of the GQ test (where we just leave out the middle data), since there is now a more logical way to split the data and no real 'middle part of the data'. We will use the method where we split the data in the logical groups (race = 0 & race = 1)\n")
+  cat("\n - for the test in both directions we get a similar result, our p value is >0.05 (!), which means we have no proof against heteroskedasticity\n")
+}
+```
+
+```{r}
+ggplot(dataset, aes(x = MARRIED, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Squared residuals vs. MARRIED", x = "MARRIED", y = "Kwadraat van residuen")
+
+sd_res <- sd(residuals(reg1))
+trimmed_data <- dataset[abs(residuals(reg1)) <= 1.96 * sd_res, ]
+
+sample_married <- subset(trimmed_data, MARRIED == 1)
+sample_notmarried <- subset(trimmed_data, MARRIED == 0)
+
+reg_married <- lm(WAGE ~  EDUC + AGE + RACE + SMSA + REGION_factor, data = sample_married)
+reg_notmarried <- lm(WAGE ~  EDUC + AGE + RACE + SMSA + REGION_factor, data = sample_notmarried)
+
+RSS_married <- sum(residuals(reg_married)^2)
+RSS_notmarried <- sum(residuals(reg_notmarried)^2)
+
+n_married <- nrow(sample_married)
+n_notmarried <- nrow(sample_notmarried)
+
+k_married <- length(coef(reg_married))
+
+lambda_MARRIED_increase <- (RSS_married/(n_married - k_married))/(RSS_notmarried/(n_notmarried - k_married))
+p_value_MARRIED_increase <- pf(lambda_MARRIED_increase, df1 = n_notmarried - k_married, df2 = n_married - k_married, lower.tail = FALSE)
+
+lambda_MARRIED_decrease <- 1/ lambda_MARRIED_increase
+p_value_MARRIED_decrease <- pf(lambda_MARRIED_decrease, df1 = n_notmarried - k_married, df2 = n_married - k_married, lower.tail = FALSE)
+
+results_gq <- data.frame(
+  Hypothese = c("Var(Married) > Var(Not Married)", "Var(Married) < Var(Not Married)"),
+  GQ_statistic = c(round(lambda_MARRIED_increase, 4), round(lambda_MARRIED_decrease, 4)),
+  p_value = c(formatC(p_value_MARRIED_increase, format = "e", digits = 4),
+              formatC(p_value_MARRIED_decrease, format = "e", digits = 4))
+)
+print(results_gq)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nmplot\n")
+  cat("\n - we obviously see heteroskedasticity, where the right part of the graph shows higher residuals (even if you don't look at the outliers)\n")
+  cat("\nGQ test\n")
+  cat("\n - We now get an insignificant result for both cases\n")
+}
+```
+
+```{r}
+ggplot(dataset, aes(x = SMSA, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "squared Residuals vs. SMSA", x = "SMSA", y = "Kwadraat van residuen")
+
+sample_yes <- subset(dataset, SMSA == 1)
+sample_no <- subset(dataset, SMSA == 0)
+
+reg_yes <- lm(WAGE ~  EDUC + AGE + MARRIED + RACE + REGION_factor, data = sample_yes)
+reg_no <- lm(WAGE ~  EDUC + AGE + MARRIED + RACE + REGION_factor, data = sample_no)
+
+RSS_yes <- sum(residuals(reg_yes)^2)
+RSS_no <- sum(residuals(reg_no)^2)
+
+n_yes <- nrow(sample_yes)
+n_no <- nrow(sample_no)
+
+k_SMSA <- length(coef(reg_no))
+
+lambda_SMSA_increase <- (RSS_yes/(n_yes - k_SMSA))/(RSS_no/(n_no - k_SMSA))
+p_value_SMSA_increase <- pf(lambda_SMSA_increase, df1 = n_no - k_SMSA, df2 = n_yes - k_SMSA, lower.tail = FALSE)
+
+lambda_SMSA_decrease <- 1/ lambda_SMSA_increase
+p_value_SMSA_decrease <- pf(lambda_SMSA_decrease, df1 = n_no - k_SMSA, df2 = n_yes - k_SMSA, lower.tail = FALSE)
+
+
+results_gq <- data.frame(
+  Hypothese = c("Var(SMSA yes) > Var(SMSA no)", "Var(SMSA yes) < Var(SMSA no)"),
+  GQ_statistic = c(round(lambda_SMSA_increase, 4), round(lambda_SMSA_decrease, 4)),
+  p_value = c(formatC(p_value_SMSA_increase, format = "e", digits = 4),
+              formatC(p_value_SMSA_decrease, format = "e", digits = 4))
+)
+print(results_gq)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nmplot\n")
+  cat("\n - we obviously see heteroskedasticity, where the left part of the graph shows higher residuals (even if you don't look at the outliers)\n")
+  cat("\nGQ test\n")
+  cat("\n - We get a result in line with the graph, variance increases from right (yes) to left (no) \n")
+}
+```
+
+```{r}
+ggplot(dataset, aes(x = REGION_factor, y = SQUARED_RESIDUALS)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "squared residuals vs. Region", x = "Region", y = "Kwadraat van residuen")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nmplot\n")
+  cat("\n - A general pattern is hard to note, we do see some outliers.\n")
+  cat("\nGQ test\n")
+  cat("\n - we can't really use gq for this, 'we need to skip region' in this test and only base ourselves on the plot.\n")
+}
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nconclusion: whites test shows heteroskedasticity, besides this we see a plot with a funnel shape. we also see a few dependent variables (AGE, EDUC, SMSA) that seem to have heteroskedastic properties.\n")
+  cat("\nBecause of this we would like to address heteroskedasticity. Correcting for heteroskedasticity in this case was both justified and beneficial.\n")
+   
+  cat("\nHow does Heteroskedasticity affect OLS?\n")
+  cat("\n - Estimators in small samples are not normally distributed -> No problem here, since we work with a large sample -> asymptotically normally distributed.\n")
+  cat("\n - Our original formula of variance is incorrect & needs to be changed, this is also the case in R, it will automatically use the variance which is not applicable for this situation.\n")
+  cat("\n- If heteroskedasticity is ignored, variance estimators are biased and inconsistent, inference is invalid (standard errors and test are unreliable)\n")
+}
+
+  cat("\n\nThere are different ways to fix the problems caused by heteroskedasticity")
+  cat("\n - GLS => since we don't know the weights, EGLS")
+  cat("\n - modify model misspecification")
+  cat("\n - Maintain OLS, with robust variance estimator")
+  cat("\n => since we say it's pure heterosked. 1 & 3 are the best methods (for 2 you could use a log model)")
+```
+
+```{r}
+HC.se <- sqrt(diag(vcovHC(reg1, type="HC0")))
+print(HC.se)
+
+stargazer(reg1, type = "text", digits = 4, style = "all", 
+          se = list(coef(summary(reg1))[, "Std. Error"], HC.se)) # Pass robust standard errors
+
+# Original standard errors
+original_se <- coef(summary(reg1))[, "Std. Error"]
+
+# Combine coefficients and standard errors into a matrix for stargazer
+coef_table <- cbind(coef(reg1), original_se, HC.se)
+colnames(coef_table) <- c("Estimate", "Original SE", "Robust SE")
+
+# Use stargazer to display the results
+stargazer(coef_table, type = "text", digits = 4, style = "all", 
+          summary = FALSE)
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+   cat("\nWe changed the variance formula, and represented in in 2 ways to see the full effect & change\n")
+  cat("\nwe used the method we saw in the lesson, important to note is that the estimations of the variables stay the same, because we didn't change anything about that (still OLS), but the SE changed. in some cases the SE is higher since the original variance's estimates are based on the assumption of homoskedasticity, which is in this case not true. this leads to invalid inference and so wrong estimations for SE etc.\n")
+}
+```
+
+```{r}
+reg_egls <- gls(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor, data = dataset, weights = varPower(form = ~fitted(.)))
+stargazer(reg_egls, type = "text", digits = 4, style = "all")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+   cat("\nA correct choice of the weights is important, we see a funnel shape so weights based on fitted values seem to be applicable. This variance function allows the error variance to increase with the magnitude of predicted WAGE, matching our funnel-shaped residual pattern found in visual plots.\n")
+  cat("\nImportant to note is that we work with EGLS, which means that it's biased in finite samples (introduction of a measurement error).\n")
+  cat("\nEGLS is consistent and asymptotically efficient (measurement error vanishes when sample size grows large, in our case we have a big sample). EGLS offers 3 advantages: efficiency, correct inference, variance modeling\n")
+}
+```
+
+# 4E. Autocorrelation
+
+```{r}
+dataset_ordered_educ <- dataset[order(dataset$EDUC), ]
+dataset$residuals <- residuals(reg1)
+
+dataset_ordered_educ <- dataset[order(dataset$EDUC), ]
+dataset_ordered_educ$index <- 1:nrow(dataset_ordered_educ)
+residuals_ordered <- dataset_ordered_educ$residuals
+
+ggplot(dataset_ordered_educ, aes(x = index, y = residuals)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Residuals Ordered by EDUC",
+       x = "Ordered Observations (by EDUC)",
+       y = "Residuals") +
+  theme_minimal()
+
+plot(residuals_ordered,
+ type = "l",
+ col = "purple",
+ main = "Residuals Ordered by EDUC",
+ xlab = "Index (Sorted by EDUC)",
+ ylab = "OLS Residuals")
+runs_test <- runs.test(residuals_ordered)
+print(runs_test)
+
+dwtest(reg1, order.by = ~ EDUC, data = dataset)
+
+reg_ordered_educ <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor, data = dataset_ordered_educ)
+bgtest(reg_ordered_educ, order = 1, data = dataset)
+bgtest(reg_ordered_educ, order = 2, data = dataset)
+
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nfor educ\n")
+  cat("\nPlot\n")
+  cat("\n - We don't really see any signs of autocorrelation in the plots, further investigation needed\n")
+  
+  cat("\n Runs test\n")
+  cat("\n - We reject the H0 hypothesis (at the 5% level) that the number of runs is normally distributed, evidence of autocorrelation\n")
+  
+  cat("\nDW test\n")
+  cat("\n - A p value of 0.01502, which again shows evidence for autocorrelation (first order)\n")
+  cat("\n - But: looking at the assumptions, this test might not be applicable (see later)\n")
+  
+  cat("\nBG test\n")
+  cat("\n - Here our p value becomes 0.03146 for the first order but 0.08975 for the second, this test shows evidence for an AR(1) pattern, but evidence against serial correlation of order 2\n")
+}
+```
+
+```{r}
+dataset_ordered_age <- dataset[order(dataset$AGE), ]
+dataset_ordered_age$index <- 1:nrow(dataset_ordered_age)
+residuals_ordered <- dataset_ordered_age$residuals
+
+ggplot(dataset_ordered_age, aes(x = index, y = residuals))  +
+  geom_point(alpha = 0.5) +
+  labs(title = "Residuals Ordered by AGE",
+       x = "Ordered Observations (by AGE)",
+       y = "Residuals") +
+  theme_minimal()
+
+plot(residuals_ordered,
+ type = "l",
+ col = "purple",
+ main = "Residuals Ordered by AGE",
+ xlab = "Index (Sorted by AGE)",
+ ylab = "OLS Residuals")
+
+runs_test <- runs.test(residuals_ordered)
+print(runs_test)
+
+dwtest(reg1, order.by = ~ AGE, data = dataset)
+
+reg_ordered_age <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor, data = dataset_ordered_age)
+bgtest(reg_ordered_age, order = 1, data = dataset)
+bgtest(reg_ordered_age, order = 2, data = dataset)
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nFor AGE\n")
+  cat("\n - We don't really see any signs of autocorrelation in the plots, further investigation needed\n")
+  cat("\nPlot\n")
+  cat("\n - we can't reject the H0 hypothesis at the 5% level, evidence against autocorrelation\n")
+  
+  cat("\n Runs test\n")
+  cat("\n - we can't reject the H0 hypothesis at the 5% level, evidence against autocorrelation\n")
+  
+  cat("\nDW test\n")
+  cat("\n - we can't reject the H0 hypothesis at the 5% level, evidence against autocorrelation\n")
+  cat("\n - but: looking at the assumptions, this test might not be applicable (see later)\n")
+  
+  cat("\nBG test\n")
+  cat("\n - we can't reject the H0 hypothesis at the 5% level, evidence against autocorrelation\n")
+}
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nHow does Autocorrelation affect OLS?\n")
+  cat("\n - The original formula of variance is incorrect & needs to be changed, this is also the case in R, it will automatically use the variance which is not applicable for this situation.The variance is dependent on the pattern (ex AR(1))")
+  cat("\n - OLS is no longer efficient, GLS will result in a lower variance.")
+  cat("\n - If Autocorrelation is ignored, variance estimators are biased and inconsistent, inference is invalid (standard errors and test are unreliable)\n")
+  cat("\n\nautocorrelation is meaningful?\n")
+  cat("\n - Since we don't work with time series data and since the ordering on educ & age is quite arbitrary, we think Autocorrelation is most likely caused by model misspecification, rather than pure autocorrelation (which is more common in time series data). this misspecification can have different causes like like omission of relevant variables or an incorrect functional form.")
+  cat("\n --> we should not try to fix autocorrelation with methods like GLS (for example), but we should rather look where the model misspecification is caused and what we can do about it (adding omitted variables, using the right functional form etc.), this will be done in a later part of this case.")
+  
+}
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nUnderlying assumptions of each test:")
+  
+  cat("\n\nRuns: A non-parametric test checking for randomness in the sequence of residuals")
+  cat("\n- Non parametric, no need to assume a specific error structure")
+  cat("\n- Under the null hypothesis of no autocorrelation, the number of runs R is approximately normally distributed")
+  cat("\n- Very simple")
+  cat("\n- Particularly useful when the autocorrelation pattern is unknown or difficult to model parametrically")
+  cat("\n=> can be used")
+  
+  cat("\n\nDurbin-Watson d statistic: Commonly used to detect first-order autocorrelation in time series")
+  cat("\n- Regressors are non stochastic (Here: not ok!)")
+  cat("\n- Error terms are normally distributed (Here: not ok!)")
+  cat("\n- Error terms follow an AR(1) process (Here: ?)")
+  cat("\n- Regression model does not include lagged dependent variables (here: ok!)")
+  cat("\n=> we cannot take meaningful conclusions out of the Durbin-Watson d statistic")
+  
+  cat("\n\nBreusch-Godfrey LM test: More flexible, allows testing for higher-order autocorrelation and inclusion of lagged dependent variables")
+  cat("\n- Assumes a model")
+  cat("\n- Stochastic regressors not needed, lagged dependent variables can be included, errors can be higher order than AR(1)")
+  cat("\n=> can be used\n")
+  
+}
+```
+
+# 4(F). MODEL SPECIFICATION
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nIn earlier tests we both saw indications of heteroskedasticity and autocorrelation, these two can both be an indicator of model misspecification, where we have said in previous part that autocorrelation in particular can be a sign of model misspecification. Further investigation is needed.\n")
+}
+```
+
+```{r}
+  Yfitted <- reg1$fitted.values
+
+  Ramsey_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(Yfitted^2) + I(Yfitted^3), data = dataset)
+  stargazer(Ramsey_reg,type="text",style="all")
+  
+  Ramsey_test = ((summary(Ramsey_reg)$r.squared-summary(reg1)$r.squared)/2)/((1-summary(Ramsey_reg)$r.squared)/(10000-16))
+  p_value_Ramsey <- pf(Ramsey_test, 2, 9984, lower.tail = FALSE)
+  
+  Ramsey_summary=c(Ramsey_test, p_value_Ramsey)
+  names(Ramsey_summary)=c("Test-statistic","P-value")
+  stargazer(Ramsey_summary,type="text")
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nwhat we did here\n")
+  cat("\n1 first we calculated the regression with our Yfitted (^2 & ^3)\n")
+  cat("\n2 We looked at the regression, Y^2 is highly significant, which already gives some sort of indication for model misspecification\n")
+  cat("\n3 We calculated the F test, comparing the linear model with the new model (including Y^2 & Y^3), degrees of freedom: df1 = 2 (number of restrictions imposed), df2 = 9984 (#observations - variables (intercept included))\n")
+  cat("\n4 calculating the p value")
+  cat("\nConclusion: Both the significant Y^2 and the low p value show signs of model misspecificantion\n")
+  cat("\nA disadvantage of this test is that we don't know what the misspecification is.\n")
+}
+```
+
+```{r}
+LM_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2) + I(EDUC^3) + I(AGE^2) + I(AGE^3), data = dataset)
+stargazer(LM_reg,type="text",style="all")
+
+LM_test = nrow(dataset)*summary(LM_reg)$r.squared
+LM_summary=c(LM_test,pchisq(LM_test,df=4,lower.tail=FALSE))
+names(LM_summary)=c("Test-statistic","P-value")
+stargazer(LM_summary,type="text")
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nFor our model specification: we don't incorporate the other variables, because these are dummy variables, squaring them wouldn't make a difference or wouldn't be logical in the case of the region variable.\n")
+  cat("\nAs a first indication: In stargazer we see that both non linear transformations of EDUC are significant, non-lin. transformations of Age are not.\n")
+  cat("\nOur LM test is significant. To know if adding non linear transformations of EDUC or AGE are actually interesting for our model, more detailed investigations are needed\n")
+  cat("\nNow we can go over to more targeted tests, where we look at model enrichment.\n")
+}
+```
+
+```{r}
+log_reg <- lm(log(WAGE) ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor, data = dataset)
+AIC(reg1, log_reg)
+BIC(reg1, log_reg)
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\n(A log transformation on WAGE is often done for heteroskedasticity because of specification/ data issues)\n")
+  cat("\nWe didn't really know how to test this. But if we look at AIC & BIC we see in both cases that the log value has a lower value. log(wage) might be a better model fit. This is in contrary to what we would have expected in theory, a constant % increase of wages doesn't seem to be logic\n")
+  cat("\nInteresting to note is that the interpretation of our model changes, where now an increase in an independent variable causes a % increase or decrease in expected weekly wage (holding the other variables constant)\n")
+}
+```
+
+```{r}
+educ_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2), data = dataset)
+anova(reg1,educ_reg)
+stargazer(educ_reg,type="text")
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nHere we can test if the incorporation of higher polynomials is interesting by using the F test, in this case we see that adding educ^2 is interesting. We will further investigate if this is also the case for adding even higher orders of educ\n")
+    cat("\nWe need to be careful with datamining, where we fit the model too much to the sample instead of to the population. This can later be (partially) checked by using a holdout sample.\n")
+}
+```
+
+```{r}
+educpolythree_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3), data = dataset)
+anova(educ_reg,educpolythree_reg)
+
+educpolyfour_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4), data = dataset)
+anova(educpolythree_reg,educpolyfour_reg)
+stargazer(educpolyfour_reg,type="text")
+
+educpolyfive_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4)+I(EDUC^5), data = dataset)
+anova(educpolyfour_reg,educpolyfive_reg)
+stargazer(educpolyfive_reg,type="text")
+
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nUp until order 5, adding higher polynomials of educ is interesting, but when adding educ^5 we don't see a significant improvement.\n")
+}
+```
+
+```{r}
+age_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(AGE^2), data = dataset)
+anova(reg1,age_reg)
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nHere we don't have a significant result at the 5% level, meaning that we don't see a big enough improvement to add a higher order of age to the model\n")
+}
+```
+
+```{r}
+ageinteraction_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(AGE*EDUC), data = dataset)
+anova(reg1,ageinteraction_reg)
+
+raceinteraction_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(RACE*EDUC), data = dataset)
+anova(reg1,raceinteraction_reg)
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nWe will not incorporate the interaction term with age, but the interaction term between race and education seems to have a significant positive result on the fit of the model.\n")
+  cat("\nNow we will bring it all together:\n")
+}
+```
+
+```{r}
+reg2 <- lm(log(WAGE) ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4) + I(RACE*EDUC), data = dataset)
+stargazer(reg2, type = "text", style = "all")
+
+Yfitted <- reg2$fitted.values
+Ramsey_reg2 <- lm(log(WAGE) ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4) + I(RACE*EDUC) + I(Yfitted^2) + I(Yfitted^3), data = dataset)
+stargazer(Ramsey_reg2,type="text",style="all")
+Ramsey_test = ((summary(Ramsey_reg2)$r.squared-summary(reg2)$r.squared)/2)/((1-summary(Ramsey_reg2)$r.squared)/(10000-20))
+Ramsey_summary=c(Ramsey_test,pf(Ramsey_test, 2, 9980, lower.tail = FALSE))
+names(Ramsey_summary)=c("Test-statistic","P-value")
+stargazer(Ramsey_summary,type="text")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nWe based our model on the tests we did in this part of the case.\n")
+  cat("\nWhen we do the ramsey reset test we still have high P value\n")
+  cat("\nWe can also perform another test, the chi^2 test. This is especially helpful in cases here some degree of data mining has occurred. Our samples need to be large enough, which is the case here\n")
+}
+```
+
+```{r}
+holdout <- read.csv("Data_HoldOut_AK91.csv")
+holdout <- holdout %>%
+  mutate(REGION_factor = factor(REGION))
+
+WAGE_predict_holdout <- predict(reg2, newdata = holdout)
+residuals_holdout <- holdout$WAGE - WAGE_predict_holdout
+sigma_squared <- sigma(reg2)^2
+test <- sum(residuals_holdout^2)/sigma_squared
+df_forecast <- length(residuals_holdout)
+  #nrow(holdout)
+p_value <- pchisq(test, df = df_forecast, lower.tail = FALSE)
+
+cat("Test statistic:", round(test, 2), "\n")
+cat("degrees of freedom:", df_forecast, "\n")
+cat("p-value:", round(p_value, 5), "\n")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nWe used the formula of our slide, we get a very low p value, which means that we reject H0, this shows model misspecification. the model doesn't fit the holdout sample well.\n")
+  cat("\n when testing around in the model, we found that the log causes this p value to go to 0, that's why we will try again without it.\n")
+}
+```
+```{r}
+reg3 <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4) + I(RACE*EDUC), data = dataset)
+stargazer(reg3, type = "text", style = "all")
+
+Yfitted <- reg3$fitted.values
+Ramsey_reg3 <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4) + I(RACE*EDUC) + I(Yfitted^2) + I(Yfitted^3), data = dataset)
+stargazer(Ramsey_reg3,type="text",style="all")
+Ramsey_test = ((summary(Ramsey_reg3)$r.squared-summary(reg3)$r.squared)/2)/((1-summary(Ramsey_reg3)$r.squared)/(10000-20))
+Ramsey_summary=c(Ramsey_test,pf(Ramsey_test, 2, 9980, lower.tail = FALSE))
+names(Ramsey_summary)=c("Test-statistic","P-value")
+stargazer(Ramsey_summary,type="text")
+
+
+WAGE_predict_holdout <- predict(reg3, newdata = holdout)
+residuals_holdout <- holdout$WAGE - WAGE_predict_holdout
+sigma_squared <- sigma(reg3)^2
+test <- sum(residuals_holdout^2)/sigma_squared
+df_forecast <- length(residuals_holdout)
+  #nrow(holdout)
+p_value <- pchisq(test, df = df_forecast, lower.tail = FALSE)
+
+cat("Test statistic:", round(test, 2), "\n")
+cat("degrees of freedom:", df_forecast, "\n")
+cat("p-value:", round(p_value, 5), "\n")
+```
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nNow we have a high p value for the chi^2 test, which is why we choose the model without log(wage)")
+  cat("\n our Ramsey reset test now becomes low. (?)\n")
+}
+```
+
+# 4(g) Endogeneity and Instrumental Variables
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nReminder: when checking the exogeneity assumption, we saw that EDUC was endogenious, this makes OLS biased and inconsistent. We will now look how to solve this.\n")
+  cat("\n\nImplications:\n")
+  cat("\nWhen endogeneity is present, the assumption that is needed for OLS to be consistent is not fulfilled, which means that our estimator becomes biased and inconsistent (as talked about in previous sentance). This results in invalid predictions\n")
+  cat("\nWe Have multiple ways of solving this, both full information methods or limited Information methods ([1] OLS possible, if the endogeneity comes from the fact that the model isrecursive. [2]ILS, but rarely used in practice. [3] 2SLS\n")
+  cat("\nWe will pick two stage least squares (2SLS), this method uses instrumental variables to construct a proxy for endogenous regressors. In R we can use 'ivreg' to not manually perform the two stages.\n")
+  
+  cat("\n\nQOB\n")
+  cat("\n - We know Quarter of Birth (QOB) systematically affects education (EDUC), so QOB is correlated with EDUC\n")
+  cat("\n - randomly assigned, not correlated with the structural error terms\n")
+  cat("\n - QOB is a variable that detemines EDUC, but is not in our regression equation\n")
+  cat("\n -> This IV satisfy the three needed conditions: Exclusion [3], Relevance [1], Exogeneity [2]. Where condition 1 & 2 are needed for identification, and condition 3 is needed for consistent estimation\n")
+}
+```
+
+```{r}
+  dataset <- dataset %>%
+    mutate(QOB_factor = factor(QOB))
+
+  regEndo <- ivreg(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor | AGE + RACE + MARRIED + SMSA + REGION_factor + QOB_factor, data = dataset )
+  
+  stargazer(regEndo,type="text",digits = 4,style="all")
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nHere we use the base model, as said in the beginning of part 4. In part 5 we will bring it all together.\n")
+  cat("\n\nTo evaluate the strength of the IV, we specifically look at two possible problems. The potential problems here are: insufficient number of IVs & insufficient number of informative IVs.\n")
+  cat("\n - Insufficient number: Order condition for 2SLS -> At least one excluded predetermined variable (instrument) per endogenous regressor. 1 endogenious variable & 1 IV. So this is ok.\n")
+  cat("\n - Insufficient number of informative: underidentification according to the rank condition -> Would show up as weak instruments problem (only weak correlation with the endogenous regressor).\n")
+  cat("\n  --> A low R^2 is an initial warning. but further investigation is needed, check joint significance of instruments in the first stage regression.\n")
+}
+```
+
+```{r}
+  summary(regEndo, diagnostics = TRUE)
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nWhen setting diagnostics to true we can investigate 'weak instruments' at the bottom of the table, we see a significant result, which means that we don't have a weak instrument. Important to note is that our Statistic is not very high, but thanks to the big amount of observations we can still have a small p value). So there is sufficient informatation.\n")
+
+cat("\n\nAfter making a model, we can use the Hausman test to look if our new model is significantly different from OLS, if that is the case we most likely have endogeneity.\n")
+
+}
+```
+
+```{r}
+  #first stage (needed for hausman)
+  reg_first <- lm(EDUC ~ AGE + RACE + MARRIED + SMSA + REGION_factor + QOB_factor, data = dataset)
+  res_first <- reg_first$residuals
+  
+  reg_haus <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor +res_first, data = dataset)
+  summary(reg_haus)
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nWhen doing the Hausman test, the coefficient of the residuals are not significant, which makes us believe that there is not enough evidence for endogeneity (?)\n")
+
+}
+```
+# 5. General Remediation and Conclusion
+# 5. GENERAL REMEDIATION AND CONCLUSION
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\n\nRecap of stage 4:\n")
+  cat("\n(a) Stochastic regressors\n")
+  
+  cat("\n\n - We have no determanistic regressors. most regressors are exogenous (weak or strict) and EDUC is endogenous. remediation for exogenous variables are not needed, but they make our model biased (but still consistent). Endogeneity is discussed later.\n")
+  cat("\n --> when exogenous: asumptotically efficient, asymptotically normal, consistent. introduction of an apporximation error in small samples\n")
+  
+  cat("\n\n(b) Error terms normally distr.\n")
+  cat("\n - Our errors are not normally distributed. But: We don't need remediation, Since the Central Limit Theorem ensures that the estimators are asymptotically normal in large samples. Inference remains valid.\n")
+  cat("\n--> still BLUE\n")
+
+  cat("\n\nMulticollinearity\n")
+  cat("\n - Both the pairwise correlations and the Variance inflation factors don't show indications of (extreme amounts of) Multicollinearity, so there is a lot of evidence that there is no problem for our OLS in this part\n")
+  
+  cat("\n\n(pure) Heteroskedasticity\n")
+  cat("\n - We have (pure) Heteroskedasticity, so we need a remediation. This can be done via GLS or robust variance. Dependent on the solution we opt for whe have different consequences.\n")
+  cat("\n - (E)GLS: If the weights can be estimated: EGLS is consistent and asymptotically efficient\n")
+  cat("\n - Robust variance: If you do this via 'White’s heteroskedasticity-consistent variance estimator', asymptotically valid but is biased in small samples (not the case for us). OLS is also not efficient anymore\n")
+  
+  cat("\n\n(pure) Autocorrelation\n")
+  cat("\n - since we work with cross sectional data, we don't think we have pure Autocorrelation.\n")
+  
+  cat("\n\nModel specification\n")
+  cat("\n - dependent on what type of model specification errors you have you have different consequences. in part 4(f) we made a new model that did good on the chi^2 test.\n")
+  cat("\n - The model: reg2 <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2)+I(EDUC^3)+I(EDUC^4) + I(RACE*EDUC), data = dataset)\n")
+  
+  cat("\n\nEndogeneity\n")
+  cat("\n The Hausman test showed us that there is no Endogeneity\n")
+  
+  cat("\n\n We would like to combine all these methods into one final model. Here our focus is on  model specification & heteroskedasticity, besides these we also had some outliers which we would like to remove.\n")
+}
+```
+
+```{r}
+lower_bound <- quantile(dataset$WAGE, 0.005, na.rm = TRUE)
+upper_bound <- quantile(dataset$WAGE, 0.995, na.rm = TRUE)
+dataset_trimmed <- dataset %>% filter(WAGE >= lower_bound, WAGE <= upper_bound)
+
+reg_final <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed)
+
+reg_egls_final <- gls(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION_factor + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed, weights = varPower(form = ~fitted(.)))
+stargazer(reg_egls_final, type = "text", digits = 4, style = "all")
+
+
+```
+
+```{r, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("\nThis gives us a final model, where we both account for heteroskedasticity (via EGLS) and for model misspecification. A disadvantage here is that EGLS is only an estimate and we saw in a previous section that ramsey's reset test also showed signs of further model misspecification. But both problems can not be further dealt with.\n\n")
+  cat("\n\nWe based our model specification on previous findings.\n")
+}
+```

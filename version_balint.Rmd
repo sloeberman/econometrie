@@ -13,7 +13,7 @@ df_print: paged
 
 ```{r setup, include=FALSE}
 # Global setting: Toggle to TRUE for feedback version, FALSE for exam version
-show_interpretation <-TRUE
+show_interpretation <- TRUE
 #load libraries
 library(stargazer)
 library(psych)
@@ -96,26 +96,27 @@ cat("Two-sided test: Region could impact wages in either direction\n\n")
 ```
 
 ```{r header 2, echo=FALSE, results='asis'}
-cat("# **2. Explore the Data**\n\n")
+cat("# **Step 1: Specification, hypotheses, and descriptive statistic**\n\n")
 ```
 
 
-```{r head, echo=TRUE}
+```{r head, echo=FALSE}
 head(df)
 ```
 
-```{r summary, echo=TRUE}
+```{r summary, echo=FALSE}
 summary(df)
 ```
 
 
-```{r describe, echo=TRUE}
+```{r describe, echo=FALSE}
 describe(df)
 ```
 
-```{r cov, echo=TRUE}
-cov(df)
+```{r cov, echo=FALSE}
+round(cov(df), 3)
 ```
+
 ```{r statisctics per region, echo=FALSE, results="asis"}
 if (isTRUE(show_interpretation)) {
   cat("### **2.1 Statistics per region**\n\n")  # Adds a Markdown header for clarity
@@ -166,7 +167,6 @@ df_subset1 <- df %>%
 #beschrijvende statistieken per regio
 describeBy(df_subset1, group = "REGION")
 ```
-
 
 
 ```{r statisctics per age, echo=FALSE, results="asis"}

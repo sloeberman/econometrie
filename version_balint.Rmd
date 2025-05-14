@@ -1012,12 +1012,16 @@ names(chi2_summary) <- c("Test-statistic", "P-value")
 # Output nicely
 stargazer(chi2_summary, type = "text", summary = FALSE)
 ```
+
 ```{r, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("\n The p-value is 1, so we can't reject the null hypothesis, in other words, there's no misspecification.\n")
-  
-  
-}
+  }
+```
+
+```{r best model reset, echo =FALSE,results = 'asis'}
+reset_test <- resettest(best_mod, power = 2:3, type = "fitted")
+print(reset_test)
 ```
 
 ```{r header 4g, echo=FALSE, results="asis"}

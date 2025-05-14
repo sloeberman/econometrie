@@ -845,9 +845,20 @@ reset_test <- resettest(linear_model1, power = 2:3, type = "fitted")
 print(reset_test)
 ```
 
-```{r LM test, echo=FALSE,results='asis'}
+```{r LM test educ, echo=FALSE,results='asis'}
 res=linear_model1$residuals
-LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3), data = df)
+LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+stargazer(LM_reg,type="text",style="all")
+LM_test = 10000*summary(LM_reg)$r.squared
+LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
+names(LM_summary)=c("Test-statistic","P-value")
+stargazer(LM_summary,type="text")
+```
+```{r LM test age, echo=FALSE,results='asis'}
+res=linear_model1$residuals
+LM_reg_age=lm(res~EDUC+I(AGE^2)+I(AGE^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
 stargazer(LM_reg,type="text",style="all")
 LM_test = 10000*summary(LM_reg)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
@@ -871,6 +882,12 @@ summary(linear_model1)$r.squared
 cat("Log model r-squared:")
 summary(log_model)$r.squared
 cat("The log model has a lower AIC and BIC and higher R-squared compared to the linear model, so log model has a better fit")
+```
+
+```{r RESET log, echo=FALSE,results='asis'}
+reset_test <- resettest(log_model, power = 2:3, type = "fitted")
+print(reset_test)
+cat("Reset test still shows misspecification but model has improved compared to baseline.")
 ```
 
 ```{r}
@@ -956,10 +973,10 @@ REGION6 = as.integer(REGION == 6),
 REGION7 = as.integer(REGION == 7),
 REGION8 = as.integer(REGION == 8),
 REGION9 = as.integer(REGION == 9))
-best_mod <- lm(WAGE~ EDUC + I(EDUC^2) + I(EDUC^3)+I(EDUC^4) + AGE + RACE + I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+best_mod <- lm(log(WAGE)~ EDUC + I(EDUC^2) + I(EDUC^3)+I(EDUC^4) + AGE + RACE + I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
 beta=best_mod$coefficients
-X_hold <- model.matrix(WAGE~ EDUC + I(EDUC^2) + I(EDUC^3)+I(EDUC^4) + AGE + RACE + I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,data = hold)
-y_hold <- hold$WAGE
+X_hold <- model.matrix(formula(best_mod),data = hold)
+y_hold <- log(hold$WAGE)
 y_hat_base <- X_hold %*% beta
 residuals_holdout <- y_hold - y_hat_base
 # Estimate sigma² from full sample using the BEST model
@@ -979,7 +996,7 @@ stargazer(chi2_summary, type = "text", summary = FALSE)
 ```
 ```{r, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat("\n The p-value is 1, so we can't reject the null hypothesis, in other words, there's no misspecification. But we also tried this test with log(Wage) because previously we found that it improved the fit of the model, however this test showed that there's still misspecification. This is the reason that we have left out log(wage).\n")
+  cat("\n The p-value is 1, so we can't reject the null hypothesis, in other words, there's no misspecification.\n")
   
   
 }

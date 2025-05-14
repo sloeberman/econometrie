@@ -13,7 +13,8 @@ df_print: paged
 
 ```{r setup, include=FALSE}
 # Global setting: Toggle to TRUE for feedback version, FALSE for exam version
-show_interpretation <- TRUE
+show_interpretation <- FALSE
+
 #load libraries
 library(stargazer)
 library(psych)
@@ -717,6 +718,12 @@ corrplot(correlation_matrix, method = "circle")
 ```
 
 ```{r corr matrix , echo=TRUE, results='markup', message=FALSE}
+correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
+                                 "REGION2", "REGION3", "REGION4", "REGION5", 
+                                 "REGION6", "REGION7", "REGION8", "REGION9")])
+
+
+
 kable(correlation_matrix, format = "latex") %>%
   kable_styling(latex_options = c("striped", "hold_position"))
 

@@ -31,7 +31,6 @@ library(knitr)
 library(kableExtra)
 library(broom)
 library(modelsummary)
-library(lmtest)
 # Load dataset
 df <- read.csv(file="Data_Sub_AK91.csv",header=T,sep = ",")
 df <- df %>% mutate(
@@ -845,34 +844,52 @@ reset_test <- resettest(linear_model1, power = 2:3, type = "fitted")
 print(reset_test)
 ```
 
-```{r LM test educ, echo=FALSE,results='asis'}
+```{r LM test educ en age, echo=FALSE,results='asis'}
 res=linear_model1$residuals
-LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE +I(AGE^2)+ I(AGE^3)+ RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
-stargazer(LM_reg,type="text",style="all")
+stargazer(LM_reg,type="text",style="all") #mag verwijderd worden, niet nodig op examen
 LM_test = 10000*summary(LM_reg)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
 names(LM_summary)=c("Test-statistic","P-value")
 stargazer(LM_summary,type="text")
+if (show_interpretation){
+cat("Strongly reject the null hypothesis that the model is correctly specified. The test shows that nonlinear functions of EDUC and AGE significantly explain variation in the residuals — i.e., the current baseline misses important nonlinear structure.")}
 ```
-```{r LM test age, echo=FALSE,results='asis'}
+```{r LM test educ, echo=FALSE,results='asis'}
 res=linear_model1$residuals
-LM_reg_age=lm(res~EDUC+I(AGE^2)+I(AGE^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+LM_reg_educ=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
 stargazer(LM_reg,type="text",style="all")
-LM_test = 10000*summary(LM_reg)$r.squared
+LM_test = 10000*summary(LM_reg_educ)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
 names(LM_summary)=c("Test-statistic","P-value")
 stargazer(LM_summary,type="text")
 ```
 
+```{r LM test age, echo=FALSE,results='asis'}
+res=linear_model1$residuals
+LM_reg_age=lm(res~EDUC+I(AGE^2)+I(AGE^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+stargazer(LM_reg,type="text",style="all")
+LM_test = 10000*summary(LM_reg_age)$r.squared
+LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
+names(LM_summary)=c("Test-statistic","P-value")
+stargazer(LM_summary,type="text")
+if (show_interpretation){cat("The test results suggest that the omitted non-linearities are due to EDUC but not due to AGE -> Try adding EDUC² and EDUC³ to the baseline.")}
+```
+
 ```{r log, echo=FALSE,results='asis'}
 log_model <- lm(log(WAGE)~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
-# Plot residuals vs. fitted values
-par(mfrow = c(2, 2))
-plot(linear_model1, which = 1)  # Residuals for linear model
-plot(log_model, which = 1)     # Residuals for log-linear model
+#Robust SEs
+baseline_se<-sqrt(diag(vcovHC(linear_model1,,type="HC1")))
+log_model_se<-sqrt(diag(vcovHC(log_model,,type="HC1")))
+#Stargazer output
+stargazer(linear_model1,log_model,
+          se = list(baseline_se,log_model_se),
+          type="text", title="Baseline vs Log-Linear Model with Robust SEs", column.labels = c("Level", "Log-Level"),
+          allign = TRUE, no.space = TRUE)
 # compare AIC
 AIC(linear_model1, log_model)
 # compare BIC
@@ -881,7 +898,8 @@ cat("Linear model r-squared:")
 summary(linear_model1)$r.squared 
 cat("Log model r-squared:")
 summary(log_model)$r.squared
-cat("The log model has a lower AIC and BIC and higher R-squared compared to the linear model, so log model has a better fit")
+if (show_interpretation){
+cat("The log model has a lower AIC and BIC and higher R-squared compared to the linear model, so log model has a better fit")}
 ```
 
 ```{r RESET log, echo=FALSE,results='asis'}
@@ -910,15 +928,15 @@ educpolythree_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + R
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3), data = df)
 anova(educ_reg,educpolythree_reg)
 
-educpolyfour_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
-                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3)+I(EDUC^4), data = df)
-anova(educpolythree_reg,educpolyfour_reg)
-stargazer(educpolyfour_reg,type="text")
-
-educpolyfive_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
-                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3)+I(EDUC^4)+I(EDUC^5), data = df)
-anova(educpolyfour_reg,educpolyfive_reg)
-stargazer(educpolyfive_reg,type="text")
+#educpolyfour_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
+#                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3)+I(EDUC^4), data = df)
+# anova(educpolythree_reg,educpolyfour_reg)
+# stargazer(educpolyfour_reg,type="text")
+# 
+# educpolyfive_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
+#                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3)+I(EDUC^4)+I(EDUC^5), data = df)
+# anova(educpolyfour_reg,educpolyfive_reg)
+# stargazer(educpolyfive_reg,type="text")
 
 
 ```
@@ -973,7 +991,7 @@ REGION6 = as.integer(REGION == 6),
 REGION7 = as.integer(REGION == 7),
 REGION8 = as.integer(REGION == 8),
 REGION9 = as.integer(REGION == 9))
-best_mod <- lm(log(WAGE)~ EDUC + I(EDUC^2) + I(EDUC^3)+I(EDUC^4) + AGE + RACE + I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+best_mod <- lm(log(WAGE)~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
 beta=best_mod$coefficients
 X_hold <- model.matrix(formula(best_mod),data = hold)
 y_hold <- log(hold$WAGE)

@@ -13,7 +13,7 @@ df_print: paged
 
 ```{r setup, include=FALSE}
 # Global setting: Toggle to TRUE for feedback version, FALSE for exam version
-show_interpretation <- FALSE
+show_interpretation <- TRUE
 
 #load libraries
 library(stargazer)
@@ -240,13 +240,17 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
 ```
 
 ```{r header 3, echo=FALSE, results='asis'}
-cat("# **3.Estimate the baseline Specification**\n\n")
+cat("# **Step 2: OLS estimation and testing**\n\n")
 ```
 
-```{r linear model, echo=TRUE}
+```{r linear model, echo=FALSE}
 #linear model
 linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+if (show_interpretation) {
+  cat("WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
+                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9")
+}
 ```
 
 ```{r stargazer lin model, echo=FALSE}
@@ -320,9 +324,23 @@ if (show_interpretation) {
 ```
 
 ```{r header 4, echo=FALSE, results="asis"}
-cat("# **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
-cat("#### **4a. Stochastic Regressors**\n\n")
+cat("# **Step 3: Checking GM assumptions and individual remedies**\n\n")
+if (show_interpretation) {
+  cat("# **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
+  cat("#### **4a. Stochastic Regressors**\n\n")
+}
+```
 
+```{r GM assumptrions, echo=FALSE, results="asis"}
+
+if (show_interpretation) {
+  cat("###**Gauss-Markov assumptions**:
+  \n Assumption 1: Linearity in the parameters: CHECK
+  \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model) FAIL
+  \n Correlation between explanatory variables and error terms:
+  ")
+  
+}
 ```
 
 
@@ -367,8 +385,20 @@ ggplot(data.frame(residuals), aes(x = residuals)) +
   theme_minimal()
 ```
 
+
+```{r assumption 3, echo=FALSE, results="asis"}
+print(mean(residuals))
+print(t.test(residuals, mu = 0))
+if (show_interpretation) {
+  cat("Assumption 3: The expected V value of the error terms is zero: CHECK")
+}
+```
+
+
 ```{r header 4b, echo=FALSE, results="asis"}
-cat("#### **4b. Normality Error Terms**\n\n")
+if (show_interpretation) {
+  cat("#### **4b. Normality Error Terms**\n\n")
+}
 ```
 
 ```{r QQ plot, echo=FALSE}
@@ -411,28 +441,91 @@ if (show_interpretation) {
 ```
 
 
-```{r GM assumptrions, echo=FALSE, results="asis"}
+```{r multicollin, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("### **4c: Multicollinearity**\n\n")
+}
 
 if (show_interpretation) {
-  cat("###**Gauss-Markov assumptions**:
-  \n Assumption 1: Linearity in the parameters: CHECK
-  \n Assumption 2a: The X -values are fixed over repeated sampling (fixed regressor model) FAIL
-  \n Correlation between explanatory variables and error terms:
-  ")
-  
+  cat("Gauss-Markov assumption (no perfect multicollinearity) is met.
+
+Analysis of Variance Inflation Factors and correlation:
+Low VIFs (<5): Most of the variables have VIF values close to 1, including
+EDUC (1.07), AGE (1.01), RACE (1.05), SMSA (1.07), and MARRIED (1.02). 
+These values suggest minimal multicollinearity, meaning these 
+predictors are relatively independent.\n
+      
+Moderate VIFs (Between 2 and 5): Some regional variables—REGION2 (3.28), 
+REGION3 (3.67), REGION4 (2.18), REGION5 (3.51), REGION6 (2.06), 
+REGION7 (2.54), REGION8 (1.82), and REGION9 (2.92)—show moderate 
+correlation with other predictors. These values indicate some degree 
+of collinearity, but they are not alarmingly high.
+
+High VIFs (>5): None of the variables exceed 5, which suggests that severe
+multicollinearity is not a major issue in this regression model. But even
+if VIF would be high (VIF>5), a large sample (n = 10 000 in this case) and
+high variance in the explanatory variables can still lead to precise 
+estimates.
+
+
+
+Implications for the properties and precision of the OLS estimator:
+1) Parameters remain identifiable.
+
+2) Under the CNLRM assumptions, the OLS estimator remains BLUE and normally distributed.
+
+3) OLS estimators exhibit larger variance and covariance, especially the regions.
+
+4) Wider confidence intervals and lower t-statistics 
+->variables appear less significantly different from zero, higher
+probability of making a Type II error
+
+5) The overall model fit (R2) is largely unaffected: even if individual 
+coefficients are insignificant, the F -test may indicate that the coefficients 
+are jointly significant, and can be estimated with high precision.
+
+6) Regression coefficients may change substantially\n\n")
+
 }
+
+correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
+                                 "REGION2", "REGION3", "REGION4", "REGION5", 
+                                 "REGION6", "REGION7", "REGION8", "REGION9")])
+
+
+corrplot(correlation_matrix, method = "circle")
+
 ```
 
+```{r corr matrix , echo=FALSE, results='markup', message=FALSE}
+correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
+                                 "REGION2", "REGION3", "REGION4", "REGION5", 
+                                 "REGION6", "REGION7", "REGION8", "REGION9")])
 
-```{r assumption 3}
-print(mean(residuals))
-print(t.test(residuals, mu = 0))
+print(round(correlation_matrix, 5))
+```
+
+```{r, echo=FALSE, results='asis'}
 if (show_interpretation) {
-  cat("Assumption 3: The expected V value of the error terms is zero: CHECK")
+  cat("VIF VALUES")
 }
+vif_values = vif(linear_model1)
+
+library(knitr)
+library(kableExtra)
+
+# Stel dat `vif_values` je VIF-vector is
+vif_df <- data.frame(Variable = names(vif_values), VIF = vif_values)
+
+kable(vif_df, format = "latex", digits = 3, booktabs = TRUE, caption = "") %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+
 ```
+
 ```{r Heterskedasticity, echo=FALSE, results='asis'}
-cat("### **4(d) Heteroskedasticity**\n\n")
+if (show_interpretation) {
+  cat("### **4(d) Heteroskedasticity**\n\n")
+}
 ```
 
 ```{r residuals_plot, echo=FALSE}
@@ -498,16 +591,21 @@ Clear signs of heteroskedasticity across multiple predictors, suggesting violati
 ```
 
 ```{r Heteroskedasticity_test, echo=FALSE, results='asis'}
-cat("## **4(d).1**Heteroskedasticity test **\n\n")
+if (show_interpretation) {
+  cat("## **4(d).1**Heteroskedasticity test **\n\n")
+}
 
 ```
 
 ```{r echo=FALSE, results="asis"}
-cat("#### **white's general test**\n\n")
+
+if (show_interpretation) {
+  cat("#### **white's general test**\n\n")
+}
 ```
 
 
-```{r White_test , echo=TRUE , results="asis"}
+```{r White_test , echo=FALSE , results="markup"}
 
 white_test <- bptest(linear_model1, ~ fitted(linear_model1) + I(fitted(linear_model1)^2))
 print(white_test)
@@ -520,7 +618,8 @@ if (show_interpretation) {
 -for white there are not properties, ( idk zie slide bij verbetring stond in rood , maar ze zei er niks over")
 }
 ```
-```{r White_test_trimmed , echo=TRUE , results="asis"}
+
+```{r White_test_trimmed , echo=FALSE , results="markup"}
 
 
 # Step 1: Define a trimmed version of your data (removing outliers based on WAGE, for example)
@@ -539,6 +638,7 @@ white_test_trimmed <- bptest(linear_model_trimmed,
 print(white_test_trimmed)
 
 ```
+
 ```{r White_trimmed_interpretie, echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat(" even with trimmed date , we have even a smaller p value  reject the null hyptothis , which implies that we reject homoskedastiscity\n
@@ -549,10 +649,12 @@ if (show_interpretation) {
 
 
 ```{r echo=FALSE, results="asis"}
-cat("#### **goldfeld-quant test**\n\n")
+if (show_interpretation) {
+  cat("#### **goldfeld-quant test**\n\n")
+}
 ```
 
-```{r QF_test , echo=TRUE , results="asis"}
+```{r QF_test , echo=TRUE , results="markup"}
 gqtest_result <- gqtest(linear_model1, order.by =df$EDUC ,fraction = 1000)
 print(gqtest_result)
 ```
@@ -581,8 +683,11 @@ if (show_interpretation) {
 -the st errors of the coef are underestimated and are not to be trusted, therefore infernce bout the significance is wrong \n\n")
 }
 ```
-```{r edzs, echo=FALSE,results='asis'}
-cat("## **4(d).2 adressing heteroskedasticity**\n\n")
+
+```{r edzs, echo=FALSE, results="asis"}
+if (show_interpretation) {
+  cat("## **4(d).2 adressing heteroskedasticity**\n\n")
+}
 ```
 
 
@@ -619,10 +724,12 @@ if (show_interpretation) {
 ```
 
 ```{r echo=FALSE, results="asis"}
-cat("**EGLS** ")
+if (show_interpretation) {
+  cat("**EGLS** ")
+}
 ```
 
-```{r EGLS estimation, echo=TRUE, results="asis"}
+```{r EGLS estimation, echo= FALSE, results="asis"}
 # Step 1: Get design matrix and response variable
 X <- model.matrix(linear_model1)  # Includes intercept & region dummies
 Y <- df$WAGE
@@ -678,71 +785,14 @@ if (show_interpretation) {
 }
 ```
 
-```{r multicollin, echo=FALSE, results="asis"}
-if (show_interpretation) {
-  cat("Multicollinearity\n
-      Gauss-Markov assumption (no perfect multicollinearity) is met.
-      \n\n
-      Analysis of Variance Inflation Factors and correlation:
-      Low VIFs (<5): Most of the variables have VIF values close to 1, including EDUC (1.07), AGE (1.01), RACE (1.05), SMSA (1.07), and MARRIED (1.02). These values suggest minimal multicollinearity, meaning these predictors are relatively independent.\n
-      
-      Moderate VIFs (Between 2 and 5): Some regional variables—REGION2 (3.28), REGION3 (3.67), REGION4 (2.18), REGION5 (3.51), REGION6 (2.06), REGION7 (2.54), REGION8 (1.82), and REGION9 (2.92)—show moderate correlation with other predictors. These values indicate some degree of collinearity, but they are not alarmingly high.
-      \n
-      High VIFs (>5): None of the variables exceed 5, which suggests that severe multicollinearity is not a major issue in this regression model. But even if VIF would be high (VIF>5), a large sample (n = 10 000 in this case) and high variance
-in the explanatory variables can still lead to precise estimates.
-
-
-
-      Implications for the properties and precision of the OLS estimator:
-      1) Parameters remain identifiable.\n
-      2) Under the CNLRM assumptions, the OLS estimator remains BLUE and normally distributed.\n
-      3) OLS estimators exhibit larger variance and covariance, especially the regions.\n
-      4) Wider confidence intervals and lower t-statistics 
-      ->variables appear less significantly different from zero, higher probability of making a Type II error\n
-      5) The overall model fit (R2) is largely unaffected: even if individual coefficients are insignificant, the F -test may
-indicate that the coefficients are jointly significant, and can be estimated with high precision.\n
-      6) Regression coefficients may change substantially\n
-      ")
-
-
-
-correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
-                                 "REGION2", "REGION3", "REGION4", "REGION5", 
-                                 "REGION6", "REGION7", "REGION8", "REGION9")])
-
-
-corrplot(correlation_matrix, method = "circle")
-
-}
-
-```
-
-```{r corr matrix , echo=TRUE, results='markup', message=FALSE}
-correlation_matrix <- cor(df[, c("EDUC", "AGE", "RACE", "SMSA", "MARRIED", 
-                                 "REGION2", "REGION3", "REGION4", "REGION5", 
-                                 "REGION6", "REGION7", "REGION8", "REGION9")])
-
-
-
-kable(correlation_matrix, format = "latex") %>%
-  kable_styling(latex_options = c("striped", "hold_position"))
-
-print(correlation_matrix)
-print(max(abs(correlation_matrix)))
-
-
-```
-```{r}
-print('VIF values')
-vif_values = vif(linear_model1)
-print(vif_values)
-```
 
 ```{r autocor, echo=FALSE, results='asis'}
-cat("### **4(e) Autocorrelation**\n\n")
+if (show_interpretation) {
+  cat("### **4(e) Autocorrelation**\n\n")
+}
 ```
 
-```{r ordering data, echo=TRUE,results='asis'}
+```{r ordering data, echo=FALSE,results='asis'}
 df_ordered_educ <- df %>% arrange(EDUC)
 
 # Re-run baseline linear model on ordered data
@@ -770,53 +820,68 @@ abline(h = 0, lty = 2, col = "red")  # Reference line
 ```
 
 
-```{r runstest, echo=FALSE,results='asis'}
+```{r runstest, echo=FALSE, results="markup"}
 runs_test_ordered <- runs.test(residuals_ordered)
 print(runs_test_ordered)
-if (show_interpretation) {
-  cat("sippe tijden , p value is hoog dus toch corr ")
-  }
 ```
 
+```{r runs interpretation, echo=FALSE, results='asis'}
+if (show_interpretation) {
+  cat("We have a very low p-value which means we reject the null hypothesis of no autocorrelation ")
+}
+```
 
-
-```{r dw, echo=FALSE,results='asis'}
+```{r dw, echo=FALSE, results="markup"}
 # Run Durbin-Watson test
 dw_test_ordered <- dwtest(linear_model_ordered)
-
-# Create summary properly
-DW_summary <- c(dw_test_ordered$statistic, dw_test_ordered$p.value)
-names(DW_summary) <- c("Test-statistic", "P-value")
-stargazer(DW_summary,type="text")
-if (show_interpretation) {
-  cat("Assumptions:
-  1) Error terms follow an AR(1) process
-  2) Error terms are normally distributed
-  3) The regression model does not include lagged dependent variables
- hahahah dikke pech , toch corr  :)")
-  }
+print(dw_test_ordered)
 ```
 
-```{r autocorrelation BG test, echo=FALSE,results='asis'}
-bg_test_ordered <- bgtest(linear_model_ordered, order = 6)  # Test up to 3 lags
-BG_summary=c(bg_test_ordered$statistic,bg_test_ordered$p.value)
-names(BG_summary)=c("Test-statistic","P-value")
-stargazer(BG_summary,type="text")
+```{r DW interpretation, echo=FALSE, results='asis'}
 if (show_interpretation) {
   cat("Assumptions:
+  
+1) Error terms follow an AR(1) process
+
+2) Error terms are normally distributed
+
+3) The regression model does not include lagged dependent variables 
+
+4) The regressors are non-stochastic
+
+Since assumptions 1, 2 and 4 are violated, this might not be the best test")
+}
+```
+
+```{r autocorrelation BG test, echo=FALSE, results="markup"}
+bg_test_ordered <- bgtest(linear_model_ordered, order = 6)  # Test up to 3 lags
+print(bg_test_ordered)
+```
+
+```{r BG interpretation, echo=FALSE, results='asis'}
+if (show_interpretation) {
+  cat("Assumptions:
+  
   1) Allows for stochastic regressors
+  
   2) Tests for higher-order autocorrelation
-  3) Allows for lagged dependent variables
-geprankt er is gwn corr  , idk")  }
+  
+  3) Allows for lagged dependent variables")  
+}
 ```
 
 ```{r autocorrelation implications for OLS, echo=FALSE,results='asis'}
 if (show_interpretation) {
   cat("Implications for OLS if autocorrelation is present:
+  
   1) Standard variance formula is incorrect
-  2) OLS estimator no longer efficient")
-  cat("Inference: Standard errors are incorrect, leading to invalid t-tests, F-tests, and confidence intervals")
-  cat("It does not make sense to interpret autocorrelation as a structural feature since there is no natural ordering for the dataset.")
+  
+  2) OLS estimator no longer efficient
+  
+  Inference: Standard errors are incorrect, leading to invalid t-tests, F-tests, and     confidence intervals.
+  
+  It does not make sense to interpret autocorrelation as a structural feature since
+  there is no natural ordering for the dataset.")
   }
 ```
 

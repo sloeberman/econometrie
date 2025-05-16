@@ -885,15 +885,22 @@ if (show_interpretation) {
   }
 ```
 
-# 4(F). MODEL SPECIFICATION
-
-```{r}
+```{r echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat("\nIn earlier tests we both saw indications of heteroskedasticity and autocorrelation, these two can both be an indicator of model misspecification, where we have said in previous part that autocorrelation in particular can be a sign of model misspecification. Further investigation is needed.\n")
+  cat("## **4(F). MODEL SPECIFICATION**\n\n")
 }
 ```
 
-```{r Ramsey_1, echo=FALSE,results='asis'}
+```{r, echo=FALSE, results='asis'}
+if (show_interpretation) {
+  cat("\nIn earlier tests we both saw indications of heteroskedasticity and
+      autocorrelation, these two can both be an indicator of model misspecification,
+      where we have said in previous part that autocorrelation in particular can 
+      be a sign of model misspecification. Further investigation is needed.\n")
+}
+```
+
+```{r Ramsey_1, echo=FALSE, results="markup"}
 Yfit=linear_model1$fitted.values
 Ramsey_model<-lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + +I(Yfit^2)+I(Yfit^3)+REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data=df)
@@ -911,12 +918,12 @@ names(Ramsey_summary)=c("Test-statistic","P-value")
 stargazer(Ramsey_summary,type="text")
 ```
 
-```{r Ramsey, echo=FALSE,results='asis'}
+```{r Ramsey, echo=FALSE,results="markup"}
 reset_test <- resettest(linear_model1, power = 2:3, type = "fitted")
 print(reset_test)
 ```
 
-```{r LM test educ en age, echo=FALSE,results='asis'}
+```{r LM test educ en age, echo=FALSE,results="markup"}
 res=linear_model1$residuals
 LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE +I(AGE^2)+ I(AGE^3)+ RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
@@ -925,10 +932,14 @@ LM_test = 10000*summary(LM_reg)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
 names(LM_summary)=c("Test-statistic","P-value")
 stargazer(LM_summary,type="text")
+```
+
+```{r intr, echo=FALSE, results='asis'}
 if (show_interpretation){
 cat("Strongly reject the null hypothesis that the model is correctly specified. The test shows that nonlinear functions of EDUC and AGE significantly explain variation in the residuals — i.e., the current baseline misses important nonlinear structure.")}
 ```
-```{r LM test educ, echo=FALSE,results='asis'}
+
+```{r LM test educ, echo=FALSE,results="markup"}
 res=linear_model1$residuals
 LM_reg_educ=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
@@ -939,7 +950,7 @@ names(LM_summary)=c("Test-statistic","P-value")
 stargazer(LM_summary,type="text")
 ```
 
-```{r LM test age, echo=FALSE,results='asis'}
+```{r LM test age, echo=FALSE,results="markup"}
 res=linear_model1$residuals
 LM_reg_age=lm(res~EDUC+I(AGE^2)+I(AGE^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
@@ -948,10 +959,16 @@ LM_test = 10000*summary(LM_reg_age)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
 names(LM_summary)=c("Test-statistic","P-value")
 stargazer(LM_summary,type="text")
-if (show_interpretation){cat("The test results suggest that the omitted non-linearities are due to EDUC but not due to AGE -> Try adding EDUC² and EDUC³ to the baseline.")}
 ```
 
-```{r log, echo=FALSE,results='asis'}
+```{r intrr, echo=FALSE, results='asis'}
+if (show_interpretation){
+  cat("The test results suggest that the omitted non-linearities are due to EDUC but
+      not due to AGE -> Try adding EDUC² and EDUC³ to the baseline.")
+}
+```
+
+```{r log, echo=FALSE,results="markup"}
 log_model <- lm(log(WAGE)~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
 #Robust SEs
@@ -970,17 +987,24 @@ cat("Linear model r-squared:")
 summary(linear_model1)$r.squared 
 cat("Log model r-squared:")
 summary(log_model)$r.squared
+```
+
+```{r intrrr, echo=FALSE, results='asis'}
 if (show_interpretation){
 cat("The log model has a lower AIC and BIC and higher R-squared compared to the linear model, so log model has a better fit")}
 ```
 
-```{r RESET log, echo=FALSE,results='asis'}
+```{r RESET log, echo=FALSE,results="markup"}
 reset_test <- resettest(log_model, power = 2:3, type = "fitted")
 print(reset_test)
-cat("Reset test still shows misspecification but model has improved compared to baseline.")
 ```
 
-```{r}
+```{r intrrrr, echo=FALSE, results='asis'}
+if (show_interpretation){
+cat("Reset test still shows misspecification but model has improved compared to baseline.")}
+```
+
+```{r, echo=FALSE,results="markup"}
 educ_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2), data = df)
 anova(linear_model1,educ_reg)
@@ -995,7 +1019,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r}
+```{r, echo=FALSE,results="markup"}
 educpolythree_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3), data = df)
 anova(educ_reg,educpolythree_reg)
@@ -1019,7 +1043,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r}
+```{r, echo=FALSE,results="markup"}
 age_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(AGE^2), data = df)
 anova(linear_model1,age_reg)
@@ -1032,7 +1056,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r}
+```{r, echo=FALSE,results="markup"}
 ageinteraction_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(AGE*EDUC), data = df)
 anova(linear_model1,ageinteraction_reg)
@@ -1051,7 +1075,7 @@ if (show_interpretation) {
 ```
 
 
-```{r chi squared_best, echo=FALSE,results='asis'}
+```{r chi squared_best, echo=FALSE,results="markup"}
 hold <- read.csv("Data_HoldOut_AK91.csv")
 hold <- hold %>% mutate(
 REGION1 = as.integer(REGION == 1), 
@@ -1091,7 +1115,7 @@ if (show_interpretation) {
   }
 ```
 
-```{r best model reset, echo =FALSE,results = 'asis'}
+```{r best model reset, echo=FALSE,results="markup"}
 reset_test <- resettest(best_mod, power = 2:3, type = "fitted")
 print(reset_test)
 ```

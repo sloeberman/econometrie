@@ -943,7 +943,7 @@ cat("Strongly reject the null hypothesis that the model is correctly specified. 
 res=linear_model1$residuals
 LM_reg_educ=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
-stargazer(LM_reg,type="text",style="all")
+stargazer(LM_reg_educ,type="text",style="all")
 LM_test = 10000*summary(LM_reg_educ)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
 names(LM_summary)=c("Test-statistic","P-value")
@@ -954,7 +954,7 @@ stargazer(LM_summary,type="text")
 res=linear_model1$residuals
 LM_reg_age=lm(res~EDUC+I(AGE^2)+I(AGE^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
-stargazer(LM_reg,type="text",style="all")
+stargazer(LM_reg_age,type="text",style="all")
 LM_test = 10000*summary(LM_reg_age)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
 names(LM_summary)=c("Test-statistic","P-value")

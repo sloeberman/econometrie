@@ -13,7 +13,7 @@ df_print: paged
 
 ```{r setup, include=FALSE}
 # Global setting: Toggle to TRUE for feedback version, FALSE for exam version
-show_interpretation <- TRUE
+show_interpretation <- FALSE
 
 #load libraries
 library(stargazer)
@@ -95,10 +95,7 @@ cat("Two-sided test: Region could impact wages in either direction\n\n")
 }
 ```
 
-```{r header 2, echo=FALSE, results='asis'}
-cat("# **Step 1: Specification, hypotheses, and descriptive statistic**\n\n")
-```
-
+# Step 1: Specification, hypotheses, and descriptive statistic
 
 ```{r head, echo=FALSE}
 head(df)
@@ -239,9 +236,7 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
 
 ```
 
-```{r header 3, echo=FALSE, results='asis'}
-cat("# **Step 2: OLS estimation and testing**\n\n")
-```
+# Step 2: OLS estimation and testing
 
 ```{r linear model, echo=FALSE}
 #linear model
@@ -323,8 +318,9 @@ if (show_interpretation) {
 }
 ```
 
+# Step 3: Checking GM assumptions and individual remedies
+
 ```{r header 4, echo=FALSE, results="asis"}
-cat("# **Step 3: Checking GM assumptions and individual remedies**\n\n")
 if (show_interpretation) {
   cat("# **4. Evaluating Gauss-Markov Assumptions and Applying Remedial Measures**\n\n")
   cat("#### **4a. Stochastic Regressors**\n\n")
@@ -1139,8 +1135,7 @@ cat("We assumed in 4a that Education is endogenous.
 This method replaces the endogenous regressor with a predicted version from instruments that are: relevant (correlated with EDUC) and exogenous.
 
 - Proposed instrument and justification: we use Quarter of Birth (QOB) as an instrument for EDUC. 
-Justification of choice: QOB affects the age at which individuals can legally drop out of school due to 
-school-starting age laws. QOB is strictly exogenous: it is randomly assigned at birth and unlikely to be 
+Justification of choice: QOB affects the age at which individuals can legally drop out of school. QOB is strictly exogenous: it is randomly assigned at birth and unlikely to be 
 correlated with unobserved factors that affect wages directly.
 
 - Assessing the strength of the instrument: we check the F-statistic of the instrument in the first-stage regression.
@@ -1173,12 +1168,21 @@ summary(iv_model)
 
 ```{r endogeneity interpretation, echo=FALSE, results="asis"}
 if (show_interpretation) {
-  cat("In the 2SLS estimation, the coefficient on EDUC is positive (23.29) but not statistically 
-significant (p = 0.577), indicating no strong evidence of a causal effect of education on 
-wages in this IV setup. In contrast, being married significantly increases wages 
-(coef = 78.51, p < 0.001). Some regional dummies (REGION2, REGION3, REGION9) are also 
-significant, suggesting regional wage differences. Other variables, including AGE and RACE,
-are not significant.")
+  cat("Interpretation (2SLS estimation)
+In the 2SLS estimation, the coefficient on EDUC is positive (23.29) but not
+statistically significant (p = 0.577), indicating no strong evidence of a causal 
+effect of education on wages in this IV setup. Additionally, the large standard 
+error on the EDUC coefficient (41.78) suggests that the instruments used to 
+predict education may be weak. Weak instruments can result in imprecise and 
+biased estimates, which limits the reliability of the 2SLS results. This 
+potential weakness in the first-stage regression implies that the causal 
+effect of education on wages cannot be reliably identified in this model.
+
+In contrast, being married significantly increases wages (coef = 78.51, 
+p < 0.001), and some regional dummies (REGION2, REGION3, REGION9) are also
+statistically significant, suggesting notable regional wage differences. 
+Other covariates, such as AGE, RACE, and SMSA, are not significant in this
+specification.")
 }
 ```
 
@@ -1198,8 +1202,13 @@ summary(first_stage)
 
 ```{r first stage interpretation, echo=FALSE, results="asis"}
 if (show_interpretation) {
-cat("The instrument QOB is statistically significant (p = 0.038), with a positive coefficient (0.0595).
-This confirms that QOB is correlated with EDUC, satisfying the relevance condition for an instrumental variable")
+cat("In the first-stage regression, the instrument QOB is statistically 
+    significant (p = 0.038), with a positive coefficient (0.0595), 
+    indicating that it is correlated with the endogenous regressor EDUC. 
+    Additionally, the F-statistic of the joint significance of the 
+    instruments is 55.7, which is well above the conventional threshold 
+    of 10. This suggests that the instrument is not weak and satisfies 
+    the relevance condition for valid instrumental variable estimation.")
 }
 ```
 
@@ -1224,13 +1233,22 @@ summary(augmented_model)
 
 ```{r hausman interpretation, echo=FALSE, results="asis"}
 if (show_interpretation) {
-cat("The coefficient on the first-stage residuals is not statistically significant (p = 0.935).
-This suggests no evidence of endogeneity in EDUC.
-OLS is consistent, and IV is not strictly necessary in this case.")
+cat("The coefficient on the first-stage residuals is not statistically 
+significant (p = 0.935), suggesting that there is no strong 
+evidence of endogeneity in EDUC. This implies that OLS is consistent,
+and the use of an instrumental variable approach is not strictly 
+necessary in this case.
+
+However, the standard error on the EDUC coefficient remains high 
+(41.75), reflecting the imprecision observed in the 2SLS estimates. 
+This may be due to a weak instrument or insufficient power in the sample.
+Therefore, although the Hausman test does not reject the consistency of OLS,
+2SLS may still be theoretically preferred if there are substantive concerns
+about omitted variable bias or reverse causality.")
 }
 ```
 
-# 5. GENERAL REMEDIATION AND CONCLUSION
+# Step 4: General remedies and conclusions
 
 ```{r, echo=FALSE, results="asis"}
 if (show_interpretation) {
@@ -1266,7 +1284,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r}
+```{r, echo=FALSE, results="markup"}
 lower_bound <- quantile(df$WAGE, 0.005, na.rm = TRUE)
 upper_bound <- quantile(df$WAGE, 0.995, na.rm = TRUE)
 dataset_trimmed <- df %>% filter(WAGE >= lower_bound, WAGE <= upper_bound)

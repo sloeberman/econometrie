@@ -1285,13 +1285,35 @@ if (show_interpretation) {
 ```
 
 ```{r, echo=FALSE, results="markup"}
-lower_bound <- quantile(df$WAGE, 0.005, na.rm = TRUE)
-upper_bound <- quantile(df$WAGE, 0.995, na.rm = TRUE)
-dataset_trimmed <- df %>% filter(WAGE >= lower_bound, WAGE <= upper_bound)
+# OUDE CODE
+#lower_bound <- quantile(df$WAGE, 0.005, na.rm = TRUE)
+#upper_bound <- quantile(df$WAGE, 0.995, na.rm = TRUE)
+#dataset_trimmed <- df %>% filter(WAGE >= lower_bound, WAGE <= upper_bound)
 
-reg_final <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed)
+#reg_final <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed)
 
-reg_egls_final <- gls(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed, weights = varPower(form = ~fitted(.)))
+#reg_egls_final <- gls(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed, weights = varPower(form = ~fitted(.)))
+#stargazer(reg_egls_final, type = "text", digits = 4, style = "all")
+#-----------------------------------------------------------------------------------------
+# AANGEPASTE CODE
+# Boundaries voor trimming van log(WAGE) ipv WAGE omdat best_mod log gebruikt
+lower_bound <- quantile(log(df$WAGE), 0.005, na.rm = TRUE)
+upper_bound <- quantile(log(df$WAGE), 0.995, na.rm = TRUE)
+
+# Filter op log(WAGE)
+dataset_trimmed <- df %>% filter(log(WAGE) >= lower_bound, log(WAGE) <= upper_bound)
+
+# Pas model aan naar best_mod specificatie (response = log(WAGE), geen EDUC^4)
+reg_final <- lm(log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(EDUC * RACE) + SMSA + MARRIED +
+                  REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,
+                data = dataset_trimmed)
+
+# GLS model met hetzelfde modelformule en gewichten
+reg_egls_final <- gls(log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(EDUC * RACE) + SMSA + MARRIED +
+                        REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,
+                      data = dataset_trimmed, weights = varPower(form = ~fitted(.)))
+
+# Output met stargazer
 stargazer(reg_egls_final, type = "text", digits = 4, style = "all")
 
 

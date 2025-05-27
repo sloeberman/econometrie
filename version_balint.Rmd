@@ -5,9 +5,9 @@ author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Ste
   Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
 df_print: paged
 ---
 
@@ -1136,11 +1136,10 @@ if (!requireNamespace("AER", quietly = TRUE)) install.packages("AER")
 library(AER)
 
 iv_model <- ivreg(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + factor(REGION) | 
-                    QOB + AGE + RACE + MARRIED + SMSA + factor(REGION),
+                    factor(QOB) + AGE + RACE + MARRIED + SMSA + factor(REGION),
                   data = df)
 
-summary(iv_model)
-
+summary(iv_model, diagnostics = TRUE)
 ```
 
 ```{r endogeneity interpretation, echo=FALSE, results="asis"}
@@ -1153,7 +1152,13 @@ error on the EDUC coefficient (41.78) suggests that the instruments used to
 predict education may be weak. Weak instruments can result in imprecise and 
 biased estimates, which limits the reliability of the 2SLS results. This 
 potential weakness in the first-stage regression implies that the causal 
-effect of education on wages cannot be reliably identified in this model.
+effect of education on wages cannot be reliably identified in this model.The 
+p-value of 0.00618 for the Weak instruments test indicates that the null 
+hypothesis (instruments are weak) is rejected at the 1% significance level. 
+However, the F-statistic of 4.130 is below the rule-of-thumb threshold of 10,
+which is commonly used to assess instrument strength. While the significant 
+p-value suggests the instruments are relevant, the low F-statistic implies they 
+may still be weak, potentially leading to biased estimates. 
 
 In contrast, being married significantly increases wages (coef = 78.51, 
 p < 0.001), and some regional dummies (REGION2, REGION3, REGION9) are also
@@ -1173,7 +1178,7 @@ cat("#### **First-stage regression (Instrument Relevance)**\n\n
 
 
 ```{r first stage regr, echo=FALSE, results="markup"}
-first_stage <- lm(EDUC ~ QOB + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
+first_stage <- lm(EDUC ~ AGE + RACE + MARRIED + SMSA + factor(REGION)+ factor(QOB), data = df)
 summary(first_stage)
 ```
 
@@ -1199,10 +1204,10 @@ cat("#### **Hausman test**\n\n
 
 
 ```{r hausman, echo=FALSE, results="markup"}
-first_stage <- lm(EDUC ~ QOB + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
+first_stage <- lm(EDUC ~ factor(QOB) + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
 df$first_stage_residuals <- residuals(first_stage)
 
-augmented_model <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + factor(REGION) + first_stage_residuals, data = df)
+augmented_model <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + first_stage_residuals, data = df)
 summary(augmented_model)
 
 ```

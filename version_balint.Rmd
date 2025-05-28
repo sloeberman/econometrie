@@ -5,9 +5,9 @@ author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Ste
   Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 df_print: paged
 ---
 
@@ -355,17 +355,6 @@ Endogenous: EDUC,
 }
 ```
 
-```{r residuals plot, echo=FALSE}
-plot(linear_model1$fitted.values, resid(linear_model1),
-     main = "Residuals vs. Fitted Values",
-     xlab = "Fitted Values",
-     ylab = "Residuals",
-     pch = 16, col = "black")
-abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
-```
-
-
-
 ```{r histogram plot, echo=FALSE}
 
 # Updated upstream
@@ -504,9 +493,9 @@ if (show_interpretation) {
 ```{r residuals_plot, echo=FALSE}
 res <- resid(linear_model1)
 plot(linear_model1$fitted.values, res,
-     main = " residuals vs. Fitted Values",
+     main = " Residuals vs. Fitted Values",
      xlab = "Fitted Values",
-     ylab = " residuals",
+     ylab = " Residuals",
      pch = 16, col = "black")
 abline(h = 0, lty = 2, col = "red")  # Add a reference line at zero
 
@@ -627,7 +616,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r QF_test , echo=TRUE , results="markup"}
+```{r QF_test , echo=FALSE , results="markup"}
 gqtest_result <- gqtest(linear_model1, order.by =df$EDUC ,fraction = 1000)
 print(gqtest_result)
 ```
@@ -690,7 +679,7 @@ if (show_interpretation) {
   cat("\n\n##### Interpretation:\n")
   cat("- Robust standard errors are larger than conventional OLS standard errors\n")
   cat("- This pattern confirms the presence of heteroskedasticity in the data\n") 
-  cat("- The HC1 estimator provides consistent inference under heteroskedasticity\n")
+  cat("- The HC0 estimator provides consistent inference under heteroskedasticity\n")
   cat("- Coefficient estimates remain unchanged, but significance levels may differ\n")
 }
 
@@ -724,7 +713,7 @@ stargazer(egls_model,
                              "REGION6", "REGION7", "REGION8", "REGION9"),
           notes = "Variables transformed by dividing by y hat)",
           notes.append = TRUE,
-          digits = 4)
+          digits = 4) 
 
 # Show table in basic format
 modelsummary(
@@ -1113,7 +1102,7 @@ This method replaces the endogenous regressor with a predicted version from inst
 
 - Proposed instrument and justification: we use Quarter of Birth (QOB) as an instrument for EDUC. 
 Justification of choice: QOB affects the age at which individuals can legally drop out of school. QOB is strictly exogenous: it is randomly assigned at birth and unlikely to be 
-correlated with unobserved factors that affect wages directly.
+correlated with unobserved factors that affect wages directly.These factors are more or less uniformly distributed among different QOB.
 
 - Assessing the strength of the instrument: we check the F-statistic of the instrument in the first-stage regression.
 

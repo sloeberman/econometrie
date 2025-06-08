@@ -233,7 +233,7 @@ df %>%
 ```{r plot, echo=FALSE}
 ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
   geom_point(color = "blue") +
-  labs(title = "Relationship Between Education and Wage",
+  labs(title = " ",
        x = "Years of Education",
        y = "Weekly Wage (in $)")+
 
@@ -666,24 +666,19 @@ if (show_interpretation) {
 ```
 
 
-```{r address-heteroskedasticity-robustt, echo=FALSE, results="asis"}
-robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC0")))
-```
-
-
 ```{r address-heteroskedasticity-robust, echo=FALSE, results="asis"}
-# Create publication-quality table with robust SEs
+robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC0")))
 stargazer(linear_model1,
           type = "latex",  
-          title = "OLS Regression with Robust Standard Errors",
+          title = "",
           se = list(robust_se),
-          dep.var.labels = "Weekly Wage",
+          dep.var.labels = "Wage",
           covariate.labels = c("Education", "Age", "Race", "SMSA", "Married",
                              "Region 2", "Region 3", "Region 4", "Region 5",
                              "Region 6", "Region 7", "Region 8", "Region 9"),
-          notes = "Heteroskedasticity-consistent standard errors in parentheses",
+          notes = "",
           notes.append = TRUE,
-          digits = 4,  # Controls decimal places
+          digits = 4, 
           single.row = FALSE,
           model.numbers = FALSE)
 ```
@@ -710,29 +705,32 @@ if (show_interpretation) {
 # Step 1: Get design matrix and response variable
 X <- model.matrix(linear_model1)  # Includes intercept & region dummies
 Y <- df$WAGE
+```
 
-# Step 2: Transform X and Y
+
+```{r EGLS estimation code, echo= FALSE, results="asis"}
 y_hat <- fitted(linear_model1)
 X_star <- X / y_hat
-Y_star <- Y / y_hat  # Element-wise division
+Y_star <- Y / y_hat 
 
-# Step 3: EGLS estimation (no intercept needed as it's in X_star)
-egls_model <- lm(Y_star ~ X_star - 1)  # -1 removes additional intercept
+egls_model <- lm(Y_star ~ X_star - 1)
+```
 
+```{r EGLS estimation geen code, echo= FALSE, results="asis"}
 stargazer(egls_model,
           type = "latex",
-          title = "EGLS Estimation Results",
-          dep.var.labels = "Transformed WAGE",
+          title = "",
+          dep.var.labels = "WAGE",
           covariate.labels = c("Intercept", "EDUC", "AGE", "RACE", "SMSA", "MARRIED",
                              "REGION2", "REGION3", "REGION4", "REGION5",
                              "REGION6", "REGION7", "REGION8", "REGION9"),
-          notes = "Variables transformed by dividing by y hat)",
+          notes = "",
           notes.append = TRUE,
           digits = 4) 
 
 # Show table in basic format
 modelsummary(
-    list("Baseline (White SEs)" = linear_model1, "EGLS" = egls_model),
+    list("1" = linear_model1, "2" = egls_model),
     coef_rename = c(
         "X_starEDUC" = "EDUC", 
         "X_starAGE" = "AGE", 
@@ -1093,6 +1091,7 @@ best_mod <- lm(log(WAGE)~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE +
 ```
 
 
+
 ```{r code niet in docc, echo=FALSE,results="markup"}
 beta=best_mod$coefficients
 X_hold <- model.matrix(formula(best_mod),data = hold)
@@ -1165,15 +1164,26 @@ cat("#### **2SLS estimation**\n\n
 ```
 
 
-```{r endogeneity iv model, echo=FALSE, results="markup"}
+```{r endogeneity iv model, echo=TRUE, results="markup"}
 if (!requireNamespace("AER", quietly = TRUE)) install.packages("AER")
 library(AER)
 
 iv_model <- ivreg(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + factor(REGION) | 
-                    factor(QOB) + AGE + RACE + MARRIED + SMSA + factor(REGION),
+                    QOB + AGE + RACE + MARRIED + SMSA + factor(REGION),
                   data = df)
 
 summary(iv_model, diagnostics = TRUE)
+```
+
+```{r endogeneity iv model met factor, echo=TRUE, results="markup"}
+if (!requireNamespace("AER", quietly = TRUE)) install.packages("AER")
+library(AER)
+
+iv_modelfactor <- ivreg(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + factor(REGION) | 
+                    factor(QOB) + AGE + RACE + MARRIED + SMSA + factor(REGION),
+                  data = df)
+
+summary(iv_modelfactor, diagnostics = TRUE)
 ```
 
 ```{r endogeneity interpretation, echo=FALSE, results="asis"}
@@ -1211,9 +1221,14 @@ cat("#### **First-stage regression (Instrument Relevance)**\n\n
 ```
 
 
-```{r first stage regr, echo=FALSE, results="markup"}
-first_stage <- lm(EDUC ~ AGE + RACE + MARRIED + SMSA + factor(REGION)+ factor(QOB), data = df)
+```{r first stage regr, echo=TRUE, results="markup"}
+first_stage <- lm(EDUC ~ AGE + RACE + MARRIED + SMSA + factor(REGION)+ QOB, data = df)
 summary(first_stage)
+```
+
+```{r first stage regr met factor, echo=TRUE, results="markup"}
+first_stagefactor <- lm(EDUC ~ AGE + RACE + MARRIED + SMSA + factor(REGION)+ factor(QOB), data = df)
+summary(first_stagefactor)
 ```
 
 ```{r first stage interpretation, echo=FALSE, results="asis"}
@@ -1236,13 +1251,23 @@ cat("#### **Hausman test**\n\n
 }
 ```
 
-
-```{r hausman, echo=FALSE, results="markup"}
-first_stage <- lm(EDUC ~ factor(QOB) + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
+```{r hausman zonder factor, echo=TRUE, results="markup"}
+first_stage <- lm(EDUC ~ QOB + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
 df$first_stage_residuals <- residuals(first_stage)
 
-augmented_model <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + first_stage_residuals, data = df)
-summary(augmented_model)
+augmented_modelHausman <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 
+                      + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 
+                      + REGION8 + REGION9 + first_stage_residuals, data = df)
+summary(augmented_modelHausman)
+
+```
+
+```{r hausman, echo=TRUE, results="markup"}
+first_stagefactor <- lm(EDUC ~ factor(QOB) + AGE + RACE + MARRIED + SMSA + factor(REGION), data = df)
+df$first_stage_residuals <- residuals(first_stagefactor)
+
+augmented_modelHausmanfactor <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + first_stage_residuals, data = df)
+summary(augmented_modelHausmanfactor)
 
 ```
 
@@ -1333,6 +1358,17 @@ reg_egls_final <- gls(log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(
 stargazer(reg_egls_final, type = "text", digits = 4, style = "all")
 
 
+```
+
+```{r FINAAL MODEL via 2sls, echo=TRUE, results="markup"}
+if (!requireNamespace("AER", quietly = TRUE)) install.packages("AER")
+library(AER)
+
+final_model <- ivreg(log(WAGE) ~ EDUC + EDUC^2 + AGE + RACE + MARRIED + SMSA + factor(REGION) + EDUC:RACE | QOB + QOB^2 + QOB:RACE + AGE + RACE + MARRIED + SMSA + factor(REGION),
+                  data = df)
+
+
+stargazer(final_model, type = "text", digits = 4, style = "all")
 ```
 
 ```{r, echo=FALSE, results="asis"}

@@ -1325,51 +1325,9 @@ if (show_interpretation) {
 }
 ```
 
-```{r, echo=FALSE, results="markup"}
-# OUDE CODE
-#lower_bound <- quantile(df$WAGE, 0.005, na.rm = TRUE)
-#upper_bound <- quantile(df$WAGE, 0.995, na.rm = TRUE)
-#dataset_trimmed <- df %>% filter(WAGE >= lower_bound, WAGE <= upper_bound)
-
-#reg_final <- lm(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed)
-
-#reg_egls_final <- gls(WAGE ~ EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2) + I(EDUC^3) + I(EDUC^4) + I(RACE * EDUC), data = dataset_trimmed, weights = varPower(form = ~fitted(.)))
-#stargazer(reg_egls_final, type = "text", digits = 4, style = "all")
-#-----------------------------------------------------------------------------------------
-# AANGEPASTE CODE
-# Boundaries voor trimming van log(WAGE) ipv WAGE omdat best_mod log gebruikt
-lower_bound <- quantile(log(df$WAGE), 0.005, na.rm = TRUE)
-upper_bound <- quantile(log(df$WAGE), 0.995, na.rm = TRUE)
-
-# Filter op log(WAGE)
-dataset_trimmed <- df %>% filter(log(WAGE) >= lower_bound, log(WAGE) <= upper_bound)
-
-# Pas model aan naar best_mod specificatie (response = log(WAGE), geen EDUC^4)
-reg_final <- lm(log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(EDUC * RACE) + SMSA + MARRIED +
-                  REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,
-                data = dataset_trimmed)
-
-# GLS model met hetzelfde modelformule en gewichten
-reg_egls_final <- gls(log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(EDUC * RACE) + SMSA + MARRIED +
-                        REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,
-                      data = dataset_trimmed, weights = varPower(form = ~fitted(.)))
-
-# Output met stargazer
-stargazer(reg_egls_final, type = "text", digits = 4, style = "all")
 
 
-```
 
-```{r FINAAL MODEL via 2sls, echo=TRUE, results="markup"}
-if (!requireNamespace("AER", quietly = TRUE)) install.packages("AER")
-library(AER)
-
-final_model <- ivreg(log(WAGE) ~ EDUC + EDUC^2 + AGE + RACE + MARRIED + SMSA + factor(REGION) + EDUC:RACE | QOB + QOB^2 + QOB:RACE + AGE + RACE + MARRIED + SMSA + factor(REGION),
-                  data = df)
-
-
-stargazer(final_model, type = "text", digits = 4, style = "all")
-```
 
 ```{r, echo=FALSE, results="asis"}
 if (show_interpretation) {
@@ -1377,3 +1335,43 @@ if (show_interpretation) {
   cat("\n\nWe based our model specification on previous findings.\n")
 }
 ```
+
+```{r FINAAL MODEL via 2sls, echo=TRUE, results="markup"}
+
+library(AER)
+library(lmtest)
+library(dplyr)  # Needed for filter() function
+
+# Assuming your data frame is named 'data' (not 'df' as in your quantile calculations)
+# Fix this inconsistency first:
+lower_bound <- quantile(log(data$WAGE), 0.005, na.rm = TRUE)
+upper_bound <- quantile(log(data$WAGE), 0.995, na.rm = TRUE)
+
+# Convert to factors and drop unused levels
+data$QOB <- droplevels(factor(data$QOB))
+data$REGION <- droplevels(factor(data$REGION))
+
+# Check factor levels (must be >= 2)
+stopifnot(nlevels(data$QOB) >= 2, nlevels(data$REGION) >= 2)
+
+# Filter on log(WAGE) - make sure to use the same data frame name
+data_trimmed <- data %>% filter(log(WAGE) >= lower_bound, log(WAGE) <= upper_bound)
+
+# 2SLS regression with explicit interactions
+# Important: Use the trimmed dataset here!
+iv_model <- ivreg(
+  log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + EDUC:RACE + AGE + RACE + MARRIED + SMSA + REGION | 
+  QOB + QOB:RACE + AGE + RACE + MARRIED + SMSA + REGION+QOB^2+QOB^3,  # Instruments
+  data = data_trimmed  # Use the filtered data
+)
+
+
+# Compute HAC robust variance-covariance matrix
+robust_se <- vcovHAC(iv_model)
+
+# Apply robust SE to the model coefficients
+coeftest(iv_model, vcov = robust_se)
+
+
+```
+

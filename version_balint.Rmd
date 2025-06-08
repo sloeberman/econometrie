@@ -5,9 +5,9 @@ author: "Balint Keller, Ling-Fei Chen , Elisabeth Bonte, Lieke Vanhaverbeke, Ste
   Desender, Seppe Van Campe"
 date: "`r Sys.Date()`"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
 df_print: paged
 ---
 
@@ -97,22 +97,29 @@ cat("Two-sided test: Region could impact wages in either direction\n\n")
 
 # Step 1: Specification, hypotheses, and descriptive statistics
 
-```{r head, echo=FALSE}
+```{r head, echo=TRUE}
 head(df)
 ```
 
-```{r summary, echo=FALSE}
+```{r summary, echo=TRUE}
 summary(df)
 ```
 
 
-```{r describe, echo=FALSE}
+```{r describe, echo=TRUE}
 describe(df)
 ```
 
 ```{r cov, echo=FALSE}
-round(cov(select(df, -starts_with("QOB"))), 3)
-round(cor(select(df, -starts_with("QOB"))), 3)
+numeric_data <- df %>%
+  select(where(is.numeric)) %>%
+  select(-matches("^REGION[0-9]+"), -starts_with("QOB"))
+```
+
+```{r covv, echo=TRUE}
+round(cov(numeric_data), 3)
+
+round(cor(numeric_data), 3)
 ```
 
 ```{r statisctics per region, echo=FALSE, results="asis"}
@@ -158,11 +165,12 @@ numeric_vars <- df %>%
   select(-starts_with("REGION"), -starts_with("QOB"))  # dummies eruit
 
 #combineer met regio
+```
+
+```{r statisctics per region codee, echo=FALSE}
 df_subset1 <- df %>% 
   select(REGION) %>% 
   bind_cols(numeric_vars)
-
-#beschrijvende statistieken per regio
 describeBy(df_subset1, group = "REGION")
 ```
 
@@ -181,7 +189,6 @@ if (isTRUE(show_interpretation)) {
 
 
 ```{r statisctics per age code, echo=FALSE}
-#dit is voor age groups
 df_subset2 <- df %>%
   mutate(AGE_GROUP = case_when(
     AGE >= 40 & AGE < 42 ~ "40-41",
@@ -192,7 +199,6 @@ df_subset2 <- df %>%
   )) %>%
   select(-starts_with("REGION"), -starts_with("QOB"))
 
-# Beschrijvende statistieken per AGE_GROUP
 describeBy(df_subset2, group = "AGE_GROUP")
 ```
 
@@ -235,12 +241,15 @@ ggplot(df, aes(x = df$EDUC, y = df$WAGE)) +
 
 ```
 
+\newpage
 # Step 2: OLS estimation and testing
 
-```{r linear model, echo=FALSE}
-#linear model
+```{r linear model, echo=TRUE}
 linear_model1=lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  , data = df)
+```
+
+```{r linear modell, echo=FALSE}
 if (show_interpretation) {
   cat("WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9")
@@ -552,6 +561,7 @@ Clear signs of heteroskedasticity across multiple predictors, suggesting violati
 }
 ```
 
+\newpage
 ```{r Heteroskedasticity_test, echo=FALSE, results='asis'}
 if (show_interpretation) {
   cat("## **4(d).1**Heteroskedasticity test **\n\n")
@@ -567,7 +577,7 @@ if (show_interpretation) {
 ```
 
 
-```{r White_test , echo=FALSE , results="markup"}
+```{r White_test , echo=TRUE , results="markup"}
 
 white_test <- bptest(linear_model1, ~ fitted(linear_model1) + I(fitted(linear_model1)^2))
 print(white_test)
@@ -595,10 +605,13 @@ linear_model_trimmed <- lm(WAGE~ EDUC + AGE + RACE + SMSA + MARRIED + REGION2 + 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9  ,  data = trimmed_data)
 
 # Step 3: White test on the new model
+
+```
+
+```{r White_testtrimm , echo=TRUE , results="markup"}
 white_test_trimmed <- bptest(linear_model_trimmed, 
                              ~ fitted(linear_model_trimmed) + I(fitted(linear_model_trimmed)^2))
 print(white_test_trimmed)
-
 ```
 
 ```{r White_trimmed_interpretie, echo=FALSE, results="asis"}
@@ -616,7 +629,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r QF_test , echo=FALSE , results="markup"}
+```{r QF_test , echo=TRUE , results="markup"}
 gqtest_result <- gqtest(linear_model1, order.by =df$EDUC ,fraction = 1000)
 print(gqtest_result)
 ```
@@ -653,11 +666,12 @@ if (show_interpretation) {
 ```
 
 
+```{r address-heteroskedasticity-robustt, echo=FALSE, results="asis"}
+robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC0")))
+```
+
 
 ```{r address-heteroskedasticity-robust, echo=FALSE, results="asis"}
-# Calculate robust standard errors (HC1 for Stata-like small sample adjustment)
-robust_se <- sqrt(diag(vcovHC(linear_model1, type = "HC0")))
-
 # Create publication-quality table with robust SEs
 stargazer(linear_model1,
           type = "latex",  
@@ -685,6 +699,7 @@ if (show_interpretation) {
 
 ```
 
+ 
 ```{r echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("**EGLS** ")
@@ -747,7 +762,7 @@ if (show_interpretation) {
 }
 ```
 
-
+\newpage  
 ```{r autocor, echo=FALSE, results='asis'}
 if (show_interpretation) {
   cat("### **4(e) Autocorrelation**\n\n")
@@ -755,18 +770,26 @@ if (show_interpretation) {
 ```
 
 ```{r ordering data, echo=FALSE,results='asis'}
-df_ordered_educ <- df %>% arrange(EDUC)
+df_ordered <- df %>% arrange(EDUC)
+df_ordered_age <- df %>% arrange(AGE)
 
 # Re-run baseline linear model on ordered data
 linear_model_ordered <- lm(
   WAGE ~ EDUC + AGE + RACE + SMSA + MARRIED + 
   REGION2 + REGION3 + REGION4 + REGION5 + 
   REGION6 + REGION7 + REGION8 + REGION9,
-  data = df_ordered_educ
+  data = df_ordered
 )
 
+linear_model_ordered_age <- lm(
+  WAGE ~ EDUC + AGE + RACE + SMSA + MARRIED + 
+  REGION2 + REGION3 + REGION4 + REGION5 + 
+  REGION6 + REGION7 + REGION8 + REGION9,
+  data = df_ordered_age
+)
 # Store residuals
 residuals_ordered <- residuals(linear_model_ordered)
+residuals_ordered_age <- residuals(linear_model_ordered_age)
 
 plot(residuals_ordered, 
     type = "p",  # "p" for points instead of "l" for lines
@@ -778,7 +801,15 @@ plot(residuals_ordered,
      xlab = "Ordered index by EDUC")
 abline(h = 0, lty = 2, col = "red")  # Reference line
 
-
+plot(residuals_ordered_age, 
+    type = "p",  # "p" for points instead of "l" for lines
+     pch = 16,    # Solid circle points (other options: 1-25)
+     col = "blue", # Color of points
+     cex = 0.4,   # Size of points
+     main = "Residuals Ordered by AGE",
+     ylab = "Residuals", 
+     xlab = "Ordered index by AGE")
+abline(h = 0, lty = 2, col = "red")  # Reference line
 ```
 
 
@@ -847,6 +878,7 @@ if (show_interpretation) {
   }
 ```
 
+\newpage  
 ```{r echo=FALSE, results="asis"}
 if (show_interpretation) {
   cat("## **4(F). MODEL SPECIFICATION**\n\n")
@@ -872,23 +904,32 @@ n <- nrow(df)  # number of observations
 k <- length(coef(linear_model1))  # number of parameters in original model
 ssr_original <- sum(resid(linear_model1)^2)
 ssr_ramsey <- sum(resid(Ramsey_model)^2)
+```
 
+```{r Ramseyy, echo=TRUE,results="markup"}
 Ramsey_test <- ((ssr_original - ssr_ramsey)/2)/(ssr_ramsey/(n - k - 2))
 p_value <- pf(Ramsey_test, 2, n - k - 2, lower.tail = FALSE)
+```
+
+```{r Ramseyyy, echo=FALSE,results="markup"}
 Ramsey_summary=c(Ramsey_test,pf(Ramsey_test, 2, 60, lower.tail = FALSE))
 names(Ramsey_summary)=c("Test-statistic","P-value")
 stargazer(Ramsey_summary,type="text")
 ```
 
-```{r Ramsey, echo=FALSE,results="markup"}
+```{r Ramsey, echo=TRUE,results="markup"}
 reset_test <- resettest(linear_model1, power = 2:3, type = "fitted")
 print(reset_test)
 ```
 
-```{r LM test educ en age, echo=FALSE,results="markup"}
+```{r LM test educ en agee, echo=TRUE,results="markup"}
 res=linear_model1$residuals
-LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE +I(AGE^2)+ I(AGE^3)+ RACE + SMSA + MARRIED + REGION2 + REGION3 
-                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+LM_reg=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE +I(AGE^2)+ I(AGE^3)+ RACE + 
+            SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 
+          + REGION7 + REGION8 + REGION9, data = df)
+```
+
+```{r LM test educ en age, echo=FALSE,results="markup"}
 stargazer(LM_reg,type="text",style="all") #mag verwijderd worden, niet nodig op examen
 LM_test = 10000*summary(LM_reg)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
@@ -901,10 +942,13 @@ if (show_interpretation){
 cat("Strongly reject the null hypothesis that the model is correctly specified. The test shows that nonlinear functions of EDUC and AGE significantly explain variation in the residuals — i.e., the current baseline misses important nonlinear structure.")}
 ```
 
-```{r LM test educ, echo=FALSE,results="markup"}
+```{r LM test educc, echo=TRUE,results="markup"}
 res=linear_model1$residuals
-LM_reg_educ=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
-                 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+LM_reg_educ=lm(res~EDUC+I(EDUC^2)+I(EDUC^3)+ AGE + RACE + SMSA + MARRIED + REGION2
+               + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+```
+
+```{r LM test educ, echo=FALSE,results="markup"}
 stargazer(LM_reg_educ,type="text",style="all")
 LM_test = 10000*summary(LM_reg_educ)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
@@ -912,10 +956,13 @@ names(LM_summary)=c("Test-statistic","P-value")
 stargazer(LM_summary,type="text")
 ```
 
-```{r LM test age, echo=FALSE,results="markup"}
+```{r LM test agee, echo=TRUE,results="markup"}
 res=linear_model1$residuals
 LM_reg_age=lm(res~EDUC+I(AGE^2)+I(AGE^3)+ AGE + RACE + SMSA + MARRIED + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+```
+
+```{r LM test age, echo=FALSE,results="markup"}
 stargazer(LM_reg_age,type="text",style="all")
 LM_test = 10000*summary(LM_reg_age)$r.squared
 LM_summary=c(LM_test,pchisq(LM_test,df=2,lower.tail=FALSE))
@@ -956,7 +1003,7 @@ if (show_interpretation){
 cat("The log model has a lower AIC and BIC and higher R-squared compared to the linear model, so log model has a better fit")}
 ```
 
-```{r RESET log, echo=FALSE,results="markup"}
+```{r RESET log, echo=TRUE,results="markup"}
 reset_test <- resettest(log_model, power = 2:3, type = "fitted")
 print(reset_test)
 ```
@@ -966,11 +1013,11 @@ if (show_interpretation){
 cat("Reset test still shows misspecification but model has improved compared to baseline.")}
 ```
 
-```{r, echo=FALSE,results="markup"}
+```{r, echo=TRUE,results="markup"}
 educ_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2), data = df)
 anova(linear_model1,educ_reg)
-stargazer(educ_reg,type="text")
+#stargazer(educ_reg,type="text")
 
 ```
 
@@ -981,21 +1028,10 @@ if (show_interpretation) {
 }
 ```
 
-```{r, echo=FALSE,results="markup"}
+```{r, echo=TRUE,results="markup"}
 educpolythree_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3), data = df)
 anova(educ_reg,educpolythree_reg)
-
-#educpolyfour_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
-#                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3)+I(EDUC^4), data = df)
-# anova(educpolythree_reg,educpolyfour_reg)
-# stargazer(educpolyfour_reg,type="text")
-# 
-# educpolyfive_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
-#                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(EDUC^2)+I(EDUC^3)+I(EDUC^4)+I(EDUC^5), data = df)
-# anova(educpolyfour_reg,educpolyfive_reg)
-# stargazer(educpolyfive_reg,type="text")
-
 
 ```
 
@@ -1005,7 +1041,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r, echo=FALSE,results="markup"}
+```{r, echo=TRUE,results="markup"}
 age_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(AGE^2), data = df)
 anova(linear_model1,age_reg)
@@ -1018,7 +1054,7 @@ if (show_interpretation) {
 }
 ```
 
-```{r, echo=FALSE,results="markup"}
+```{r, echo=TRUE,results="markup"}
 ageinteraction_reg <- lm(WAGE ~  EDUC + AGE + RACE + MARRIED + SMSA + REGION2 + REGION3 
                  + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 + I(AGE*EDUC), data = df)
 anova(linear_model1,ageinteraction_reg)
@@ -1036,8 +1072,7 @@ if (show_interpretation) {
 }
 ```
 
-
-```{r chi squared_best, echo=FALSE,results="markup"}
+```{r code niet in doc, echo=FALSE, results="asis"}
 hold <- read.csv("Data_HoldOut_AK91.csv")
 hold <- hold %>% mutate(
 REGION1 = as.integer(REGION == 1), 
@@ -1049,7 +1084,17 @@ REGION6 = as.integer(REGION == 6),
 REGION7 = as.integer(REGION == 7),
 REGION8 = as.integer(REGION == 8),
 REGION9 = as.integer(REGION == 9))
-best_mod <- lm(log(WAGE)~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9, data = df)
+```
+
+```{r chi squared_best, echo=TRUE,results="markup"}
+best_mod <- lm(log(WAGE)~ EDUC + I(EDUC^2) + I(EDUC^3) + AGE + RACE + 
+                 I(EDUC*RACE) +SMSA + MARRIED + REGION2 + REGION3 + 
+                 REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9,
+               data = df)
+```
+
+
+```{r code niet in docc, echo=FALSE,results="markup"}
 beta=best_mod$coefficients
 X_hold <- model.matrix(formula(best_mod),data = hold)
 y_hold <- log(hold$WAGE)
@@ -1065,11 +1110,12 @@ p_value <- pchisq(chi2_stat, df = nrow(hold), lower.tail = FALSE)
 
 # Report
 chi2_summary <- c(chi2_stat, p_value)
-names(chi2_summary) <- c("Test-statistic", "P-value")
+names(chi2_summary) <- c("Test-statistic Forecast chi sq", "P-value")
 
 # Output nicely
 stargazer(chi2_summary, type = "text", summary = FALSE)
 ```
+
 
 ```{r, echo=FALSE, results="asis"}
 if (show_interpretation) {
@@ -1077,11 +1123,11 @@ if (show_interpretation) {
   }
 ```
 
-```{r best model reset, echo=FALSE,results="markup"}
+```{r best model reset, echo=TRUE,results="markup"}
 reset_test <- resettest(best_mod, power = 2:3, type = "fitted")
 print(reset_test)
 ```
-
+\newpage  
 ```{r header 4g, echo=FALSE, results="asis"}
 if (show_interpretation) {
 cat("#### **4g. Endogeneity and Instrumental Variables**\n\n

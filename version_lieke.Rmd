@@ -1358,7 +1358,7 @@ df <- df %>%
     REGION9 = as.integer(REGION == 9)
   )
 
-# Trim extreme wage values
+
 lower_bound <- quantile(log(df$WAGE), 0.005, na.rm = TRUE)
 upper_bound <- quantile(log(df$WAGE), 0.995, na.rm = TRUE)
 df_trimmed <- df %>% filter(log(WAGE) >= lower_bound & log(WAGE) <= upper_bound)
@@ -1366,14 +1366,14 @@ df_trimmed <- df %>% filter(log(WAGE) >= lower_bound & log(WAGE) <= upper_bound)
 
 df_trimmed <- df_trimmed %>%
   mutate(
-    QOB_num = as.numeric(as.character(QOB)),  # Convert to numeric first
-    QOB = droplevels(factor(QOB))  # Keep as factor for interactions
+    QOB_num = as.numeric(as.character(QOB)),  
+    QOB = droplevels(factor(QOB))  
 )
 
 
 stopifnot(nlevels(df_trimmed$QOB) >= 2)
 
-# 2SLS regression with proper polynomial specification
+
 iv_model <- ivreg(
   log(WAGE) ~ EDUC + I(EDUC^2) + I(EDUC^3) + EDUC:RACE + AGE + RACE + MARRIED + SMSA + 
     REGION1 + REGION2 + REGION3 + REGION4 + REGION5 + REGION6 + REGION7 + REGION8 + REGION9 | 
@@ -1382,11 +1382,11 @@ iv_model <- ivreg(
   data = df_trimmed
 )
 
-# HAC robust standard errors
+
 robust_se <- vcovHAC(iv_model)
 model_results <- coeftest(iv_model, vcov = robust_se)
 
-# Display results
+
 print(model_results)
 
 
